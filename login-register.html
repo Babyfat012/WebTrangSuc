@@ -231,62 +231,6 @@
                                 </dl>
                             </div>
                         </li>
-                        <li class="shop-cart"><a href="#"><i class="fa fa-shopping-bag"></i> <span
-                                class="count">3</span></a>
-                            <div class="mini-cart">
-                                <div class="mini-cart-body">
-                                    <div class="single-cart-item d-flex">
-                                        <figure class="product-thumb">
-                                            <a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
-                                                             alt="Products"/></a>
-                                        </figure>
-
-                                        <div class="product-details">
-                                            <h2><a href="#">Sprite Yoga Companion</a></h2>
-                                            <div class="cal d-flex align-items-center">
-                                                <span class="quantity">3</span>
-                                                <span class="multiplication">X</span>
-                                                <span class="price">$77.00</span>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
-                                    </div>
-                                    <div class="single-cart-item d-flex">
-                                        <figure class="product-thumb">
-                                            <a href="#"><img class="img-fluid" src="assets/img/product-2.jpg"
-                                                             alt="Products"/></a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h2><a href="#">Yoga Companion Kit</a></h2>
-                                            <div class="cal d-flex align-items-center">
-                                                <span class="quantity">2</span>
-                                                <span class="multiplication">X</span>
-                                                <span class="price">$6.00</span>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
-                                    </div>
-                                    <div class="single-cart-item d-flex">
-                                        <figure class="product-thumb">
-                                            <a href="#"><img class="img-fluid" src="assets/img/product-3.jpg"
-                                                             alt="Products"/></a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h2><a href="#">Sprite Yoga Companion Kit</a></h2>
-                                            <div class="cal d-flex align-items-center">
-                                                <span class="quantity">1</span>
-                                                <span class="multiplication">X</span>
-                                                <span class="price">$116.00</span>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
-                                    </div>
-                                </div>
-                                <div class="mini-cart-footer">
-                                    <a href="checkout.html" class="btn-add-to-cart">Checkout</a>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -347,13 +291,13 @@
                     <div class="tab-content" id="login-reg-tabcontent">
                         <div class="tab-pane fade show active" id="login" role="tabpanel">
                             <div class="login-reg-form-wrap">
-                                <form action="#" method="post">
+                                <form onsubmit="login()" action="#" method="post">
                                     <div class="single-input-item">
-                                        <input type="email" placeholder="Enter your Email" required/>
+                                        <input id="login-username" type="text" placeholder="Enter Username" required/>
                                     </div>
 
                                     <div class="single-input-item">
-                                        <input type="password" placeholder="Enter your Password" required/>
+                                        <input id="login-password" type="password" placeholder="Enter your Password" required/>
                                     </div>
 
                                     <div class="single-input-item">
@@ -376,27 +320,36 @@
                                 </form>
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="register" role="tabpanel">
                             <div class="login-reg-form-wrap">
-                                <form action="#" method="post">
+                                <form onsubmit="signup()" action="#" method="post">
                                     <div class="single-input-item">
-                                        <input type="text" placeholder="Full Name" required/>
+                                        <input id="fullName" type="text" placeholder="Full Name" required/>
                                     </div>
 
                                     <div class="single-input-item">
-                                        <input type="email" placeholder="Enter your Email" required/>
+                                        <input id="email" type="email" placeholder="Enter your Email" required/>
+                                    </div>
+
+                                    <div class="single-input-item">
+                                        <input id="phone" type="text" placeholder="Phone" required>
+                                    </div>
+
+                                    <div class="single-input-item">
+                                        <input id="username" type="text" placeholder="Username" required>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
-                                                <input type="password" placeholder="Enter your Password" required/>
+                                                <input id="password" type="password" placeholder="Enter your Password" required/>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
-                                                <input type="password" placeholder="Repeat your Password" required/>
+                                                <input  type="password" placeholder="Repeat your Password" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -593,6 +546,9 @@
 
 <!--=== Active Js ===-->
 <script src="assets/js/active.js"></script>
+
+<!--=== Dang nhap User Js ===-->
+<script src="assets/js/user-login.js"></script>
 </body>
 
 </html>
