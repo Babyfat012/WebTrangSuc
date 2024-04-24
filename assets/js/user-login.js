@@ -9,7 +9,7 @@ var currentUser = localStorage.getItem("currentUser");
 if(currentUser != null) {
     var replace = document.getElementById("header-right");
     replace.innerHTML =replace.innerHTML = '<div class="header-right-meta text-right">' +
-        '<ul>' +
+        '<ul>'
         '    <li><a href="login-register.html"><i class="fa fa-user"></i></a></li>' +
         '    <li><a href="#" class="modal-active"><i class="fa fa-search"></i></a></li>'+
         '    <li class="settings"><a href="#"><i class="fa fa-cog"></i></a>'+
