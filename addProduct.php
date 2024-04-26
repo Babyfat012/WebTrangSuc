@@ -71,8 +71,13 @@
           $ID = $type . "1";
      
      
+      if($i > 0)
+      {
+          addProduct($ID,$stock,$name,$type,$price,$description,$i.basename($_FILES["pic"]["name"]),$material,$color,$size);
+      }
+      else
+          addProduct($ID,$stock,$name,$type,$price,$description,basename($_FILES["pic"]["name"]),$material,$color,$size);
       
-      addProduct($ID,$stock,$name,$type,$price,$description,$i.basename($_FILES["pic"]["name"]),$material,$color,$size);
       move_uploaded_file($_FILES["pic"]["tmp_name"], $target_file);
       
       echo $ID;
