@@ -11,6 +11,7 @@
       $color = $_POST['color'];
       $size = $_POST['size'];
       $description = $_POST['desc'];
+      $gender = $_POST['gender'];
       switch ($type)
       {
           case 'BRL':
@@ -73,10 +74,10 @@
      
       if($i > 0)
       {
-          addProduct($ID,$stock,$name,$type,$price,$description,$i.basename($_FILES["pic"]["name"]),$material,$color,$size);
+          addProduct($ID,$stock,$name,$type,$price,$description,$i.basename($_FILES["pic"]["name"]),$material,$color,$size,$gender);
       }
       else
-          addProduct($ID,$stock,$name,$type,$price,$description,basename($_FILES["pic"]["name"]),$material,$color,$size);
+          addProduct($ID,$stock,$name,$type,$price,$description,basename($_FILES["pic"]["name"]),$material,$color,$size,$gender);
       
       move_uploaded_file($_FILES["pic"]["tmp_name"], $target_file);
       
@@ -149,6 +150,17 @@
                 <td> <input type="text" name="price" id="price" required> </td>
                 <td id="errorPrice"></td>
             </tr>
+
+            <tr>
+                <td><label for="gender">GENDER</label> </td>
+                <td> <select name="gender" id="gender">
+                        <option value="-1" selected>Select gender</option>
+                        <option value="F" >Women</option>
+                        <option value="M" >Men</option>
+                        <option value="U" >Unisex</option>
+                    </select> </td>
+                <td id="errorGender"></td>
+            </tr>
             
             <tr>
                 <td><label for="material">MATERIAL</label> </td>
@@ -191,6 +203,7 @@
             var type = document.getElementById("type").value;
             var size = document.getElementById("size").value;
             var price = document.getElementById("price").value;
+            var gender = document.getElementById("gender").value;
             flag = true;
             if((regFloat.test(size) || regNumber.test(size)) && parseFloat(size) >0){
                 document.getElementById("errorSize").style.display = "none";
@@ -234,10 +247,21 @@
             }else
             document.getElementById("errorType").style.display = "none";
 
+            if(gender == -1){
+                document.getElementById("errorGender").innerHTML = "Data is wrong";
+                document.getElementById("errorGender").style.display = "block";
+                document.getElementById("errorGender").style.color = "red";
+
+                flag = false;
+            }else
+                document.getElementById("errorGender").style.display = "none";
+
             return flag;
             
 
         }
+        
+        
 
         function ImagesFileAsURL() {
             var fileSelected = document.getElementById('pic').files;
