@@ -2,7 +2,7 @@
     include 'lib/lib.php';
     $folder = "assets/img/";
   if(isset($_POST['submitBtn']) ){
-      $ID = $_POST['ID'];
+
       $name = $_POST['name'];
       $stock = $_POST['stock'];
       $price = $_POST['price'];
@@ -15,12 +15,15 @@
       {
           case 'BRL':
               $folder = $folder . "Bracelet/";
+              $ID = "BRL";
               break;
           case 'NKL':
               $folder = $folder . "Necklace/";
+              $ID = "NKL";
               break;
           case 'RG':
               $folder = $folder . "Ring/";
+              $ID = "RG";
               break;
       }
       $target_file = $folder . basename($_FILES["pic"]["name"]);
@@ -35,11 +38,50 @@
           }
       }while (file_exists($target_file));
       
+      $sql = 'SELECT * FROM sanpham';
+      $sql = $sql . ' WHERE maloaisp like' . "'%" . $type . "%'";
+      $result = executeQuery($sql);
+      
+      if($result->num_rows > 0)
+      {
+          $j = 1;
+          $flag = false;
+          while($flag == false){
+              $flag = true;
+              $result = executeQuery($sql);
+              
+              while($row = $result->fetch_array())
+              {
+                  $temp = $ID . $j;
+                  if( "$temp"== "$row[idsanpham]")
+                  {
+                      echo "$row[idsanpham]<br>";
+                      $flag = false;
+                      break;
+                  }
+              }
+              if($flag == true)
+                  break;
+              $j++;
+          }
+          $ID = $ID . $j;
+       
+      }
+      else
+          $ID = $type . "1";
      
+     
+      if($i > 0)
+      {
+          addProduct($ID,$stock,$name,$type,$price,$description,$i.basename($_FILES["pic"]["name"]),$material,$color,$size);
+      }
+      else
+          addProduct($ID,$stock,$name,$type,$price,$description,basename($_FILES["pic"]["name"]),$material,$color,$size);
+      
       move_uploaded_file($_FILES["pic"]["tmp_name"], $target_file);
-      addProduct($ID,$stock,$name,$type,$price,$description,basename($_FILES["pic"]["name"]),$material,$color,$size);
       
-      
+      echo $ID;
+      header("location: addProduct.php");
   }
     
    
@@ -59,14 +101,17 @@
     <form action="addProduct.php" enctype="multipart/form-data" method="post" onsubmit="return check()">
         <table>
             <tr>
+                <td></td>
+                <td>
+                    <div id="displayImg"></div>
+                </td>
+            </tr>
+            <tr>
                 <td><label for="pic">Photo:</label> </td>
-                <td> <input type="file" name="pic" accept=".jpg, .png, .gif, .jpeg" required > </td>
+                <td> <input type="file" name="pic" accept=".jpg, .png, .gif, .jpeg" id="pic" required onchange="ImagesFileAsURL()"> </td>
             </tr>
             
-            <tr>
-                <td><label for="ID">ID Product</label> </td>
-                <td> <input type="text" name="ID" required> </td>
-            </tr>
+           
             
             <tr>
                 <td><label for="name">Product's name</label> </td>
@@ -190,7 +235,24 @@
             document.getElementById("errorType").style.display = "none";
 
             return flag;
+            
 
+        }
+
+        function ImagesFileAsURL() {
+            var fileSelected = document.getElementById('pic').files;
+            if (fileSelected.length > 0) {
+                var fileToLoad = fileSelected[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function(fileLoaderEvent) {
+                    var srcData = fileLoaderEvent.target.result;
+                    var newImage = document.createElement('img');
+                    newImage.src = srcData;
+                    newImage.style.width = "250px";
+                    document.getElementById('displayImg').innerHTML = newImage.outerHTML;
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
         }
     </script>
 </body>
