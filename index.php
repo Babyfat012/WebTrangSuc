@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require "lib/DataProvider.php";
 ?>
 <!DOCTYPE html>
@@ -56,7 +57,6 @@
             <div class="search-box-form">
                 <form action="shop.php" method="get">
                     <input type="search" name="key" placeholder="type keyword and hit enter"/>
-                    
                     <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
