@@ -2,21 +2,14 @@
 
     require'../lib/DataProvider.php';
     $folder = "../assets/img/";
+
 if(isset($_GET['edit_id']))
     {
         $id = $_GET['edit_id'];
         $sql = "SELECT * FROM sanpham WHERE idsanpham='" . $id . "'";
+        echo $sql;
         $result =executeQuery($sql);
         $row = $result->fetch_array();
-        $name = $row['tensp'];
-        $quantity = $row['soluong'];
-        $price = $row['dongia'];
-        $picture = $row['hinhanh'];
-        $material = $row['chatlieu'];
-        $color = $row['mausac'];
-        $size = $row['kichthuoc'];
-        $gender = $row['gioitinh'];
-        $description = $row['mota'];
         $type = $row['maloaisp'];
         switch ($type)
         {
@@ -30,36 +23,14 @@ if(isset($_GET['edit_id']))
                 $folder = $folder . "Ring/";
                 break;
         }
-        echo $folder;
     }
-
-if(isset($_POST['edit']))
-{
-    $target_file = $folder . basename($_FILES["pic"]["name"]);
-    $allowupload = true;
-    $i = 0;
-    do
-    {
-        if(file_exists($target_file))
-        {
-            $i++;
-            $target_file = $folder. $i. basename($_FILES["pic"]["name"]);
-        }
-    }while(file_exists($target_file));
-    move_uploaded_file($_FILES["pic"]["tmp_name"], $target_file);
-}
-
 ?>
-
-
-
-
 
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Edit product details</h4>
-            <form class="forms-sample" action="updateproducts.php" method="post" enctype="multipart/form-data">
+            <form class="forms-sample" action="updateproduct.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <img id="displayImg" src="../assets/img/Necklace/gc0000y000029-day-co-cuoi-vang-24k-pnj-hoa-tinh-yeu-1.png">
                     <label for="pic">File upload</label>
@@ -72,44 +43,44 @@ if(isset($_POST['edit']))
                 </div>
 
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" name="title" value="<?php echo($name); ?>">
+                    <label>Jewelry Name</label>
+                    <input type="text" class="form-control" name="title" value="<?php echo $row['tensp']; ?>">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3">Quantity</label>
-                    <input type="text" name="quantity" class="form-control"  value="<?php echo($quantity); ?>">
+                    <input type="text" name="quantity" class="form-control"  value="<?php if(isset($_POST['quantity'])){echo $_POST['quantity'];}else{echo $row['soluong'];} ?>">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword4">Price</label>
-                    <input type="text" class="form-control" value="<?php echo($price); ?>">
+                    <input type="text" name="price" class="form-control" value="<?php if(isset($_POST['price'])){echo $_POST['price'];}else{echo $row['dongia'];} ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputPassword4">Material</label>
-                    <input type="text" name="material" class="form-control" value="<?php echo($material); ?>">
+                    <input type="text" name="material" class="form-control" value="<?php if(isset($_POST['material'])){echo $_POST['material'];}else{echo $row['chatlieu'];} ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputCity1">Color</label>
-                    <input type="text" name="color" class="form-control" value="<?php echo($color); ?>">
+                    <input type="text" name="color" class="form-control" value="<?php if(isset($_POST['color'])){echo $_POST['color'];}else{echo $row['mausac'];} ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputCity1">Size</label>
-                    <input type="text" name="size" class="form-control" value="<?php echo($size); ?>">
+                    <input type="text" name="size" class="form-control" value="<?php if(isset($_POST['size'])){echo $_POST['size'];}else{echo $row['kichthuoc'];} ?>">
                 </div>
 
 
                 <div class="form-group">
                     <label for="exampleInputCity1">Gender</label>
-                    <input type="text" name="gender" class="form-control" value="<?php echo($gender); ?>">
+                    <input type="text" name="gender" class="form-control" value="<?php if(isset($_POST['gender'])){echo $_POST['gender'];}else{echo $row['gioitinh'];} ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleTextarea1">Description</label>
-                    <textarea class="form-control" name="description" rows="4"><?php echo($description); ?></textarea>
+                    <textarea class="form-control" name="description" rows="4"><?php if(isset($_POST['description'])){echo $_POST['description'];}else{echo $row['mota'];} ?></textarea>
                 </div>
-                <button type="submit" value="edit" name="edit" class="btn btn-primary me-2">Edit</button>
+                <button type="submit" value="submit" name="submit" class="btn btn-primary me-2">Edit</button>
                 <button class="btn btn-light">Cancel</button>
             </form>
         </div>
@@ -137,3 +108,4 @@ if(isset($_POST['edit']))
             fileReader.readAsDataURL(fileToLoad);
         }
     }</script>
+

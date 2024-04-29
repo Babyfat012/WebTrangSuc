@@ -148,7 +148,7 @@ function login()
         {
             var JsonCurrentUser =JSON.stringify(userList[i]);
             localStorage.setItem("currentUser",JsonCurrentUser);
-            window.location.href="index.html";
+            window.location.href="index.php";
             flag = true;
         }
     }
@@ -166,7 +166,7 @@ function login()
 function logout()
 {
     localStorage.removeItem("currentUser");
-    window.location.href="index.html";
+    window.location.href="index.php";
 }
 
 
