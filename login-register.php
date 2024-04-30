@@ -1,6 +1,52 @@
+<?php
+require 'lib/DataProvider.php';
+        if(isset($_POST['register-submit'])){
+
+            if(!empty($_POST['userName'])&&!empty($_POST['fullName'])&&!empty($_POST['eMail'])&&!empty($_POST['phoneNumber'])&&!empty($_POST['passWord'])) $userName = $_POST['userName'];
+
+            $userName = trim($_POST['userName']);
+            $fullName =  trim($_POST['fullName']);
+            $eMail = trim($_POST['eMail']);
+            $phoneNumber = trim ($_POST['phoneNumber']);
+            $passWord = trim($_POST['passWord']);
+            $repassWord =  trim($_POST['re-passWord']);
+
+            $passWordHash = password_hash($passWord,PASSWORD_DEFAULT);
+            $sql = "INSERT INTO users (userName , passWord ,eMail ,fullName, phoneNumber) VALUES ('$userName','$passWordHash','$eMail','$fullName','$phoneNumber')";
+            $result = executeQuery($sql);
+            session_start();
+            $_SESSION['userName'] = $userName;
+            $_SESSION['fullName'] = $fullName;
+            $_SESSION['passWord'] = $passWord;
+            header("Location: index.php");
+        }
+?>
+<?php
+
+        if(isset($_POST['login-submit'])){
+            if(!empty($_POST['userName'])&&!empty($_POST['passWord'])){
+                $userName = $_POST['userName'];
+                $passWord = $_POST['passWord'];
+                $sql = "SELECT * FROM `users` WHERE userName like '$userName'";
+                $result = executeQuery($sql);
+                $user = $result->fetch_assoc();
+                if($user){
+                password_verify($passWord, $user['passWord']);
+                session_start();
+                $_SESSION['userName'] = $user['userName'];
+                $_SESSION['passWord'] = $user['passWord'];
+                $_SESSION['fullName'] = $user['fullName'];
+                //print_r($_SESSION);
+                header('Location:index.php');
+                exit;
+                }
+}
+
+}
+?>
+
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -255,7 +301,6 @@
     </div>
 </div>
 <!--== Search Box Area End ==-->
-
 <!--== Page Title Area Start ==-->
 <div id="page-title-area">
     <div class="container">
@@ -291,13 +336,14 @@
                     <div class="tab-content" id="login-reg-tabcontent">
                         <div class="tab-pane fade show active" id="login" role="tabpanel">
                             <div class="login-reg-form-wrap">
-                                <form onsubmit="login()" action="#" method="post">
+
+                                <form action="login-register.php" method="post" id="form-login" >
                                     <div class="single-input-item">
-                                        <input id="login-username" type="text" placeholder="Enter Username" required/>
+                                        <input id="login-username" type="text" name="userName" placeholder="Enter Username" required/>
                                     </div>
 
                                     <div class="single-input-item">
-                                        <input id="login-password" type="password" placeholder="Enter your Password" required/>
+                                        <input id="login-password" type="password" name ="passWord"placeholder="Enter your Password" required />
                                     </div>
 
                                     <div class="single-input-item">
@@ -315,7 +361,8 @@
                                     </div>
 
                                     <div class="single-input-item">
-                                        <button class="btn-login">Login</button>
+                                        <input type="submit" name="login-submit" class="btn-login" value="Login">
+                                        <!--                                        <button class="btn-login">Login</button>-->
                                     </div>
                                 </form>
                             </div>
@@ -323,52 +370,58 @@
 
                         <div class="tab-pane fade" id="register" role="tabpanel">
                             <div class="login-reg-form-wrap">
-                                <form onsubmit="signup()" action="#" method="post">
+
+                                <form  action="login-register.php" method="post"  id="form-register" onsubmit="return checkForm()">
                                     <div class="single-input-item">
-                                        <input id="fullName" type="text" placeholder="Full Name" required/>
+                                        <input id="userName" name="userName" type="text" placeholder="User Name" required>
+                                        <div id="error_username"></div>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <input id="fullName" name="fullName" type="text" placeholder="Full Name" required/>
+                                        <div id="error_fullname"></div>
                                     </div>
 
                                     <div class="single-input-item">
-                                        <input id="email" type="email" placeholder="Enter your Email" required/>
+                                        <input id="eMail" name="eMail" type="email" placeholder="Enter Your Email" required/>
+                                        <div id="error_email"></div>
                                     </div>
 
                                     <div class="single-input-item">
-                                        <input id="phone" type="text" placeholder="Phone" required>
-                                    </div>
-
-                                    <div class="single-input-item">
-                                        <input id="username" type="text" placeholder="Username" required>
+                                        <input id="phoneNumber" name="phoneNumber" type="text" placeholder="Phone Number" required>
+                                        <div id="error_phonenumber"></div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
-                                                <input id="password" type="password" placeholder="Enter your Password" required/>
+                                                <input id="passWord" name="passWord" type="password" placeholder="Enter Your Password" required/>
+                                                <div id="error_password"></div>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
-                                                <input  type="password" placeholder="Repeat your Password" required/>
+                                                <input  type="password" name="re-passWord" placeholder="Repeat Your Password" required/>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="single-input-item">
-                                        <div class="login-reg-form-meta">
-                                            <div class="remember-meta">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                           id="subnewsletter">
-                                                    <label class="custom-control-label" for="subnewsletter">Subscribe
-                                                        Our Newsletter</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!--                                    <div class="single-input-item">-->
+                                    <!--                                        <div class="login-reg-form-meta">-->
+                                    <!--                                            <div class="remember-meta">-->
+                                    <!--                                                <div class="custom-control custom-checkbox">-->
+                                    <!--                                                    <input type="checkbox" class="custom-control-input"-->
+                                    <!--                                                           id="subnewsletter">-->
+                                    <!--                                                    <label class="custom-control-label" for="subnewsletter">Subscribe-->
+                                    <!--                                                        Our Newsletter</label>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
 
                                     <div class="single-input-item">
-                                        <button class="btn-login">Register</button>
+                                        <input type="submit" name="register-submit" class="btn-login" value="Register">
+                                        <!--                                        <button class="btn-login">Register</button>-->
                                     </div>
                                 </form>
                             </div>
@@ -533,6 +586,94 @@
 
 
 <!--=======================Javascript============================-->
+
+<script>
+
+    function checkForm(){
+        var userName = document.getElementById('userName').value;
+        var fullName = document.getElementById('fullName').value;
+        var eMail = document.getElementById('eMail').value;
+        var phoneNum = document.getElementById('phoneNumber').value;
+        var passWord =  document.getElementById('passWord').value;
+        var regExPhoneNum = /^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$\b/;
+        var regExEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        var flag = true;
+
+        if(userName.length < 5 ){
+            document.getElementById('error_username').innerText= 'User Name must be at least 5 characters '
+            document.getElementById('error_username').style.color = "red"
+            document.getElementById('error_username').style.display = "block"
+
+            flag = false
+        }else
+            document.getElementById('error_username').style.display = "none"
+        console.log(flag)
+
+
+        if(fullName.length < 5){
+            document.getElementById('error_fullname').innerText= 'Full Name must be at least 5 characters'
+            document.getElementById('error_fullname').style.color = 'red'
+            document.getElementById('error_fullname').style.display= 'block'
+            flag = false
+        }
+        else {
+            document.getElementById('error_fullname').style.display = "none"
+        }
+        if(!regExEmail.test(eMail)){
+            document.getElementById('error_email').innerText = 'Please enter valid email'
+            document.getElementById('error_email').style.color ="red"
+            document.getElementById('error_email').style.display = 'block'
+            flag = false
+        }
+        else {
+            document.getElementById('error_email').style.display = "none"
+        }
+        if(!regExPhoneNum.test(phoneNum)){
+            document.getElementById('error_phonenumber').innerText = 'Please enter valid phone number'
+            document.getElementById('error_phonenumber').style.color ='red'
+            document.getElementById('error_phonenumber').style.display = 'block'
+            flag = false
+        }
+        else {
+            document.getElementById('error_phonenumber').style.display = "none"
+        }
+        if(phoneNum.length > 11 || phoneNum.length < 10){
+            document.getElementById('error_phonenumber').innerText='Phone number must be at least 10 and maximum 11 number';
+            document.getElementById('error_phonenumber').style.color='red'
+            document.getElementById('error_phonenumber').style.display = 'block'
+            flag = false
+        }
+        else{
+            document.getElementById('error_phonenumber').style.display = "none"}
+
+
+
+        if(passWord.length < 8){
+            document.getElementById('error_password').innerText =' Password must be at least 8 character';
+            document.getElementById('error_password').style.color = 'red'
+            flag =false
+        }
+        else{
+            document.getElementById('error_password').style.display = "none"}
+        <?php
+        $checkSql = "select * from users";
+        $result = executeQuery($checkSql);
+        if($result->num_rows > 0)
+        {
+            while($row = $result->fetch_array()) {
+                echo 'if(' . "'". $row['userName'] . "'"." == userName){";
+                echo "document.getElementById('error_username').innerText= 'Username exist. Try another username!!!';";
+                echo 'document.getElementById("error_username").style.display = "block";';
+
+                echo 'document.getElementById("error_username").style.color = "red";';
+                echo 'flag = false;';
+                echo '}';
+            }
+        }
+        ?>
+        return flag
+    }
+</script>
 <!--=== Jquery Min Js ===-->
 <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
 <!--=== Jquery Migrate Min Js ===-->
@@ -544,11 +685,3 @@
 <!--=== Plugins Min Js ===-->
 <script src="assets/js/plugins.js"></script>
 
-<!--=== Active Js ===-->
-<script src="assets/js/active.js"></script>
-
-<!--=== Dang nhap User Js ===-->
-<script src="assets/js/user-login.js"></script>
-</body>
-
-</html>
