@@ -18,7 +18,7 @@
         echo'<div class="card">';
             echo'<div class="card-body">';
                 echo'<h4 class="card-title">Product Management</h4>';
-                echo'<a href="quantri.php?page_layout=addproduct"><button type="button" class="btn btn-primary btn-lg">Add Product</button></a>';
+                echo'<a href="quantri.php?page_layout=addProduct"><button type="button" class="btn btn-primary btn-lg">Add Product</button></a>';
                     echo'<div class="table-responsive pt-3">';
                         echo'<table class="table table-bordered">';
                             echo'<thead>';
@@ -35,6 +35,7 @@
                                     echo'<th>Quantity</th>';
                                     echo'<th>Price</th>';
                                     echo'<th>Gender</th>';
+                                    echo'<th>Type</th>';
                                     echo'<th>Description</th>';
 
                                     echo'</tr>';
@@ -52,7 +53,7 @@
             echo'<td>';
             echo "<form method='get' action='danhsachsp.php'>";
             echo "<input type='hidden' name='del_id' value='" . $row['idsanpham'] . "'>";
-            echo '<button type="submit" class="btn btn-outline-secondary btn-light btn-rounded btn-icon btn-lg"><i class="ti-trash"></i></button>';
+            echo '<button type="submit" onclick="return Del(\'' . $row['tensp'] . '\')" class="btn btn-outline-secondary btn-light btn-rounded btn-icon btn-lg"><i class="ti-trash"></i></button>';
             echo'</form>';
             echo'</td>';
 
@@ -76,6 +77,7 @@
             echo '<td>' . $row['soluong'] . '</td>';
             echo '<td>' . $row['dongia'] . '</td>';
             echo '<td>' . $row['gioitinh'] . '</td>';
+            echo '<td>' . $row['maloaisp'] . '</td>';
             echo '<td>' . $row['mota'] . '</td>';
 
             echo '</tr>';
@@ -85,3 +87,9 @@
     echo'</table>';
 
 ?>
+<script>
+    function Del(name)
+    {
+        return confirm("Are you sure to delete product: " + name + " ?");
+    }
+</script>

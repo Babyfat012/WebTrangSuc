@@ -1,5 +1,5 @@
 <?php
-    include 'lib/lib.php';
+    include '../lib/lib.php';
     $folder = "assets/img/";
   if(isset($_POST['submitBtn']) ){
 
@@ -84,10 +84,6 @@
       echo $ID;
       header("location: addToCart.php");
   }
-    
-   
-    
-  
     ?>
 <html>
 <head>
@@ -98,7 +94,7 @@
     <title>Document</title>
 </head>
 <body>
-    
+
     <form action="addProduct.php" enctype="multipart/form-data" method="post" onsubmit="return check()">
         <table>
             <tr>
@@ -161,11 +157,11 @@
                     </select> </td>
                 <td id="errorGender"></td>
             </tr>
-            
+
             <tr>
                 <td><label for="material">MATERIAL</label> </td>
                 <td> <input type="text" name="material" required> </td>
-                
+
             </tr>
 
             <tr>
@@ -178,24 +174,24 @@
                 <td> <input type="text" name="size" id="size" required> </td>
                 <td id="errorSize"></td>
             </tr>
-            
+
             <tr>
                 <td><label for="desc">DESCRIPTION</label> </td>
                 <td> <textarea style="width:300px; height: 200px" id="desc" name="desc"></textarea> </td>
             </tr>
-            
+
             <tr>
                 <td>
                     <input type="submit" value="submit" name="submitBtn">
                 </td>
             </tr>
         </table>
-        
+
     </form>
 
-    
+
     <script>
-       
+
         function check(){
             var regNumber = /^[0-9]+$/;
             var regFloat = /^\d*\.\d+$/;
@@ -215,7 +211,7 @@
 
                 flag = false;
             }
-          
+
 
             if(!regNumber.test(stock) || parseInt(stock) < 0){
                 document.getElementById("errorStock").innerHTML = "Data is wrong";
@@ -228,7 +224,7 @@
 
             if((regFloat.test(price) || regNumber.test(price)) && parseFloat(price)>0){
                 document.getElementById("errorPrice").style.display = "none";
-              
+
             }else{
                 document.getElementById("errorPrice").innerHTML = "Data is wrong";
                 document.getElementById("errorPrice").style.display = "block";
@@ -236,7 +232,7 @@
 
                 flag = false;
             }
-            
+
 
             if(type == -1){
                 document.getElementById("errorType").innerHTML = "Data is wrong";
@@ -257,27 +253,27 @@
                 document.getElementById("errorGender").style.display = "none";
 
             return flag;
-            
+
 
         }
-        
-        
 
-        function ImagesFileAsURL() {
-            var fileSelected = document.getElementById('pic').files;
-            if (fileSelected.length > 0) {
-                var fileToLoad = fileSelected[0];
-                var fileReader = new FileReader();
-                fileReader.onload = function(fileLoaderEvent) {
-                    var srcData = fileLoaderEvent.target.result;
-                    var newImage = document.createElement('img');
-                    newImage.src = srcData;
-                    newImage.style.width = "250px";
-                    document.getElementById('displayImg').innerHTML = newImage.outerHTML;
+
+
+            function ImagesFileAsURL() {
+                var fileSelected = document.getElementById('pic').files;
+                if (fileSelected.length > 0) {
+                    var fileToLoad = fileSelected[0];
+                    var fileReader = new FileReader();
+                    fileReader.onload = function(fileLoaderEvent) {
+                        var srcData = fileLoaderEvent.target.result;
+                        var newImage = document.createElement('img');
+                        newImage.src = srcData;
+                        newImage.style.width = "250px";
+                        document.getElementById('displayImg').innerHTML = newImage.outerHTML;
+                    }
+                    fileReader.readAsDataURL(fileToLoad);
                 }
-                fileReader.readAsDataURL(fileToLoad);
             }
-        }
     </script>
 </body>
 </html>

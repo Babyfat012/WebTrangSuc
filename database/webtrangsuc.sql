@@ -73,8 +73,22 @@ CREATE TABLE `khachhang` (
   `sodienthoai` varchar(10) DEFAULT NULL,
   `trangthaitk` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 -- --------------------------------------------------------
+
+-- Đang đổ dữ liệu cho bảng `khachhang`
+
+INSERT INTO `khachhang` (`hoten`, `taikhoankh`, `matkhau`, `email`, `sonha`, `tenduong`, `tenphuong`, `tenquan`, `tentp`, `sodienthoai`, `trangthaitk`)
+VALUES
+('Long Phat', 'babyfat', '123', 'babyfat@gmail.com', '176/5', 'Bui Tu Toan', 'An Lac', 'Binh Tan', 'Ho Chi Minh', '0123456789', '1');
+('Nguyen Phuong Vinh', 'xxx', '123', 'vinh123@gmail.com', '30/4', 'An Duong Vuong', '3', '5', 'Ho Chi Minh', '0369852471', '1');
+('Le Ngoc Hiep', 'def', 'abc', 'hiep456@gmail.com', '2/5', 'Duong Ba Trac', '1', '8', 'Ho Chi Minh', '0753912684', '0');
+
+
+
+
+
+
+
 
 --
 -- Cấu trúc bảng cho bảng `loaisanpham`
