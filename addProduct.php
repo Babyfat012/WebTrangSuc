@@ -82,7 +82,7 @@
       move_uploaded_file($_FILES["pic"]["tmp_name"], $target_file);
       
       echo $ID;
-      header("location: addProduct.php");
+      header("location: addToCart.php");
   }
     
    

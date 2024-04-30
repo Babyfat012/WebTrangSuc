@@ -1,5 +1,16 @@
+<?php
+
+    ob_start();
+    session_start();
+    require '../lib/db.inc';
+
+    if($_SESSION['taikhoan'] == "longphat102" && $_SESSION['matkhau'] == "0393165728")
+    {
+
+?>
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <!-- Required meta tags -->
@@ -23,8 +34,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo me-5" href="index.html"><img src="images/logo.svg" class="me-2" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo me-5" href="quantri.php"><img src="images/logo.svg" class="me-2" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="quantri.php"><img src="images/logo-mini.svg" alt="logo"/></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -46,7 +57,18 @@
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
                         <img src="images/faces/face28.jpg" alt="profile"/>
+                        <span>Hello, <?php if(isset($_SESSION['taikhoan'])) {echo $_SESSION['taikhoan'];} ?></span>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item">
+                            <i class="ti-settings text-primary"></i>
+                            Settings
+                        </a>
+                        <a class="dropdown-item" href="dangxuat.php">
+                            <i class="ti-power-off text-primary"></i>
+                            Logout
+                        </a>
+                    </div>
                 </li>
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -60,7 +82,7 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="quantri.php">
                         <i class="ti-home menu-icon"></i>
                         <span class="menu-title">Home</span>
                     </a>
@@ -74,9 +96,9 @@
                     </a>
                     <div class="collapse" id="auth">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="#"> User management </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="#"> Category management </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="#"> Product management </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachuser"> User management </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachdm"> Category management </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachsp"> Product management </a></li>
                             <li class="nav-item"> <a class="nav-link" href="#"> Bill management </a></li>
                         </ul>
                     </div>
@@ -98,7 +120,7 @@
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="#">Edit</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="#">Log Out</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="dangxuat.php">Log Out</a></li>
                         </ul>
                     </div>
                 </li>
@@ -112,21 +134,27 @@
         </nav>
         <!-- partial -->
         <?php
-        switch ($_GET["page_layout"])
+        if(isset($_GET['page_layout']))
         {
-            case 'danhsachsp':include_once './danhsachsp.php';
-                break;
-            case 'themsp':include_once './themsp.php';
-                break;
-            case 'suasp':include_once './suasp.php';
-                break;
-            case 'danhsachdm':include_once './danhsachdm.php';
-                break;
-            case 'themdm':include_once './themdm.php';
-                break;
-            case 'suadm':include_once './suadm.php';
-                break;
-            default:include_once './gioithieu.php';
+            switch ($_GET["page_layout"])
+            {
+                case 'danhsachsp':include_once './danhsachsp.php';
+                    break;
+                case 'themsp':include_once './themsp.php';
+                    break;
+                case 'editproduct':include_once './editproduct.php';
+                    break;
+                case 'danhsachdm':include_once './danhsachdm.php';
+                    break;
+                case 'themdm':include_once './themdm.php';
+                    break;
+                case 'suadm':include_once './suadm.php';
+                    break;
+            }
+        }
+        else
+        {
+            include_once './gioithieu.php';
         }
         ?>
     </div>
@@ -154,3 +182,9 @@
 
 </html>
 
+<?php
+    }else
+    {
+        header('location: index.php');
+    }
+    ?>

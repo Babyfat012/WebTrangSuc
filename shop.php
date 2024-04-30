@@ -1,13 +1,139 @@
 <?php
-    require "lib/DataProvider.php";
+    session_start();
+    require 'lib/lib.php';
+    if(isset($_POST['addToCart']))
+    {
+        $id = $_POST['id'];
+        $quantity = $_POST['quantity'];
+        addToCart($id, $quantity);
+    }
+    if(isset($_SESSION['cart']))
+        var_dump($_SESSION['cart']);
+    
+    
+    
     $rowsPerPage = 6;
     $pageNum = 1;
+    $self ="shop.php";
     if(isset($_GET["page"])){
         $pageNum = $_GET["page"];
     }
     $offset = ($pageNum - 1) * $rowsPerPage;
+    $where = '';
+    if(isset($_GET['key']))
+    {
+        $key = $_GET['key'];
+        if($where == ''){
+            $where = " (tensp LIKE '%" . $key . "%')" ;
+            $self = "shop.php?key=$key";
+            
+        }
+        else{
+            $where .= " AND (tensp LIKE '%" . $key . "%')" ;
+            $self .= "&key=$key";
+        }
+        
+    }
+   
     
     
+    if(isset($_GET['type']))
+    {
+        $type = $_GET['type'];
+        if($where != ""){
+            $where .= " AND (";
+            $self .= "&";
+        }
+        else{
+            $where .= " (";
+            $self .= "?";
+        }
+        
+        for($i = 0; $i < sizeof($type); $i++){
+            if($i == sizeof($type)-1)
+            {
+                $where .= "maloaisp LIKE '" . $type[$i] . "')";
+                $self .= "type[]=$type[$i]";
+            }
+            else{
+                $where .= "maloaisp LIKE '" . $type[$i] . "' OR ";
+                $self .= "type[]=$type[$i]&";
+                
+            }
+        }
+    }
+   
+    
+    if(isset($_GET['Gender']))
+    {
+        $gender = $_GET['Gender'];
+        if($where != ""){
+            $where .= " AND (";
+            $self .= "&";
+        }
+        else
+        {
+            $where .=" (";
+            $self .= "?";
+        }
+        
+        for($i = 0; $i < sizeof($gender); $i++){
+            if($i == sizeof($gender)-1)
+            {
+                $where .= "gioitinh LIKE '" . $gender[$i] . "')";
+                $self .= "Gender[]=$gender[$i]";
+            }
+            else
+            {
+                $where .= "gioitinh LIKE '" . $gender[$i] . "' OR ";
+                $self .= "Gender[]r=$gender[$i]&";
+            }
+        }
+    }
+   
+    
+    if(isset($_GET['min']) || isset($_GET['max']))
+    {
+        if(isset($_GET['min'])){
+            $min = $_GET['min'];
+        }else
+            $min = null;
+        
+        if(isset($_GET['max'])){
+            $max = $_GET['max'];
+        }else
+            $max = null;
+        
+        
+        if($min != null || $max != null) {
+            if ($where != ""){
+                $where .= " AND (";
+                $self .= "&";
+            }
+            else{
+                $where .= " (";
+                $self.="?";
+            }
+            if($min != null && $max != null) {
+                $where .= " dongia >= $min AND dongia <= $max";
+                $self.= "min=$min&max=$max";
+            }else if($min!= null){
+                $where .= " dongia >= $min";
+                $self.= "min=$min";
+                
+            }else if($max != null){
+                $where .= " dongia <= $max";
+                $self.= "max=$max";
+                
+            }
+            $where .=" )";
+
+        }
+    
+        
+        
+    }
+
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -50,263 +176,9 @@
 </head>
 <body>
     <!--== Header Area Start ==-->
-    <header id="header-area" class="header__3">
-        <div class="ruby-container">
-            <div class="row">
-                <!-- Logo Area Start -->
-                <div class="col-3 col-lg-1 col-xl-2 m-auto">
-                    <a href="index.html" class="logo-area">
-                        <img src="assets/img/logo-black.png" alt="Logo" class="img-fluid"/>
-                    </a>
-                </div>
-                <!-- Logo Area End -->
-
-                <!-- Navigation Area Start -->
-                <div class="col-3 col-lg-9 col-xl-8 m-auto">
-                    <div class="main-menu-wrap">
-                        <nav id="mainmenu">
-                            <ul>
-                                <li class="dropdown-show"><a href="index.html">Home</a>
-                                    <ul class="dropdown-nav sub-dropdown">
-                                        <li><a href="index.html">Home Layout 1</a></li>
-                                        <li><a href="index2.html">Home Layout 2</a></li>
-                                        <li><a href="index3.html">Home Layout 3</a></li>
-                                        <li><a href="index4.html">Home Layout 4</a></li>
-                                        <li><a href="index5.html">Home Layout 5</a></li>
-                                        <li><a href="index6.html">Home Layout 6</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-show"><a href="#">Shop</a>
-                                    <ul class="mega-menu-wrap dropdown-nav">
-                                        <li class="mega-menu-item"><a href="shop.html" class="mega-item-title">Shop
-                                                Layout</a>
-                                            <ul>
-                                                <li><a href="shop.html">Shop Left Sidebar</a></li>
-                                                <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
-                                                <li><a href="shop-left-full-wide.html">Shop Left Full Wide</a></li>
-                                                <li><a href="shop-right-full-wide.html">Shop Right Full Wide</a></li>
-                                                <li><a href="shop-full-wide.html">Shop Without Sidebar</a></li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="mega-menu-item"><a href="single-product.html"
-                                                                      class="mega-item-title">Single
-                                                Products</a>
-                                            <ul>
-                                                <li><a href="single-product.html">Single Product</a></li>
-                                                <li><a href="single-product-normal.html">Single Product Normal</a></li>
-                                                <li><a href="single-product-group.html">Single Product Group</a></li>
-                                                <li><a href="single-product-external.html">Single Product External</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-show"><a href="#">Pages</a>
-                                    <ul class="dropdown-nav">
-                                        <li><a href="cart.html">Shopping Cart</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="compare.html">Compare</a></li>
-                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                        <li><a href="login-register.php">Login & Register</a></li>
-                                        <li><a href="my-account.html">My Account</a></li>
-                                        <li><a href="404.html">404 Error</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-show"><a href="#">Men</a>
-                                    <ul class="mega-menu-wrap dropdown-nav">
-                                        <li class="mega-menu-item"><a href="shop-left-full-wide.html"
-                                                                      class="mega-item-title">Shirt</a>
-                                            <ul>
-                                                <li><a href="shop.html">Tops & Tees</a></li>
-                                                <li><a href="shop.html">Polo Short Sleeve</a></li>
-                                                <li><a href="shop.html">Graphic T-Shirts</a></li>
-                                                <li><a href="shop.html">Jackets & Coats</a></li>
-                                                <li><a href="shop.html">Fashion Jackets</a></li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="mega-menu-item"><a href="shop-left-full-wide.html"
-                                                                      class="mega-item-title">Jeans</a>
-                                            <ul>
-                                                <li><a href="shop.html">Crochet</a></li>
-                                                <li><a href="shop.html">Sleeveless</a></li>
-                                                <li><a href="shop.html">Stripes</a></li>
-                                                <li><a href="shop.html">Sweaters</a></li>
-                                                <li><a href="shop.html">Hoodies</a></li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="mega-menu-item"><a href="shop-left-full-wide.html"
-                                                                      class="mega-item-title">Shoes</a>
-                                            <ul>
-                                                <li><a href="shop.html">Tops & Tees</a></li>
-                                                <li><a href="shop.html">Polo Short Sleeve</a></li>
-                                                <li><a href="shop.html">Graphic T-Shirts</a></li>
-                                                <li><a href="shop.html">Jackets & Coats</a></li>
-                                                <li><a href="shop.html">Fashion Jackets</a></li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="mega-menu-item"><a href="shop-left-full-wide.html"
-                                                                      class="mega-item-title">Watches</a>
-                                            <ul>
-                                                <li><a href="shop.html">Crochet</a></li>
-                                                <li><a href="shop.html">Sleeveless</a></li>
-                                                <li><a href="shop.html">Stripes</a></li>
-                                                <li><a href="shop.html">Sweaters</a></li>
-                                                <li><a href="shop.html">Hoodies</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-show"><a href="shop-left-full-wide.html">Women</a>
-                                    <ul class="mega-menu-wrap dropdown-nav">
-                                        <li class="mega-menu-item"><a href="shop-left-full-wide.html"
-                                                                      class="mega-item-title">Kamiz</a>
-                                            <ul>
-                                                <li><a href="shop.html">Tops & Tees</a></li>
-                                                <li><a href="shop.html">Polo Short Sleeve</a></li>
-                                                <li><a href="shop.html">Graphic T-Shirts</a></li>
-                                                <li><a href="shop.html">Jackets & Coats</a></li>
-                                                <li><a href="shop.html">Fashion Jackets</a></li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="mega-menu-item"><a href="shop-left-full-wide.html"
-                                                                      class="mega-item-title">Life Style</a>
-                                            <ul>
-                                                <li><a href="shop.html">Crochet</a></li>
-                                                <li><a href="shop.html">Sleeveless</a></li>
-                                                <li><a href="shop.html">Stripes</a></li>
-                                                <li><a href="shop.html">Sweaters</a></li>
-                                                <li><a href="shop.html">Hoodies</a></li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="mega-menu-item"><a href="shop-left-full-wide.html"
-                                                                      class="mega-item-title">Shoes</a>
-                                            <ul>
-                                                <li><a href="shop.html">Tops & Tees</a></li>
-                                                <li><a href="shop.html">Polo Short Sleeve</a></li>
-                                                <li><a href="shop.html">Graphic T-Shirts</a></li>
-                                                <li><a href="shop.html">Jackets & Coats</a></li>
-                                                <li><a href="shop.html">Fashion Jackets</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-show"><a href="#">Blog</a>
-                                    <ul class="dropdown-nav">
-                                        <li><a href="blog.html">Blog Right Sidebar</a></li>
-                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                        <li><a href="blog-grid.html">Blog Grid Layout</a></li>
-                                        <li><a href="single-blog.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <!-- Navigation Area End -->
-
-                <!-- Header Right Meta Start -->
-                <div class="col-6 col-lg-2 m-auto">
-                    <div class="header-right-meta text-right">
-                        <ul>
-                            <li><a href="#" class="modal-active"><i class="fa fa-search"></i></a></li>
-                            <li class="settings"><a href="#"><i class="fa fa-cog"></i></a>
-                                <div class="site-settings d-block d-sm-flex">
-                                    <dl class="currency">
-                                        <dt>Currency</dt>
-                                        <dd class="current"><a href="#">USD</a></dd>
-                                        <dd><a href="#">AUD</a></dd>
-                                        <dd><a href="#">CAD</a></dd>
-                                        <dd><a href="#">BDT</a></dd>
-                                    </dl>
-
-                                    <dl class="my-account">
-                                        <dt>My Account</dt>
-                                        <dd><a href="#">Dashboard</a></dd>
-                                        <dd><a href="#">Profile</a></dd>
-                                        <dd><a href="#">Sign</a></dd>
-                                    </dl>
-
-                                    <dl class="language">
-                                        <dt>Language</dt>
-                                        <dd class="current"><a href="#">English (US)</a></dd>
-                                        <dd><a href="#">English (UK)</a></dd>
-                                        <dd><a href="#">Chinees</a></dd>
-                                        <dd><a href="#">Bengali</a></dd>
-                                        <dd><a href="#">Hindi</a></dd>
-                                        <dd><a href="#">Japanees</a></dd>
-                                    </dl>
-                                </div>
-                            </li>
-                            <li class="shop-cart"><a href="#"><i class="fa fa-shopping-bag"></i> <span
-                                            class="count">3</span></a>
-                                <div class="mini-cart">
-                                    <div class="mini-cart-body">
-                                        <div class="single-cart-item d-flex">
-                                            <figure class="product-thumb">
-                                                <a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
-                                                                 alt="Products"/></a>
-                                            </figure>
-
-                                            <div class="product-details">
-                                                <h2><a href="#">Sprite Yoga Companion</a></h2>
-                                                <div class="cal d-flex align-items-center">
-                                                    <span class="quantity">3</span>
-                                                    <span class="multiplication">X</span>
-                                                    <span class="price">$77.00</span>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
-                                        </div>
-                                        <div class="single-cart-item d-flex">
-                                            <figure class="product-thumb">
-                                                <a href="#"><img class="img-fluid" src="assets/img/product-2.jpg"
-                                                                 alt="Products"/></a>
-                                            </figure>
-                                            <div class="product-details">
-                                                <h2><a href="#">Yoga Companion Kit</a></h2>
-                                                <div class="cal d-flex align-items-center">
-                                                    <span class="quantity">2</span>
-                                                    <span class="multiplication">X</span>
-                                                    <span class="price">$6.00</span>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
-                                        </div>
-                                        <div class="single-cart-item d-flex">
-                                            <figure class="product-thumb">
-                                                <a href="#"><img class="img-fluid" src="assets/img/product-3.jpg"
-                                                                 alt="Products"/></a>
-                                            </figure>
-                                            <div class="product-details">
-                                                <h2><a href="#">Sprite Yoga Companion Kit</a></h2>
-                                                <div class="cal d-flex align-items-center">
-                                                    <span class="quantity">1</span>
-                                                    <span class="multiplication">X</span>
-                                                    <span class="price">$116.00</span>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="mini-cart-footer">
-                                        <a href="checkout.html" class="btn-add-to-cart">Checkout</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Header Right Meta End -->
-            </div>
-        </div>
-    </header>
+    <?php
+        include_once 'Header.php';
+    ?>
     <!--== Header Area End ==-->
 
     <!--== Search Box Area Start ==-->
@@ -315,9 +187,29 @@
         <div class="modal-container d-flex">
             <div class="search-box-area">
                 <div class="search-box-form">
-                    <form action="#" method="post">
-                        <input type="search" placeholder="type keyword and hit enter"/>
-                        <button class="btn" type="button"><i class="fa fa-search"></i></button>
+                    <form action="shop.php" method="get">
+                        <?php
+                            if(isset($_GET['type']))
+                            {
+                                foreach($_GET['type'] as $temp){
+                                    echo '<input type="hidden" name="type[]" value="' . $temp . '"/>';
+                                }
+                            }
+                            
+                            if(isset($_GET['Gender']))
+                            {
+                                foreach($_GET['Gender'] as $temp){
+                                    echo '<input type="hidden" name="Gender[]" value="' . $temp . '"/>';
+                                }
+                            }
+                            if(isset($_GET['min']) || isset($_GET['max'])){
+                                echo '<input type="hidden" name="min" value="' . $_GET['min'] . '"/>';
+                                echo '<input type="hidden" name="max" value="' . $_GET['max'] . '"/>';
+                            }
+                            
+                        ?>
+                        <input type="search" name="key" placeholder="type keyword and hit enter"/>
+                        <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
             </div>
@@ -357,24 +249,49 @@
                                 <div class="shopping-option">
                                     <h3>Shopping Options</h3>
                                     <form action="shop.php" method="get">
+                                        <?php
+                                            if(isset($_GET['key']))
+                                            {
+                                                echo "<input type='hidden' name='key' value='".$_GET['key']."'>";
+                                            }
+                                        ?>
+
+                                        <div class="shopping-option-item">
+                                            <h4>Search</h4>
+                                            <?php
+                                                if(isset($_GET['key']))
+                                                {
+                                                  echo '<input type="search" name="key" placeholder="Search for name" value="'.$_GET['key'].'">';
+                                                  
+                                                }else
+                                                    echo '<input type="search" name="key" placeholder="Search for name">
+'
+                                            ?>
+                                        </div>
+                                        
+                                        
                                         <div class="shopping-option-item">
                                             <h4>Jewelry</h4>
 
                                             <ul class="sidebar-list">
-                                                <li>
-                                                    <input type="checkbox" value="NKL" name="NKL">
-                                                    <label class="form-check-label" for="Necklace"
-                                                           style="font-family: 'Droid Serif'; font-style: italic; color: #202020; font-size: 1.4rem">Necklace</label>
-                                                </li>
+                                                
                                                 <?php
-                                                    
                                                     $sql = "SELECT * FROM loaisanpham";
                                                     
                                                     $result = ExecuteQuery($sql);
                                                     if ($result->num_rows > 0) {
                                                         while ($row = $result->fetch_array()) {
-                                                            $str =
-                                                            $str = '<li><input type="checkbox" value="' . $row['malsp'] . '"name="' . $row['tenloaisp'] . '">';
+                                                            
+                                                            if(isset($_GET['type'])){
+                                                                if(in_array($row['malsp'],$type))
+                                                                {
+                                                                    $str = '<li><input type="checkbox" checked value="' . $row['malsp'] . '"name="' . 'type[]' . '">';
+                                                                }else
+                                                                    $str = '<li><input type="checkbox" value="' . $row['malsp'] . '"name="' . 'type[]' . '">';
+                                                            }else
+                                                                $str = '<li><input type="checkbox" value="' . $row['malsp'] . '"name="' . 'type[]' . '">';
+                                                            
+                                                            
                                                             $str = $str . '<label class="form-check-label" for="' . $row['tenloaisp'] . '" style="font-family:' . "'Droid Serif'" . '; font-style: italic; color: #202020; font-size: 1.4rem">' . $row['tenloaisp'] . '</label></li>';
                                                             echo $str;
                                                         }
@@ -384,22 +301,54 @@
                                             </ul>
                                         </div>
 
+                                       
+                                        
+
                                         <div class="shopping-option-item">
                                             <h4>Gender</h4>
                                             <ul class="sidebar-list">
                                                 <li>
-                                                    <input type="checkbox" value="M" name="Men">
-                                                    <label class="form-check-label" for="Necklace"
+                                                    <?php
+                                                        if(isset($_GET['Gender'])){
+                                                            if(in_array("M",$gender)){
+                                                                echo '<input type="checkbox" checked value="M" name="Gender[]">';
+                                                            }
+                                                            else
+                                                                echo '<input type="checkbox" value="M" name="Gender[]">';
+                                                            
+                                                        }else
+                                                            echo '<input type="checkbox" value="M" name="Gender[]">';
+                                                    ?>
+                                                    <label class="form-check-label" for="Gender[]"
                                                            style="font-family: 'Droid Serif'; font-style: italic; color: #202020; font-size: 1.4rem">Men</label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" value="F" name="Women">
-                                                    <label class="form-check-label" for="Necklace"
+                                                    <?php
+                                                        if(isset($_GET['Gender'])){
+                                                            if(in_array("F",$gender)){
+                                                                echo '<input type="checkbox" checked value="F" name="Gender[]">';
+                                                            }
+                                                            else
+                                                                echo '<input type="checkbox" value="F" name="Gender[]">';
+                                                            
+                                                        }else
+                                                            echo '<input type="checkbox" value="F" name="Gender[]">';
+                                                    ?>
+                                                    <label class="form-check-label" for="Gender[]"
                                                            style="font-family: 'Droid Serif'; font-style: italic; color: #202020; font-size: 1.4rem">Women</label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" value="U" name="Unisex">
-                                                    <label class="form-check-label" for="Necklace"
+                                                    <?php
+                                                        if(isset($_GET['Gender'])){
+                                                            if(in_array("U",$gender)){
+                                                                echo '<input type="checkbox" checked value="U" name="Gender[]">';
+                                                            }
+                                                            else
+                                                                echo '<input type="checkbox" value="U" name="Gender[]">';
+                                                            
+                                                        }else
+                                                            echo '<input type="checkbox" value="U" name="Gender[]">';
+                                                    ?>                                                    <label class="form-check-label" for="Gender[]"
                                                            style="font-family: 'Droid Serif'; font-style: italic; color: #202020; font-size: 1.4rem">Unisex</label>
                                                 </li>
                                             </ul>
@@ -408,15 +357,26 @@
                                         <div class="shopping-option-item">
                                             <h4>Price</h4>
 
-                                            <input type="number" id="min" name="min" min="1" style="width: 75px"
-                                                   onchange="setMin()">
-                                            <span>to</span>
-                                            <input type="number" id="max" name="max" style="width: 75px">
+                                            <?php
+                                                if(isset($_GET['min'])){
+                                                    echo ' <input type="number" id="min" name="min" min="1" style="width: 75px"
+                                                   onchange="setMin()" value="'.$_GET['min'].'">';
+                                                }
+                                                else{
+                                                    echo ' <input type="number" id="min" name="min" min="1" style="width: 75px"';
+                                                }
+                                                echo '<span>to</span>';
+                                                if(isset($_GET['max'])){
+                                                    echo '<input type="number" id="max" name="max" style="width: 75px" value="'.$_GET['max'].'">';
+                                                }else
+                                                    echo '<input type="number" id="max" name="max" style="width: 75px">'
+                                            ?>
+                                            
 
                                         </div>
 
                                         <div class="shopping-option-item">
-                                            <a><input  type="submit" value="Search" style="width: 200px; border-radius: 50px; background-color:white; border: 1px solid grey" ></a>
+                                            <a><input class="btn btn-add-to-cart"  type="submit" value="Search" style="width: 200px;" ></a>
                                         </div>
                                         
                                     </form>
@@ -439,9 +399,13 @@
                             <div class="products-wrapper">
                                 <div class="row">
                                     <?php
-                                        $sql = "SELECT * FROM sanpham" .
-                                            " LIMIT $offset, $rowsPerPage";
-                                        $result = ExecuteQuery($sql);                                        if($result->num_rows > 0){
+                                        $sql = "SELECT * FROM sanpham";
+                                        if($where != '')
+                                            $sql .= " WHERE " . $where;
+                                        
+                                           $sql .= " LIMIT $offset, $rowsPerPage";
+                                        $result = ExecuteQuery($sql);
+                                        if($result->num_rows > 0){
                                             while($row = $result->fetch_array()){
                                                 echo '<div class="col-lg-4 col-sm-6">';
                                                 echo'<div class="single-product-item text-center">';
@@ -467,11 +431,18 @@
                                                 echo '</figure>';
                                                 echo '<div class="product-details">';
                                                 echo '<h2><a href="single-product.php?id='.$row['idsanpham'].'">'.$row['tensp'].'</a></h2>';
-                                                echo '<span class="price">'.$row['dongia'].'</span>';
-                                                echo '<a href="single-product.html" class="btn btn-add-to-cart">+ Add to Cart</a>';
+                                                echo '<span class="price">'.'$'.$row['dongia'].'</span>';
+                                                echo '<form method="post">';
+                                                echo '<input type="hidden" name="id" value="'.$row['idsanpham'].'">';
+                                                echo '<input type="hidden" name="quantity" value="1">';
+                                                echo '<button type="submit" name="addToCart" value="addcart" class="btn btn-add-to-cart" style="border: 1px solid black;">+ Add to Cart</button>';
+                                                echo '</form>';
                                                 echo ' </div></div>';
                                                 echo '</div>';
                                             }
+                                        }else
+                                        {
+                                            echo '<div class="col-lg-12 col-sm-12"><h1>Browse 0 results"</h1></div>';
                                         }
                                     ?>
                                 </div>
@@ -483,42 +454,59 @@
                                 <ul class="pagination">
                                     <?php
                                         $sql = "SELECT COUNT(*) AS numrows FROM sanpham";
+                                        if($where!='')
+                                            $sql .= " WHERE " . $where;
                                         $result = ExecuteQuery($sql);
                                         $row = $result->fetch_array();
+                                        
                                         $numrows = $row['numrows'];
-                                        $maxPage = ceil($numrows / $rowsPerPage);
-                                        $self = "shop.php";
-                                        $nav = '';
-                                        for($page = 1; $page <= $maxPage; $page++){
-                                            if($page == $pageNum)
+                                        if($numrows > 0){
+                                            $maxPage = ceil($numrows / $rowsPerPage);
+                                            if($self != "shop.php"){
+                                                $self .= "&";
+                                            }
+                                            else
+                                                $self .= '?';
+                                            $nav = '';
+                                          
+                                            if($self != "shop.php"){
+                                                $self .= "&";
+                                            }
+                                            else
+                                                $self .= '?';
+                                            $nav = '';
+                                            for($page = 1; $page <= $maxPage; $page++){
+                                                if($page == $pageNum)
+                                                {
+                                                    $nav = $nav. '<li><a class="current">'.$pageNum.'</a></li>';
+                                                }
+                                                else{
+                                                    $nav = $nav . ' <li><a href="'.$self.'page='.$page.'">'.$page.'</a></li>';
+                                                }
+                                            }
+                                            
+                                            if($pageNum > 1){
+                                                $page = $pageNum - 1;
+                                                $prev = '<li><a href="'.$self.'page='.$page.'" aria-label="Previous">&lt;</a></li>';
+                                                $first = '<li><a href="'.$self.'page=1" aria-label="Previous">&laquo;</a></li>';
+                                            }else
                                             {
-                                                $nav = $nav. '<li><a class="current">'.$pageNum.'</a></li>';
+                                                $prev = '<li style="display: none"><a href="'.$self.'page='.$page.'" aria-label="Previous">&lt;</a></li>';
+                                                $first = '<li style="display: none;"><a href="'.$self.'page=1" aria-label="Previous">&laquo;</a></li>';
                                             }
-                                            else{
-                                                $nav = $nav . ' <li><a href="shop.php?page='.$page.'">'.$page.'</a></li>';
+                                            
+                                            if($pageNum < $maxPage){
+                                                $page = $pageNum + 1;
+                                                $next = '<li><a href="'.$self.'page='.$page.'" aria-label="Next">&gt;</a></li>';
+                                                $last = '<li><a href="'.$self.'page='.$maxPage.'" aria-label="Next">&raquo;</a></li>';
+                                            }else
+                                            {
+                                                $next = '';
+                                                $last = '';
                                             }
+                                            echo $first . $prev . $nav . $next . $last;
                                         }
-                                        
-                                        if($pageNum > 1){
-                                            $page = $pageNum - 1;
-                                            $prev = '<li><a href="shop.php?page='.$page.'" aria-label="Previous">&lt;</a></li>';
-                                            $first = '<li><a href="shop.php?page=1" aria-label="Previous">&laquo;</a></li>';
-                                        }else
-                                        {
-                                            $prev = '<li style="display: none"><a href="shop.php?page='.$page.'" aria-label="Previous">&lt;</a></li>';
-                                            $first = '<li style="display: none;"><a href="shop.php?page=1" aria-label="Previous">&laquo;</a></li>';
-                                        }
-                                        
-                                        if($pageNum < $maxPage){
-                                            $page = $pageNum + 1;
-                                            $next = '<li><a href="shop.php?page='.$page.'" aria-label="Next">&gt;</a></li>';
-                                            $last = '<li><a href="shop.php?page='.$maxPage.'" aria-label="Next">&raquo;</a></li>';
-                                        }else
-                                        {
-                                            $next = '';
-                                            $last = '';
-                                        }
-                                        echo $first . $prev . $nav . $next . $last;
+                                       
                                     
                                     
                                     ?>
