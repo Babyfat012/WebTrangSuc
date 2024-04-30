@@ -1,16 +1,13 @@
 <?php
 require 'lib/DataProvider.php';
         if(isset($_POST['register-submit'])){
-
             if(!empty($_POST['userName'])&&!empty($_POST['fullName'])&&!empty($_POST['eMail'])&&!empty($_POST['phoneNumber'])&&!empty($_POST['passWord'])) $userName = $_POST['userName'];
-
             $userName = trim($_POST['userName']);
             $fullName =  trim($_POST['fullName']);
             $eMail = trim($_POST['eMail']);
             $phoneNumber = trim ($_POST['phoneNumber']);
             $passWord = trim($_POST['passWord']);
             $repassWord =  trim($_POST['re-passWord']);
-
             $passWordHash = password_hash($passWord,PASSWORD_DEFAULT);
             $sql = "INSERT INTO users (userName , passWord ,eMail ,fullName, phoneNumber) VALUES ('$userName','$passWordHash','$eMail','$fullName','$phoneNumber')";
             $result = executeQuery($sql);
@@ -22,7 +19,6 @@ require 'lib/DataProvider.php';
         }
 ?>
 <?php
-
         if(isset($_POST['login-submit'])){
             if(!empty($_POST['userName'])&&!empty($_POST['passWord'])){
                 $userName = $_POST['userName'];
@@ -41,8 +37,12 @@ require 'lib/DataProvider.php';
                 exit;
                 }
 }
-
 }
+?>
+<?php
+    if(!empty($_SESSION['userName'])){
+        header('Location: index.php');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -76,8 +76,6 @@ require 'lib/DataProvider.php';
 
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
-
-
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -332,20 +330,16 @@ require 'lib/DataProvider.php';
                         <a id="register-tab" data-toggle="tab" href="#register">Register</a>
                     </nav>
                     <!-- Login & Register tab Menu -->
-
                     <div class="tab-content" id="login-reg-tabcontent">
                         <div class="tab-pane fade show active" id="login" role="tabpanel">
                             <div class="login-reg-form-wrap">
-
                                 <form action="login-register.php" method="post" id="form-login" >
                                     <div class="single-input-item">
                                         <input id="login-username" type="text" name="userName" placeholder="Enter Username" required/>
                                     </div>
-
                                     <div class="single-input-item">
                                         <input id="login-password" type="password" name ="passWord"placeholder="Enter your Password" required />
                                     </div>
-
                                     <div class="single-input-item">
                                         <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
                                             <div class="remember-meta">
@@ -355,7 +349,6 @@ require 'lib/DataProvider.php';
                                                         Me</label>
                                                 </div>
                                             </div>
-
                                             <a href="#" class="forget-pwd">Forget Password?</a>
                                         </div>
                                     </div>
@@ -370,7 +363,6 @@ require 'lib/DataProvider.php';
 
                         <div class="tab-pane fade" id="register" role="tabpanel">
                             <div class="login-reg-form-wrap">
-
                                 <form  action="login-register.php" method="post"  id="form-register" onsubmit="return checkForm()">
                                     <div class="single-input-item">
                                         <input id="userName" name="userName" type="text" placeholder="User Name" required>
@@ -380,7 +372,6 @@ require 'lib/DataProvider.php';
                                         <input id="fullName" name="fullName" type="text" placeholder="Full Name" required/>
                                         <div id="error_fullname"></div>
                                     </div>
-
                                     <div class="single-input-item">
                                         <input id="eMail" name="eMail" type="email" placeholder="Enter Your Email" required/>
                                         <div id="error_email"></div>

@@ -358,67 +358,20 @@
                     <h2>Billing Details</h2>
                     <div class="billing-form-wrap">
                         <form action="#">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="single-input-item">
-                                        <label for="f_name" class="required">First Name</label>
-                                        <input type="text" id="f_name" placeholder="First Name"/>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="single-input-item">
-                                        <label for="l_name" class="required">Last Name</label>
-                                        <input type="text" id="l_name" placeholder="Last Name"/>
-                                    </div>
-                                </div>
+                            <div class="single-input-item">
+                                <label for="country_2" class="required">address</label>
+                                <select name="country" id="country_2">
+                                    <option value="Bangladesh">Bangladesh</option>
+                                    <option value="India">India</option>
+                                    <option value="Pakistan">Pakistan</option>
+                                    <option value="England">England</option>
+                                    <option value="London">London</option>
+                                    <option value="London">London</option>
+                                    <option value="Chaina">Chaina</option>
+                                </select>
                             </div>
-
-                           
-
                             
-
-                           
-
-                            <div class="single-input-item">
-                                <label for="street-address" class="required">Street address</label>
-                                <input type="text" id="street-address" placeholder="Street address Line 1"/>
-                            </div>
-
-                            <div class="single-input-item">
-                                <input type="text" placeholder="Street address Line 2 (Optional)"/>
-                            </div>
-
-                            <div class="single-input-item">
-                                <label for="town" class="required">Town / City</label>
-                                <input type="text" id="town" placeholder="Town / City"/>
-                            </div>
-
-                            <div class="single-input-item">
-                                <label for="state">State / Divition</label>
-                                <input type="text" id="state" placeholder="State / Divition"/>
-                            </div>
-
-                            <div class="single-input-item">
-                                <label for="postcode" class="required">Postcode / ZIP</label>
-                                <input type="text" id="postcode" placeholder="Postcode / ZIP"/>
-                            </div>
-
-                            <div class="single-input-item">
-                                <label for="phone">Phone</label>
-                                <input type="text" id="phone" placeholder="Phone"/>
-                            </div>
-
-                            <div class="checkout-box-wrap">
-                                <div class="single-input-item">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="create_pwd">
-                                        <label class="custom-control-label" for="create_pwd">Create an account?</label>
-                                    </div>
-                                </div>
-                               
-                            </div>
-
                             <div class="checkout-box-wrap">
                                 <div class="single-input-item">
                                     <div class="custom-control custom-checkbox">
@@ -494,11 +447,7 @@
                                 </div>
                             </div>
 
-                            <div class="single-input-item">
-                                <label for="ordernote">Order Note</label>
-                                <textarea name="ordernote" id="ordernote" cols="30" rows="3"
-                                          placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                            </div>
+                           
                         </form>
                     </div>
                 </div>
