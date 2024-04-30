@@ -204,6 +204,10 @@ ALTER TABLE `loaisanpham`
 ALTER TABLE `manager`
   ADD PRIMARY KEY (`taikhoan`);
 
+-- Du lieu cua bang manager
+INSERT INTO `manager` (`hoten`, `taikhoan`, `matkhau`, `trangthaitk`) VALUES ('Trinh Long Phat', 'longphat102', '0393165728', '1')
+
+
 --
 -- Chỉ mục cho bảng `sanpham`
 --

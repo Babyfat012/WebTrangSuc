@@ -1,3 +1,14 @@
+<?php
+
+    ob_start();
+    session_start();
+    require '../lib/db.inc';
+
+    if($_SESSION['taikhoan'] == "longphat102" && $_SESSION['matkhau'] == "0393165728")
+    {
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +57,18 @@
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
                         <img src="images/faces/face28.jpg" alt="profile"/>
+                        <span>Hello, <?php if(isset($_SESSION['taikhoan'])) {echo $_SESSION['taikhoan'];} ?></span>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item">
+                            <i class="ti-settings text-primary"></i>
+                            Settings
+                        </a>
+                        <a class="dropdown-item" href="dangxuat.php">
+                            <i class="ti-power-off text-primary"></i>
+                            Logout
+                        </a>
+                    </div>
                 </li>
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -74,7 +96,7 @@
                     </a>
                     <div class="collapse" id="auth">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="#"> User management </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachuser"> User management </a></li>
                             <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachdm"> Category management </a></li>
                             <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachsp"> Product management </a></li>
                             <li class="nav-item"> <a class="nav-link" href="#"> Bill management </a></li>
@@ -98,7 +120,7 @@
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="#">Edit</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="#">Log Out</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="dangxuat.php">Log Out</a></li>
                         </ul>
                     </div>
                 </li>
@@ -160,3 +182,9 @@
 
 </html>
 
+<?php
+    }else
+    {
+        header('location: index.php');
+    }
+    ?>

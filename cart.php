@@ -120,7 +120,7 @@
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="compare.html">Compare</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="login-register.html">Login & Register</a></li>
+                                    <li><a href="login-register.php">Login & Register</a></li>
                                     <li><a href="my-account.html">My Account</a></li>
                                     <li><a href="404.html">404 Error</a></li>
                                 </ul>
