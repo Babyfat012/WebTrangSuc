@@ -10,7 +10,7 @@ if(currentUser != null) {
     var replace = document.getElementById("header-right");
     replace.innerHTML =replace.innerHTML = '<div class="header-right-meta text-right">' +
         '<ul>'
-        '    <li><a href="login-register.html"><i class="fa fa-user"></i></a></li>' +
+        '    <li><a href="login-register.php"><i class="fa fa-user"></i></a></li>' +
         '    <li><a href="#" class="modal-active"><i class="fa fa-search"></i></a></li>'+
         '    <li class="settings"><a href="#"><i class="fa fa-cog"></i></a>'+
         '        <div class="site-settings d-block d-sm-flex">'+
@@ -106,7 +106,7 @@ if(currentUser != null) {
 function onClickUserIcon() {
     event.preventDefault();
 
-    window.location.href="login-register.html";
+    window.location.href="login-register.php";
 }
 
 function signup()
@@ -132,7 +132,7 @@ function signup()
     localStorage.setItem("userList",json);
     alert("Register successfully");
 
-    window.location.href="login-register.html";
+    window.location.href="login-register.php";
 
 }
 

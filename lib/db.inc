@@ -2,4 +2,4 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "webtrangsuc";
+    $dbname = "db_jewelry";
