@@ -144,11 +144,15 @@
                     break;
                 case 'editproduct':include_once './editproduct.php';
                     break;
-                case 'danhsachdm':include_once './danhsachdm.php';
+                case 'danhsachuser':include_once './danhsachuser.php';
                     break;
-                case 'themdm':include_once './themdm.php';
+                case 'adduser':include_once './adduser.php';
                     break;
-                case 'suadm':include_once './suadm.php';
+                case 'editUser': include_once './editUser.php';
+                    break;
+                case 'lockUser': include_once './lockUser.php';
+                    break;
+                case 'addProduct': include_once './addProduct.php';
                     break;
             }
         }

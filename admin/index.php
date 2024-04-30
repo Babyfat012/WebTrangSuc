@@ -8,6 +8,7 @@
     {
         $taikhoan = $_POST['taikhoan'];
         $matkhau = $_POST['matkhau'];
+
         if(isset($taikhoan) && isset($matkhau))
         {
             $sql = "SELECT * FROM manager WHERE taikhoan='$taikhoan' AND matkhau='$matkhau'";
