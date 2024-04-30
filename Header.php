@@ -89,18 +89,36 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="settings"><a href="login-register.html" onclick="onClickUserIcon()"><i class="fa fa-user"> Vinh Nguyen</i></a>
-                            <div class="site-settings d-block d-sm-flex">
+                        <?php
+                        if(isset($_SESSION['userName'])){ ?>
+                            <li class="settings"><a href="" onclick="onClickUserIcon()"><i class="fa fa-user"> <?php echo $_SESSION['fullName']?></i></a>
+                        <div class="site-settings d-block d-sm-flex">
+                            <dl class="my-account">
+                                <dt>My Account</dt>
+                                <dd><a href="#">Dashboard</a></dd>
+                                <dd><a href="#">Profile</a></dd>
+                                <dd><a href="logout.php">Sign Out</a></dd>
+                            </dl>
+                        </div>
+                        </li>
+                        <?php
+                        } else {
+                        ?>
+                        <li class="settings" >
+                            <a href="login-register.php#login" ><i class="fa fa-user" style="margin-left: 10px"></i></a>
+                            <div class="site-settings d-block d-sm-flex" ">
                                 <dl class="my-account">
                                     <dt>My Account</dt>
-                                    <dd><a href="#">Dashboard</a></dd>
-                                    <dd><a href="#">Profile</a></dd>
-                                    <dd><a href="#">Sign</a></dd>
+                                    <dd><a href="login-register.php">Sign In</a></dd>
+                                    <dd><a href="#">Sign Up</a></dd>
+
                                 </dl>
-                                
-                               
                             </div>
                         </li>
+                        <?php
+                        }
+                        ?>
+
                        
                     
                     </ul>
