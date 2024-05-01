@@ -1,47 +1,53 @@
 <?php
 require 'lib/DataProvider.php';
-        if(isset($_POST['register-submit'])){
-
-            if(!empty($_POST['userName'])&&!empty($_POST['fullName'])&&!empty($_POST['eMail'])&&!empty($_POST['phoneNumber'])&&!empty($_POST['passWord'])) $userName = $_POST['userName'];
-
-            $userName = trim($_POST['userName']);
-            $fullName =  trim($_POST['fullName']);
-            $eMail = trim($_POST['eMail']);
-            $phoneNumber = trim ($_POST['phoneNumber']);
-            $passWord = trim($_POST['passWord']);
-            $repassWord =  trim($_POST['re-passWord']);
-
-            $passWordHash = password_hash($passWord,PASSWORD_DEFAULT);
-            $sql = "INSERT INTO users (userName , passWord ,eMail ,fullName, phoneNumber) VALUES ('$userName','$passWordHash','$eMail','$fullName','$phoneNumber')";
-            $result = executeQuery($sql);
-            session_start();
-            $_SESSION['userName'] = $userName;
-            $_SESSION['fullName'] = $fullName;
-            $_SESSION['passWord'] = $passWord;
-            header("Location: index.php");
-        }
+if(isset($_POST['register-submit'])) {
+    if (!empty($_POST['userName']) && !empty($_POST['fullName']) && !empty($_POST['eMail']) && !empty($_POST['phoneNumber']) && !empty($_POST['passWord']) && !empty($_POST['houseNumbering']) &&!empty($_POST['city'])&&!!empty($_POST['district'])&&!empty($_POST['ward']) &&!empty(($_POST['streetName']))) {
+        $userName = trim($_POST['userName']);
+        $fullName = trim($_POST['fullName']);
+        $eMail = trim($_POST['eMail']);
+        $phoneNumber = trim($_POST['phoneNumber']);
+        $houseNumbering = trim($_POST['houseNumbering']);
+        $city = $_POST['city'];
+        $district = $_POST['district'];
+        $ward = $_POST['ward'];
+        $streetName = trim($_POST['streetName']);
+        $passWord = trim($_POST['passWord']);
+        $repassWord = trim($_POST['re-passWord']);
+        $passWordHash = password_hash($passWord, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO `khachhang` (hoten , taikhoan ,matkhau ,email, sonha,tenduong,tenquan,tenphuong,tentp,sodienthoai) VALUES ('$fullName','$userName','$passWordHash','$eMail','$houseNumbering','$streetName','$district','$ward','$city','$phoneNumber'";
+        $result = executeQuery($sql);
+        session_start();
+        $_SESSION['userName'] = $userName;
+        $_SESSION['fullName'] = $fullName;
+        $_SESSION['passWord'] = $passWord;
+        header("Location: index.php");
+    }
+}
 ?>
 <?php
-
-        if(isset($_POST['login-submit'])){
-            if(!empty($_POST['userName'])&&!empty($_POST['passWord'])){
-                $userName = $_POST['userName'];
-                $passWord = $_POST['passWord'];
-                $sql = "SELECT * FROM `users` WHERE userName like '$userName'";
-                $result = executeQuery($sql);
-                $user = $result->fetch_assoc();
-                if($user){
-                password_verify($passWord, $user['passWord']);
-                session_start();
-                $_SESSION['userName'] = $user['userName'];
-                $_SESSION['passWord'] = $user['passWord'];
-                $_SESSION['fullName'] = $user['fullName'];
-                //print_r($_SESSION);
-                header('Location:index.php');
-                exit;
-                }
+if(isset($_POST['login-submit'])){
+    if(!empty($_POST['userName'])&&!empty($_POST['passWord'])){
+        $userName = $_POST['userName'];
+        $passWord = $_POST['passWord'];
+        $sql = "SELECT * FROM `khachang` WHERE taikhoan like '$userName'";
+        $result = executeQuery($sql);
+        $user = $result->fetch_assoc();
+        if($user){
+            password_verify($passWord, $user['passWord']);
+            session_start();
+            $_SESSION['userName'] = $user['userName'];
+            $_SESSION['passWord'] = $user['passWord'];
+            $_SESSION['fullName'] = $user['fullName'];
+            //print_r($_SESSION);
+            header('Location:index.php');
+            exit;
+        }
+    }
 }
-
+?>
+<?php
+if(!empty($_SESSION['userName'])){
+    header('Location: index.php');
 }
 ?>
 
@@ -76,8 +82,6 @@ require 'lib/DataProvider.php';
 
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
-
-
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -114,7 +118,7 @@ require 'lib/DataProvider.php';
                             <li class="dropdown-show"><a href="#">Shop</a>
                                 <ul class="mega-menu-wrap dropdown-nav">
                                     <li class="mega-menu-item"><a href="shop.html" class="mega-item-title">Shop
-                                        Layout</a>
+                                            Layout</a>
                                         <ul>
                                             <li><a href="shop.html">Shop Left Sidebar</a></li>
                                             <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
@@ -125,7 +129,7 @@ require 'lib/DataProvider.php';
                                     </li>
 
                                     <li class="mega-menu-item"><a href="single-product.html" class="mega-item-title">Single
-                                        Products</a>
+                                            Products</a>
                                         <ul>
                                             <li><a href="single-product.html">Single Product</a></li>
                                             <li><a href="single-product-normal.html">Single Product Normal</a></li>
@@ -332,20 +336,16 @@ require 'lib/DataProvider.php';
                         <a id="register-tab" data-toggle="tab" href="#register">Register</a>
                     </nav>
                     <!-- Login & Register tab Menu -->
-
                     <div class="tab-content" id="login-reg-tabcontent">
                         <div class="tab-pane fade show active" id="login" role="tabpanel">
                             <div class="login-reg-form-wrap">
-
                                 <form action="login-register.php" method="post" id="form-login" >
                                     <div class="single-input-item">
                                         <input id="login-username" type="text" name="userName" placeholder="Enter Username" required/>
                                     </div>
-
                                     <div class="single-input-item">
                                         <input id="login-password" type="password" name ="passWord"placeholder="Enter your Password" required />
                                     </div>
-
                                     <div class="single-input-item">
                                         <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
                                             <div class="remember-meta">
@@ -355,7 +355,6 @@ require 'lib/DataProvider.php';
                                                         Me</label>
                                                 </div>
                                             </div>
-
                                             <a href="#" class="forget-pwd">Forget Password?</a>
                                         </div>
                                     </div>
@@ -370,7 +369,6 @@ require 'lib/DataProvider.php';
 
                         <div class="tab-pane fade" id="register" role="tabpanel">
                             <div class="login-reg-form-wrap">
-
                                 <form  action="login-register.php" method="post"  id="form-register" onsubmit="return checkForm()">
                                     <div class="single-input-item">
                                         <input id="userName" name="userName" type="text" placeholder="User Name" required>
@@ -380,7 +378,6 @@ require 'lib/DataProvider.php';
                                         <input id="fullName" name="fullName" type="text" placeholder="Full Name" required/>
                                         <div id="error_fullname"></div>
                                     </div>
-
                                     <div class="single-input-item">
                                         <input id="eMail" name="eMail" type="email" placeholder="Enter Your Email" required/>
                                         <div id="error_email"></div>
@@ -390,7 +387,35 @@ require 'lib/DataProvider.php';
                                         <input id="phoneNumber" name="phoneNumber" type="text" placeholder="Phone Number" required>
                                         <div id="error_phonenumber"></div>
                                     </div>
-
+                                    <div class="single-input-item">
+                                        <input id="houseNumbering" name="houseNumbering" type="text" placeholder="House Numbering" required>
+                                        <div id=""></div>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <label for="city">City Name</label>
+                                        <select id="city" name="city" style="display: inline-block" onchange="checkDistrict()">
+                                            <option value=""> Select a city</option>
+                                            <option value ="hcm" name="hcm">Ho Chi Minh City</option>
+                                            <option value ="hn" name="hn">Ha Noi City</option>
+                                            <option value ="dn" name ="dn">Da Nang City</option>
+                                            <option value ="ct" name = "ct">Can Tho City</option>
+                                        </select>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <label for="district">District Name</label>
+                                        <select id="district" name="district" style="display: inline-block" onchange="checkWard()">
+                                            <option value=""> Select a District</option>
+                                        </select>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <label for="ward">Ward Name</label>
+                                        <select id="ward" name="ward" style="display: inline-block">
+                                            <option value=""> Select a ward</option>
+                                        </select>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <input id="streetName" name="streetName" type="text" placeholder="Street Name" required>
+                                    </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
@@ -656,7 +681,7 @@ require 'lib/DataProvider.php';
         else{
             document.getElementById('error_password').style.display = "none"}
         <?php
-        $checkSql = "select * from users";
+        $checkSql = "select * from `khachhang`";
         $result = executeQuery($checkSql);
         if($result->num_rows > 0)
         {
@@ -673,6 +698,61 @@ require 'lib/DataProvider.php';
         ?>
         return flag
     }
+</script>
+<script>
+   var districts = {
+       hcm : ['Tan Phu','Phu Nhuan','Tan Binh'],
+       dn : ['Hai Chau','Cam Le','Thanh Khe'],
+       hn : ['Cau Giay ','Hoan Kiem','Dong Da'],
+       ct :['Binh Thuy','Cai Rang','Ninh Kieu']
+   };
+   var wards = {
+       'Tan Binh': ['Ward 9','Ward 10'],
+       'Phu Nhuan': ['Ward 1','Ward 2'],
+       'Tan Phu' : ['Tan Son Nhi','Tay Thanh'],
+       'Hai Chau' : ['Thach Thanh','Thanh Binh'],
+       'Cam Le' : [ 'Khue Trung', 'Hoa Phat'],
+       'Thanh Khe' : ['Vinh Trung', 'Tan Chinh'],
+       'Cau Giay ' : ['Nghia Do','Nghia Tan'],
+       'Hoan Kiem' : ['Cua Dong','Cua Nam'],
+       'Dong Da' : ['Lang Thuong','Kim Lien'],
+       'Binh Thuy': ['Binh Thuy','Tra An'],
+       'Cai Rang' : ['Le Binh', 'Hung Phu'],
+       'Ninh Kieu' : ['An Binh','An Cu']
+   };
+   var citySelection = document.getElementById('city')
+   var districtSelection = document.getElementById('district')
+   var wardSelection = document.getElementById('ward')
+   function checkDistrict(){
+       districtSelection.innerHTML='<option value ="">Select a District</option>'
+       wardSelection.innerHTML = '<option value=""> Select a Ward </option>'
+
+       var selectedCity = citySelection.value;
+       if(selectedCity){
+           var selectedDistrict = districts[selectedCity]
+           selectedDistrict.forEach(function (district){
+               var option = document.createElement("option")
+               option.value = district
+               option.text =district
+               districtSelection.appendChild(option)
+           })
+       }
+   }
+   function checkWard(){
+       wardSelection.innerHTML = '<option value="">Select a Ward </option>'
+       var selectedDistrict = districtSelection.value
+       if(selectedDistrict){
+           var selectedWard = wards[selectedDistrict]
+           selectedWard.forEach(function (ward){
+               var option = document.createElement("option")
+               option.value = ward
+               option.text = ward
+               wardSelection.appendChild(option)
+           })
+       }
+   }
+
+
 </script>
 <!--=== Jquery Min Js ===-->
 <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>

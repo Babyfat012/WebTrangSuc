@@ -9,9 +9,7 @@
     }
     if(isset($_SESSION['cart']))
         var_dump($_SESSION['cart']);
-    
-    
-    
+
     $rowsPerPage = 6;
     $pageNum = 1;
     $self ="shop.php";
