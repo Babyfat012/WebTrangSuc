@@ -14,6 +14,11 @@
         if(!isset($_SESSION['cart'])){
             $_SESSION['cart'] = [];
         }
+        $sql = "SELECT * FROM sanpham WHERE idsanpham = '$id' ";
+        $result = executeQuery($sql);
+        $row = $result->fetch_array();
+        $sql = "UPDATE sanpham SET soluong =". ($row['soluong']-$quantity) ." WHERE idsanpham = '$id' ";
+        executeQuery($sql);
         $flag = true;
         $product = [$id,$quantity];
         for($i = 0; $i < count($_SESSION['cart']); $i++){
@@ -27,8 +32,12 @@
         }
         else
             $_SESSION['cart'][$i][1] += $quantity;
-       
-        
+    }
+    
+   
+    function isCartEmpty()
+    {
+        if(isset($_SESSION['cart'])){}
     }
     
     ?>
