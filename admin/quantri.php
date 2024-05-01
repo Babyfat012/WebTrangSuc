@@ -97,9 +97,8 @@
                     <div class="collapse" id="auth">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachuser"> User management </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachdm"> Category management </a></li>
                             <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachsp"> Product management </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="#"> Bill management </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachbill"> Bill management </a></li>
                         </ul>
                     </div>
                 </li>
@@ -140,8 +139,6 @@
             {
                 case 'danhsachsp':include_once './danhsachsp.php';
                     break;
-                case 'themsp':include_once './themsp.php';
-                    break;
                 case 'editproduct':include_once './editproduct.php';
                     break;
                 case 'danhsachuser':include_once './danhsachuser.php';
@@ -153,6 +150,8 @@
                 case 'lockUser': include_once './lockUser.php';
                     break;
                 case 'addProduct': include_once './addProduct.php';
+                    break;
+                case 'danhsachbill': include_once './danhsachbill.php';
                     break;
             }
         }
