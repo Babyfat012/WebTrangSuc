@@ -3,11 +3,14 @@
     ob_start();
     session_start();
     require '../lib/db.inc';
-
-    if($_SESSION['taikhoan'] == "longphat102" && $_SESSION['matkhau'] == "0393165728")
+    require '../lib/lib.php';
+    if(empty($_SESSION['taikhoan']))
     {
-
+        header('location: index.php');
+    }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -96,9 +99,10 @@
                     </a>
                     <div class="collapse" id="auth">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachuser"> User management </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachsp"> Product management </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachbill"> Bill management </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachuser"> Customer Management </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachsp"> Product Management </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachbill"> Bill Management </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=danhsachadmin"> Admin Management </a></li>
                         </ul>
                     </div>
                 </li>
@@ -118,6 +122,7 @@
                     </a>
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=dangky">Add</a></li>
                             <li class="nav-item"> <a class="nav-link" href="#">Edit</a></li>
                             <li class="nav-item"> <a class="nav-link" href="dangxuat.php">Log Out</a></li>
                         </ul>
@@ -153,6 +158,10 @@
                     break;
                 case 'danhsachbill': include_once './danhsachbill.php';
                     break;
+                case 'dangky': include_once './dangky.php';
+                    break;
+                case 'danhsachadmin': include_once './danhsachadmin.php';
+                    break;
             }
         }
         else
@@ -184,10 +193,3 @@
 </body>
 
 </html>
-
-<?php
-    }else
-    {
-        header('location: index.php');
-    }
-    ?>

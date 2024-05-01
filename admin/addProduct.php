@@ -1,6 +1,7 @@
 <?php
-    include '../lib/lib.php';
-    $folder = "assets/img/";
+
+    $folder = "../assets/img/";
+
   if(isset($_POST['submitBtn']) ){
 
       $name = $_POST['name'];
@@ -82,7 +83,7 @@
       move_uploaded_file($_FILES["pic"]["tmp_name"], $target_file);
       
       echo $ID;
-      header("location: addToCart.php");
+      header("location: quantri.php?page_layout=danhsachsp");
   }
     ?>
 <html>
@@ -94,38 +95,61 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">ADD PRODUCT</h4>
+                <form class="forms-sample" action="quantri.php?page_layout=addProduct" enctype="multipart/form-data" method="post" onsubmit="return check()">
+                    <div class="form-group">
+                        <div id="displayImg"></div>
+                        <label for="pic">File upload</label>
+                        <input type="file" name="pic" accept=".jpg, .png, .gif, .jpeg" id="pic" required onchange="ImagesFileAsURL()">
+                    </div>
 
-    <form action="addProduct.php" enctype="multipart/form-data" method="post" onsubmit="return check()">
-        <table>
-            <tr>
-                <td></td>
-                <td>
-                    <div id="displayImg"></div>
-                </td>
-            </tr>
-            <tr>
-                <td><label for="pic">Photo:</label> </td>
-                <td> <input type="file" name="pic" accept=".jpg, .png, .gif, .jpeg" id="pic" required onchange="ImagesFileAsURL()"> </td>
-            </tr>
-            
-           
-            
-            <tr>
-                <td><label for="name">Product's name</label> </td>
-                <td> <input type="text" name="name" required> </td>
-            </tr>
-            
-            <tr>
-                <td><label for="stock">STOCK</label> </td>
-                <td> <input type="text" name="stock" id="stock" required> </td>
-                <td id="errorStock"></td>
-            </tr>
-            
-            <tr>
-                <td><label for="type">TYPE:</label> </td>
-                <td> <select name="type" id="type" required>
-                        <option value="-1">Chon loai san pham</option>
-                        <?php
+                    <div class="form-group">
+                        <label for="name">NAME</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">QUANTITY</label>
+                        <input type="text" name="stock" id="stock"  class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">PRICE</label>
+                        <input type="text" name="price" id="price" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="material">MATERIAL</label>
+                        <input type="text" name="material" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="color">COLOR</label>
+                        <input type="text" name="color" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="size">SIZE</label>
+                        <input type="text" name="size" id="size" class="form-control" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="gender">GENDER</label>
+                        <select class="form-control form-control-lg" name="gender" id="gender">
+                            <option value="-1" selected>Select gender</option>
+                            <option value="F" >Women</option>
+                            <option value="M" >Men</option>
+                            <option value="U" >Unisex</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">TYPE</label>
+                        <select class="form-control form-control-lg" name="type" id="type" required>
+                            <option value="-1">Select type</option>
+                            <?php
                             $sql = "SELECT * FROM loaisanpham";
                             $result = executeQuery($sql);
                             if($result->num_rows > 0){
@@ -134,62 +158,20 @@
                                     echo("<option value='$row[malsp]'>$row[tenloaisp]</option>");
                                 }
                             }
-                        ?>
-                    </select>
-                </td>
-                <td id="errorType"></td>
+                            ?>
+                        </select>
+                    </div>
 
-            </tr>
-            
-            <tr>
-                <td><label for="price">PRICE</label> </td>
-                <td> <input type="text" name="price" id="price" required> </td>
-                <td id="errorPrice"></td>
-            </tr>
-
-            <tr>
-                <td><label for="gender">GENDER</label> </td>
-                <td> <select name="gender" id="gender">
-                        <option value="-1" selected>Select gender</option>
-                        <option value="F" >Women</option>
-                        <option value="M" >Men</option>
-                        <option value="U" >Unisex</option>
-                    </select> </td>
-                <td id="errorGender"></td>
-            </tr>
-
-            <tr>
-                <td><label for="material">MATERIAL</label> </td>
-                <td> <input type="text" name="material" required> </td>
-
-            </tr>
-
-            <tr>
-                <td><label for="color">COLOR</label> </td>
-                <td> <input type="text" name="color" required> </td>
-            </tr>
-
-            <tr>
-                <td><label for="size">SIZE</label> </td>
-                <td> <input type="text" name="size" id="size" required> </td>
-                <td id="errorSize"></td>
-            </tr>
-
-            <tr>
-                <td><label for="desc">DESCRIPTION</label> </td>
-                <td> <textarea style="width:300px; height: 200px" id="desc" name="desc"></textarea> </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="submit" value="submit" name="submitBtn">
-                </td>
-            </tr>
-        </table>
-
-    </form>
-
-
+                    <div class="form-group">
+                        <label for="desc">DESCRIPTION</label>
+                        <textarea class="form-control" id="desc" name="desc" rows="4"></textarea>
+                    </div>
+                    <button type="submit" value="submit" name="submitBtn" class="btn btn-primary me-2">Edit</button>
+                    <button class="btn btn-light">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
     <script>
 
         function check(){

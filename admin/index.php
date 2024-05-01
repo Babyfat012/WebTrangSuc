@@ -6,32 +6,35 @@
 
     if(isset($_POST['submit']))
     {
-        $taikhoan = $_POST['taikhoan'];
-        $matkhau = $_POST['matkhau'];
-
-        if(isset($taikhoan) && isset($matkhau))
+        if(isset($_POST['taikhoan']) && isset($_POST['matkhau']))
         {
-            $sql = "SELECT * FROM manager WHERE taikhoan='$taikhoan' AND matkhau='$matkhau'";
+            $taikhoan = $_POST['taikhoan'];
+            $matkhau = $_POST['matkhau'];
+            $sql = "SELECT * FROM `manager` WHERE taikhoan like '$taikhoan'";
             $result = executeQuery($sql);
-            if($result->num_rows > 0)
+            $user = $result->fetch_assoc();
+            if($user)
             {
-                $_SESSION['taikhoan'] = $taikhoan;
-                $_SESSION['matkhau'] = $matkhau;
-                header('location: quantri.php');
-            }
-            else if($taikhoan == '')
-            {
-                echo '<script>alert("Please enter username.");</script>';
 
-            }
-            else if($matkhau == '')
-            {
-                echo '<script>alert("Please enter password.");</script>';
+
+                if(md5($matkhau) == $user['matkhau'])
+                {
+                    $_SESSION['taikhoan'] = $user['taikhoan'];
+                    header('location: quantri.php');
+                }
+                else
+                {
+                    echo '<script>';
+                    echo 'alert("Wrong username or password.");';
+                    echo '</script>';
+                }
 
             }
             else
             {
-                echo '<script>alert("Invalid account. Please try again.");</script>';
+                echo '<script>';
+                echo 'alert("Wrong username or password.");';
+                echo '</script>';
             }
         }
     }
@@ -73,7 +76,7 @@
                     if(!isset($_SESSION['taikhoan']))
                     {
                 ?>
-              <form class="pt-3" action="" method="post">
+              <form class="pt-3" action="index.php" method="post" onsubmit="return validateForm()">
                 <div class="form-group">
                   <input type="text" id="taikhoan" name="taikhoan" class="form-control form-control-lg" placeholder="Username">
                 </div>

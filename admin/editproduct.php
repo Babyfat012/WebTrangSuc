@@ -1,7 +1,6 @@
 <?php
 
-require'../lib/DataProvider.php';
-$folder = "../assets/img/";
+    $folder = "../assets/img/";
 
 if(isset($_GET['edit_id']))
 {
@@ -10,20 +9,20 @@ if(isset($_GET['edit_id']))
     $result =executeQuery($sql);
     $row = $result->fetch_array();
     $gender = $row['gioitinh'];
-    $type = $row['maloaisp'];
-    switch ($type)
-    {
-        case 'BRL':
-            $folder = $folder . "Bracelet/";
-            break;
-        case 'NKL':
-            $folder = $folder . "Necklace/";
-            break;
-        case 'RG':
-            $folder = $folder . "Ring/";
-            break;
-    }
-    $image = $row['hinhanh'];
+        $type = $row['maloaisp'];
+        switch ($type)
+        {
+            case 'BRL':
+                $folder = $folder . "Bracelet/";
+                break;
+            case 'NKL':
+                $folder = $folder . "Necklace/";
+                break;
+            case 'RG':
+                $folder = $folder . "Ring/";
+                break;
+        }
+        $image = $row['hinhanh'];
 }
 ?>
 
@@ -70,6 +69,7 @@ if(isset($_GET['edit_id']))
                     <input type="text" name="size" class="form-control" value="<?php echo $row['kichthuoc']; ?>" required>
                 </div>
 
+                <input type="hidden" name="type" value="<?php echo $row['maloaisp']; ?>">
 
                 <?php
                 function isCheckedGender($value, $gender)
@@ -89,26 +89,6 @@ if(isset($_GET['edit_id']))
                         <option value="F" <?php isCheckedGender("F",$gender); ?>>Women</option>
                         <option value="M" <?php isCheckedGender("M",$gender); ?>>Men</option>
                         <option value="U" <?php isCheckedGender("U",$gender); ?>>Unisex</option>
-                    </select>
-                </div>
-
-                <?php
-                function isCheckedType($value, $type)
-                {
-                    if($value === $type)
-                    {
-                        echo "selected";
-                    }
-                }
-                ?>
-
-                <div class="form-group">
-                    <label for="type">TYPE</label>
-                    <select class="form-control form-control-lg" id="type" name="type">
-                        <option value="-1">Select type</option>
-                        <option value="BRL" <?php isCheckedType("BRL",$type); ?>>Bracelet</option>
-                        <option value="NKL" <?php isCheckedType("NKL",$type); ?>>Necklace</option>
-                        <option value="RG" <?php isCheckedType("RG",$type); ?>>Ring</option>
                     </select>
                 </div>
 

@@ -1,5 +1,4 @@
 <?php
-require'../lib/DataProvider.php';
 
 $sql = "SELECT * FROM khachhang";
 

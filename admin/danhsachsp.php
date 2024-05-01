@@ -1,6 +1,5 @@
 <?php
 
-    require'../lib/DataProvider.php';
 
     if(isset($_GET['del_id']))
     {
