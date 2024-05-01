@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
 
-    <title>Compare Product :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
+    <title>Dashboard :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
 
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
@@ -95,7 +95,7 @@
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="compare.html">Compare</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="login-register.php">Login & Register</a></li>
+                                    <li><a href="login-register.html">Login & Register</a></li>
                                     <li><a href="my-account.html">My Account</a></li>
                                     <li><a href="404.html">404 Error</a></li>
                                 </ul>
@@ -318,11 +318,10 @@
         <div class="row">
             <div class="col-12 text-center">
                 <div class="page-title-content">
-                    <h1>Compare</h1>
+                    <h1>Dashboard</h1>
                     <ul class="breadcrumb">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="shop-left-full-wide.html">Shop</a></li>
-                        <li><a href="compare.html" class="active">Compare</a></li>
+                        <li><a href="login-register.html" class="active">Dashboard</a></li>
                     </ul>
                 </div>
             </div>
@@ -333,118 +332,347 @@
 
 <!--== Page Content Wrapper Start ==-->
 <div id="page-content-wrapper" class="p-9">
-    <div class="ruby-container">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <!-- Compare Page Content Start -->
-                <div class="compare-page-content-wrap">
-                    <div class="compare-table table-responsive">
-                        <table class="table table-bordered mb-0">
-                            <tbody>
-                            <tr>
-                                <td class="first-column">Product</td>
-                                <td class="product-image-title">
-                                    <a href="single-product.html" class="image"><img class="img-fluid"
-                                                                                     src="assets/img/product-1.jpg"
-                                                                                     alt="Compare Product"></a>
-                                    <a href="#" class="category">Daimond</a>
-                                    <a href="#" class="title">Zeon Zen 4 Pro</a>
-                                </td>
-                                <td class="product-image-title">
-                                    <a href="single-product.html" class="image"><img class="img-fluid"
-                                                                                     src="assets/img/product-2.jpg"
-                                                                                     alt="Compare Product"></a>
-                                    <a href="#" class="category">Gold</a>
-                                    <a href="#" class="title">Aquet Doren D 420</a>
-                                </td>
-                                <td class="product-image-title">
-                                    <a href="single-product.html" class="image"><img class="img-fluid"
-                                                                                     src="assets/img/product-3.jpg"
-                                                                                     alt="Compare Product"></a>
-                                    <a href="#" class="category">Ring</a>
-                                    <a href="#" class="title">Game Station X 22</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="first-column">Description</td>
-                                <td class="pro-desc">
-                                    <p>Samsome Note Book Pro 5 is an the best Laptop on this budgeted. You can satisfied
-                                        after usign this laptop. It’s performance is awesome.</p>
-                                </td>
-                                <td class="pro-desc">
-                                    <p>Samsome Note Book Pro 5 is an the best Laptop on this budgeted. You can satisfied
-                                        after usign this laptop. It’s performance is awesome.</p>
-                                </td>
-                                <td class="pro-desc">
-                                    <p>Samsome Note Book Pro 5 is an the best Laptop on this budgeted. You can satisfied
-                                        after usign this laptop. It’s performance is awesome.</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="first-column">Price</td>
-                                <td class="pro-price">$295</td>
-                                <td class="pro-price">$275</td>
-                                <td class="pro-price">$395</td>
-                            </tr>
-                            <tr>
-                                <td class="first-column">Color</td>
-                                <td class="pro-color">Black</td>
-                                <td class="pro-color">Red</td>
-                                <td class="pro-color">Blue</td>
-                            </tr>
-                            <tr>
-                                <td class="first-column">Stock</td>
-                                <td class="pro-stock">In Stock</td>
-                                <td class="pro-stock">Stock Out</td>
-                                <td class="pro-stock">In Stock</td>
-                            </tr>
-                            <tr>
-                                <td class="first-column">Add to cart</td>
-                                <td><a href="single-product.html" class="btn-add-to-cart">Add to Cart</a></td>
-                                <td><a href="single-product.html" class="btn-add-to-cart">Add to Cart</a></td>
-                                <td><a href="single-product.html" class="btn-add-to-cart">Add to Cart</a></td>
-                            </tr>
-                            <tr>
-                                <td class="first-column">Delete</td>
-                                <td class="pro-remove">
-                                    <button><i class="fa fa-trash-o"></i></button>
-                                </td>
-                                <td class="pro-remove">
-                                    <button><i class="fa fa-trash-o"></i></button>
-                                </td>
-                                <td class="pro-remove">
-                                    <button><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="first-column">Rating</td>
-                                <td class="pro-ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </td>
-                                <td class="pro-ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </td>
-                                <td class="pro-ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                <!-- My Account Page Start -->
+                <div class="myaccount-page-wrapper">
+                    <!-- My Account Tab Menu Start -->
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="myaccount-tab-menu nav" role="tablist">
+                                <a href="#dashboad" class="active" data-toggle="tab"><i class="fa fa-dashboard"></i>
+                                    Dashboard</a>
+
+                                <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
+
+                                <a href="#download" data-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
+
+                                <a href="#payment-method" data-toggle="tab"><i class="fa fa-credit-card"></i> Payment
+                                    Method</a>
+
+                                <a href="#address" data-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
+
+                                <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
+
+                                <a href="login-register.html"><i class="fa fa-sign-out"></i> Logout</a>
+                            </div>
+                        </div>
+                        <!-- My Account Tab Menu End -->
+
+                        <!-- My Account Tab Content Start -->
+                        <div class="col-lg-9 mt-5 mt-lg-0">
+                            <div class="tab-content" id="myaccountContent">
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Dashboard</h3>
+
+                                        <div class="welcome">
+                                            <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong><a
+                                                    href="login-register.html" class="logout"> Logout</a>)</p>
+                                        </div>
+
+                                        <p class="mb-0">From your account dashboard. you can easily check & view your
+                                            recent orders, manage your shipping and billing addresses and edit your
+                                            password and account details.</p>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="orders" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Orders</h3>
+
+                                        <div class="myaccount-table table-responsive text-center">
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th>Order</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <thead>
+                                                <tr>
+                                                    <th>1</th>
+                                                    <th>Aug 22, 2018</th>
+                                                    <th>Pending</th>
+                                                    <th>$3000</th>
+                                                    <th><a href="cart.html" class="btn-add-to-cart">View</a></th>
+                                                </tr>
+                                                </thead>
+
+                                                <tr>
+                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
+                                                                                               alt="Product"/></a></td>
+                                                    <td  colspan="4">
+                                                        <a href="#"><h4>Chain Bracelet</h4></a>
+                                                        <hr>
+                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
+                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
+                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
+                                                                                                                  alt="Product"/></a></td>
+                                                    <td  colspan="4">
+                                                        <a href="#"><h4>Chain Bracelet</h4></a>
+                                                        <hr>
+                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
+                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
+                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
+                                                    </td>
+                                                </tr>
+                                                
+                                                </tbody>
+                                            </table>
+
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th>Order</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <thead>
+                                                <tr>
+                                                    <th>1</th>
+                                                    <th>Aug 22, 2018</th>
+                                                    <th>Pending</th>
+                                                    <th>$3000</th>
+                                                    <th><a href="cart.html" class="btn-add-to-cart">View</a></th>
+                                                </tr>
+                                                </thead>
+
+                                                <tr>
+                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
+                                                                                                                  alt="Product"/></a></td>
+                                                    <td  colspan="4">
+                                                        <a href="#"><h4>Chain Bracelet</h4></a>
+                                                        <hr>
+                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
+                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
+                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
+                                                                                                                  alt="Product"/></a></td>
+                                                    <td  colspan="4">
+                                                        <a href="#"><h4>Chain Bracelet</h4></a>
+                                                        <hr>
+                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
+                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
+                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
+                                                    </td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th>Order</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <thead>
+                                                <tr>
+                                                    <th>1</th>
+                                                    <th>Aug 22, 2018</th>
+                                                    <th>Pending</th>
+                                                    <th>$3000</th>
+                                                    <th><a href="cart.html" class="btn-add-to-cart">View</a></th>
+                                                </tr>
+                                                </thead>
+
+                                                <tr>
+                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
+                                                                                                                  alt="Product"/></a></td>
+                                                    <td  colspan="4">
+                                                        <a href="#"><h4>Chain Bracelet</h4></a>
+                                                        <hr>
+                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
+                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
+                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
+                                                                                                                  alt="Product"/></a></td>
+                                                    <td  colspan="4">
+                                                        <a href="#"><h4>Chain Bracelet</h4></a>
+                                                        <hr>
+                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
+                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
+                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
+                                                    </td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="download" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Downloads</h3>
+
+                                        <div class="myaccount-table table-responsive text-center">
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Date</th>
+                                                    <th>Expire</th>
+                                                    <th>Download</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                <tr>
+                                                    <td>Haven - Free Real Estate PSD Template</td>
+                                                    <td>Aug 22, 2018</td>
+                                                    <td>Yes</td>
+                                                    <td><a href="#" class="btn-add-to-cart">Download File</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>HasTech - Profolio Business Template</td>
+                                                    <td>Sep 12, 2018</td>
+                                                    <td>Never</td>
+                                                    <td><a href="#" class="btn-add-to-cart">Download File</a></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="payment-method" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Payment Method</h3>
+
+                                        <p class="saved-message">You Can't Saved Your Payment Method yet.</p>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="address" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Billing Address</h3>
+
+                                        <address>
+                                            <p><strong>Alex Tuntuni</strong></p>
+                                            <p>1355 Market St, Suite 900 <br>
+                                                San Francisco, CA 94103</p>
+                                            <p>Mobile: (123) 456-7890</p>
+                                        </address>
+
+                                        <a href="#" class="btn-add-to-cart d-inline-block"><i class="fa fa-edit"></i>
+                                            Edit Address</a>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="account-info" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Account Details</h3>
+
+                                        <div class="account-details-form">
+                                            <form action="#">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="first-name" class="required">First Name</label>
+                                                            <input type="text" id="first-name"
+                                                                   placeholder="First Name"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="last-name" class="required">Last Name</label>
+                                                            <input type="text" id="last-name" placeholder="Last Name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="single-input-item">
+                                                    <label for="display-name" class="required">Display Name</label>
+                                                    <input type="text" id="display-name" placeholder="Display Name"/>
+                                                </div>
+
+                                                <div class="single-input-item">
+                                                    <label for="email" class="required">Email Addres</label>
+                                                    <input type="email" id="email" placeholder="Email Address"/>
+                                                </div>
+
+                                                <fieldset>
+                                                    <legend>Password change</legend>
+                                                    <div class="single-input-item">
+                                                        <label for="current-pwd" class="required">Current
+                                                            Password</label>
+                                                        <input type="password" id="current-pwd"
+                                                               placeholder="Current Password"/>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="single-input-item">
+                                                                <label for="new-pwd" class="required">New
+                                                                    Password</label>
+                                                                <input type="password" id="new-pwd"
+                                                                       placeholder="New Password"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="single-input-item">
+                                                                <label for="confirm-pwd" class="required">Confirm
+                                                                    Password</label>
+                                                                <input type="password" id="confirm-pwd"
+                                                                       placeholder="Confirm Password"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+
+                                                <div class="single-input-item">
+                                                    <button class="btn-login btn-add-to-cart">Save Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+                            </div>
+                        </div>
+                        <!-- My Account Tab Content End -->
                     </div>
                 </div>
-                <!-- Compare Page Content End -->
+                <!-- My Account Page End -->
             </div>
         </div>
     </div>

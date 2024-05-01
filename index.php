@@ -1,7 +1,6 @@
 <?php
     session_start();
     require "lib/DataProvider.php";
-    session_start();
 
 ?>
 

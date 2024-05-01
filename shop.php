@@ -9,9 +9,7 @@
     }
     if(isset($_SESSION['cart']))
         var_dump($_SESSION['cart']);
-    
-    
-    
+
     $rowsPerPage = 6;
     $pageNum = 1;
     $self ="shop.php";
@@ -399,11 +397,10 @@
                             <div class="products-wrapper">
                                 <div class="row">
                                     <?php
-                                        $sql = "SELECT * FROM sanpham";
+                                        $sql = "SELECT * FROM sanpham WHERE (soluong > 0)";
                                         if($where != '')
-                                            $sql .= " WHERE " . $where;
-                                        
-                                           $sql .= " LIMIT $offset, $rowsPerPage";
+                                            $sql .= " AND" . $where;
+                                        $sql .= " LIMIT $offset, $rowsPerPage";
                                         $result = ExecuteQuery($sql);
                                         if($result->num_rows > 0){
                                             while($row = $result->fetch_array()){
@@ -455,7 +452,7 @@
                                     <?php
                                         $sql = "SELECT COUNT(*) AS numrows FROM sanpham";
                                         if($where!='')
-                                            $sql .= " WHERE " . $where;
+                                            $sql .= " WHERE " . $where . " AND (soluong > 0)";
                                         $result = ExecuteQuery($sql);
                                         $row = $result->fetch_array();
                                         

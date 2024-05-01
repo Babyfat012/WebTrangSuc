@@ -110,7 +110,7 @@
                                 <dl class="my-account">
                                     <dt>My Account</dt>
                                     <dd><a href="login-register.php">Sign In</a></dd>
-                                    <dd><a href="#">Sign Up</a></dd>
+                                    <dd><a href="login-register.php">Sign Up</a></dd>
 
                                 </dl>
                             </div>

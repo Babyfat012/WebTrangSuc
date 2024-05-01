@@ -1,65 +1,31 @@
 <?php
-require 'lib/DataProvider.php';
-if(isset($_POST['register-submit'])) {
-    if (!empty($_POST['userName']) && !empty($_POST['fullName']) && !empty($_POST['eMail']) && !empty($_POST['phoneNumber']) && !empty($_POST['passWord']) && !empty($_POST['houseNumbering']) &&!empty($_POST['city'])&&!!empty($_POST['district'])&&!empty($_POST['ward']) &&!empty(($_POST['streetName']))) {
-        $userName = trim($_POST['userName']);
-        $fullName = trim($_POST['fullName']);
-        $eMail = trim($_POST['eMail']);
-        $phoneNumber = trim($_POST['phoneNumber']);
-        $houseNumbering = trim($_POST['houseNumbering']);
-        $city = $_POST['city'];
-        $district = $_POST['district'];
-        $ward = $_POST['ward'];
-        $streetName = trim($_POST['streetName']);
-        $passWord = trim($_POST['passWord']);
-        $repassWord = trim($_POST['re-passWord']);
-        $passWordHash = password_hash($passWord, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `khachhang` (hoten , taikhoan ,matkhau ,email, sonha,tenduong,tenquan,tenphuong,tentp,sodienthoai) VALUES ('$fullName','$userName','$passWordHash','$eMail','$houseNumbering','$streetName','$district','$ward','$city','$phoneNumber'";
-        $result = executeQuery($sql);
-        session_start();
-        $_SESSION['userName'] = $userName;
-        $_SESSION['fullName'] = $fullName;
-        $_SESSION['passWord'] = $passWord;
-        header("Location: index.php");
+    session_start();
+    require 'lib/lib.php';
+    if(isset($_GET['delProduct']) && isset($_GET['delProduct']) >= 0)
+    {
+        $index = $_GET['delProduct'];
+        $sql1 = "SELECT * FROM sanpham WHERE idsanpham = '".$_SESSION['cart'][$index][0]."'";
+        $result = executeQuery($sql1);
+        $row = $result->fetch_array();
+        
+        $sql2 = "UPDATE sanpham SET soluong = ". ($row['soluong'] + $_SESSION['cart'][$index][1]) ." WHERE idsanpham = '".$_SESSION['cart'][$index][0] . "'";
+        executeQuery($sql2);
+        array_splice($_SESSION['cart'],$_GET['delProduct'],1);
+        header('location:cart.php');
     }
-}
-?>
-<?php
-if(isset($_POST['login-submit'])){
-    if(!empty($_POST['userName'])&&!empty($_POST['passWord'])){
-        $userName = $_POST['userName'];
-        $passWord = $_POST['passWord'];
-        $sql = "SELECT * FROM `khachang` WHERE taikhoan like '$userName'";
-        $result = executeQuery($sql);
-        $user = $result->fetch_assoc();
-        if($user){
-            password_verify($passWord, $user['passWord']);
-            session_start();
-            $_SESSION['userName'] = $user['userName'];
-            $_SESSION['passWord'] = $user['passWord'];
-            $_SESSION['fullName'] = $user['fullName'];
-            //print_r($_SESSION);
-            header('Location:index.php');
-            exit;
-        }
-    }
-}
-?>
-<?php
-if(!empty($_SESSION['userName'])){
-    header('Location: index.php');
-}
-?>
+    var_dump($_SESSION['cart']);
+    ?>
 
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
 
-    <title>Member Area :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
+    <title>Cart :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
 
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
@@ -82,6 +48,15 @@ if(!empty($_SESSION['userName'])){
 
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script>
+        function isNumber(evt){
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+    </script>
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -118,7 +93,7 @@ if(!empty($_SESSION['userName'])){
                             <li class="dropdown-show"><a href="#">Shop</a>
                                 <ul class="mega-menu-wrap dropdown-nav">
                                     <li class="mega-menu-item"><a href="shop.html" class="mega-item-title">Shop
-                                            Layout</a>
+                                        Layout</a>
                                         <ul>
                                             <li><a href="shop.html">Shop Left Sidebar</a></li>
                                             <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
@@ -129,7 +104,7 @@ if(!empty($_SESSION['userName'])){
                                     </li>
 
                                     <li class="mega-menu-item"><a href="single-product.html" class="mega-item-title">Single
-                                            Products</a>
+                                        Products</a>
                                         <ul>
                                             <li><a href="single-product.html">Single Product</a></li>
                                             <li><a href="single-product-normal.html">Single Product Normal</a></li>
@@ -145,7 +120,7 @@ if(!empty($_SESSION['userName'])){
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="compare.html">Compare</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="login-register.html">Login & Register</a></li>
+                                    <li><a href="login-register.php">Login & Register</a></li>
                                     <li><a href="my-account.html">My Account</a></li>
                                     <li><a href="404.html">404 Error</a></li>
                                 </ul>
@@ -281,6 +256,62 @@ if(!empty($_SESSION['userName'])){
                                 </dl>
                             </div>
                         </li>
+                        <li class="shop-cart"><a href="#"><i class="fa fa-shopping-bag"></i> <span
+                                class="count">3</span></a>
+                            <div class="mini-cart">
+                                <div class="mini-cart-body">
+                                    <div class="single-cart-item d-flex">
+                                        <figure class="product-thumb">
+                                            <a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
+                                                             alt="Products"/></a>
+                                        </figure>
+
+                                        <div class="product-details">
+                                            <h2><a href="#">Sprite Yoga Companion</a></h2>
+                                            <div class="cal d-flex align-items-center">
+                                                <span class="quantity">3</span>
+                                                <span class="multiplication">X</span>
+                                                <span class="price">$77.00</span>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
+                                    </div>
+                                    <div class="single-cart-item d-flex">
+                                        <figure class="product-thumb">
+                                            <a href="#"><img class="img-fluid" src="assets/img/product-2.jpg"
+                                                             alt="Products"/></a>
+                                        </figure>
+                                        <div class="product-details">
+                                            <h2><a href="#">Yoga Companion Kit</a></h2>
+                                            <div class="cal d-flex align-items-center">
+                                                <span class="quantity">2</span>
+                                                <span class="multiplication">X</span>
+                                                <span class="price">$6.00</span>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
+                                    </div>
+                                    <div class="single-cart-item d-flex">
+                                        <figure class="product-thumb">
+                                            <a href="#"><img class="img-fluid" src="assets/img/product-3.jpg"
+                                                             alt="Products"/></a>
+                                        </figure>
+                                        <div class="product-details">
+                                            <h2><a href="#">Sprite Yoga Companion Kit</a></h2>
+                                            <div class="cal d-flex align-items-center">
+                                                <span class="quantity">1</span>
+                                                <span class="multiplication">X</span>
+                                                <span class="price">$116.00</span>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
+                                    </div>
+                                </div>
+                                <div class="mini-cart-footer">
+                                    <a href="checkout.html" class="btn-add-to-cart">Checkout</a>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -305,16 +336,18 @@ if(!empty($_SESSION['userName'])){
     </div>
 </div>
 <!--== Search Box Area End ==-->
+
 <!--== Page Title Area Start ==-->
 <div id="page-title-area">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
                 <div class="page-title-content">
-                    <h1>Member Area</h1>
+                    <h1>Shopping Cart</h1>
                     <ul class="breadcrumb">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="login-register.html" class="active">Login & Register</a></li>
+                        <li><a href="shop-left-full-wide.html">Shop</a></li>
+                        <li><a href="cart.html" class="active">Cart</a></li>
                     </ul>
                 </div>
             </div>
@@ -326,136 +359,90 @@ if(!empty($_SESSION['userName'])){
 <!--== Page Content Wrapper Start ==-->
 <div id="page-content-wrapper" class="p-9">
     <div class="container">
+        <!-- Cart Page Content Start -->
         <div class="row">
-            <div class="col-lg-7 m-auto">
-                <!-- Login & Register Content Start -->
-                <div class="login-register-wrapper">
-                    <!-- Login & Register tab Menu -->
-                    <nav class="nav login-reg-tab-menu">
-                        <a class="active" id="login-tab" data-toggle="tab" href="#login">Login</a>
-                        <a id="register-tab" data-toggle="tab" href="#register">Register</a>
-                    </nav>
-                    <!-- Login & Register tab Menu -->
-                    <div class="tab-content" id="login-reg-tabcontent">
-                        <div class="tab-pane fade show active" id="login" role="tabpanel">
-                            <div class="login-reg-form-wrap">
-                                <form action="login-register.php" method="post" id="form-login" >
-                                    <div class="single-input-item">
-                                        <input id="login-username" type="text" name="userName" placeholder="Enter Username" required/>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input id="login-password" type="password" name ="passWord"placeholder="Enter your Password" required />
-                                    </div>
-                                    <div class="single-input-item">
-                                        <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
-                                            <div class="remember-meta">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                                    <label class="custom-control-label" for="rememberMe">Remember
-                                                        Me</label>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="forget-pwd">Forget Password?</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-input-item">
-                                        <input type="submit" name="login-submit" class="btn-login" value="Login">
-                                        <!--                                        <button class="btn-login">Login</button>-->
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="register" role="tabpanel">
-                            <div class="login-reg-form-wrap">
-                                <form  action="login-register.php" method="post"  id="form-register" onsubmit="return checkForm()">
-                                    <div class="single-input-item">
-                                        <input id="userName" name="userName" type="text" placeholder="User Name" required>
-                                        <div id="error_username"></div>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input id="fullName" name="fullName" type="text" placeholder="Full Name" required/>
-                                        <div id="error_fullname"></div>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input id="eMail" name="eMail" type="email" placeholder="Enter Your Email" required/>
-                                        <div id="error_email"></div>
-                                    </div>
-
-                                    <div class="single-input-item">
-                                        <input id="phoneNumber" name="phoneNumber" type="text" placeholder="Phone Number" required>
-                                        <div id="error_phonenumber"></div>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input id="houseNumbering" name="houseNumbering" type="text" placeholder="House Numbering" required>
-                                        <div id=""></div>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <label for="city">City Name</label>
-                                        <select id="city" name="city" style="display: inline-block" onchange="checkDistrict()">
-                                            <option value=""> Select a city</option>
-                                            <option value ="hcm" name="hcm">Ho Chi Minh City</option>
-                                            <option value ="hn" name="hn">Ha Noi City</option>
-                                            <option value ="dn" name ="dn">Da Nang City</option>
-                                            <option value ="ct" name = "ct">Can Tho City</option>
-                                        </select>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <label for="district">District Name</label>
-                                        <select id="district" name="district" style="display: inline-block" onchange="checkWard()">
-                                            <option value=""> Select a District</option>
-                                        </select>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <label for="ward">Ward Name</label>
-                                        <select id="ward" name="ward" style="display: inline-block">
-                                            <option value=""> Select a ward</option>
-                                        </select>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input id="streetName" name="streetName" type="text" placeholder="Street Name" required>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="single-input-item">
-                                                <input id="passWord" name="passWord" type="password" placeholder="Enter Your Password" required/>
-                                                <div id="error_password"></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="single-input-item">
-                                                <input  type="password" name="re-passWord" placeholder="Repeat Your Password" required/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--                                    <div class="single-input-item">-->
-                                    <!--                                        <div class="login-reg-form-meta">-->
-                                    <!--                                            <div class="remember-meta">-->
-                                    <!--                                                <div class="custom-control custom-checkbox">-->
-                                    <!--                                                    <input type="checkbox" class="custom-control-input"-->
-                                    <!--                                                           id="subnewsletter">-->
-                                    <!--                                                    <label class="custom-control-label" for="subnewsletter">Subscribe-->
-                                    <!--                                                        Our Newsletter</label>-->
-                                    <!--                                                </div>-->
-                                    <!--                                            </div>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-
-                                    <div class="single-input-item">
-                                        <input type="submit" name="register-submit" class="btn-login" value="Register">
-                                        <!--                                        <button class="btn-login">Register</button>-->
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-lg-12">
+                <!-- Cart Table Area -->
+                <div class="cart-table table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="pro-thumbnail">Thumbnail</th>
+                            <th class="pro-title">Product</th>
+                            <th class="pro-price">Price</th>
+                            <th class="pro-quantity">Quantity</th>
+                            <th class="pro-subtotal">Total</th>
+                            <th class="pro-remove">Remove</th>
+                        </tr>
+                        </thead>
+                        
+                        <tbody>
+                        <?php
+                            $total = 0;
+                            if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
+                                for($i=0; $i<count($_SESSION['cart']); $i++){
+                                    $sql = "SELECT * FROM sanpham WHERE idsanpham = '".$_SESSION['cart'][$i][0]."'";
+                                    $result = executeQuery($sql);
+                                    $row = $result->fetch_array();
+                                    switch($row['maloaisp'])
+                                    {
+                                        case 'NKL':
+                                            $pic = "assets/img/Necklace/".$row['hinhanh'];
+                                            break;
+                                        case 'BRL':
+                                            $pic = "assets/img/Bracelet/".$row['hinhanh'];
+                                            break;
+                                        case 'RG':
+                                            $pic = "assets/img/Ring/".$row['hinhanh'];
+                                            break;
+                                    }
+                                    
+                                    echo '    <tr>
+                            <td class="pro-thumbnail"><a href="single-product.php?id='.$_SESSION['cart'][$i][0].'"><img class="img-fluid" src="'.$pic.'"
+                                                                       alt="Product"/></a></td>
+                            <td class="pro-title"><a href="single-product.php?id='.$_SESSION['cart'][$i][0].'">'.$row['tensp'].'</a></td>
+                            <td class="pro-price"><span>$'.$row['dongia'].'</span></td>
+                            <td class="pro-quantity">
+                                <div class="pro-qty"><input type="text" id="'.$i.'" onchange="setValue(this.id)" onkeypress="return isNumber(event)" inputmode="numeric" value="'.$_SESSION['cart'][$i][1].'"></div>
+                            </td>
+                            <td class="pro-subtotal"><span>$'.$row['dongia']*$_SESSION['cart'][$i][1].'</span></td>
+                            <td class="pro-remove"><a href="cart.php?delProduct='.$i.'"><i class="fa fa-trash-o"></i></a></td>
+                        </tr>';
+                                    $total += $row['dongia']*$_SESSION['cart'][$i][1];
+                                }
+                            }else{
+                                echo '<tr>';
+                                echo '<td colspan="6">YOUR CART IS EMPTY</td>';
+                                echo '</tr>';
+                                echo '<tr>';
+                                echo '<td colspan="6"><a href="shop.php" class="btn btn-add-to-cart">SHOP NOW</a></td>';
+                                echo '</tr>';
+                            }
+                        ?>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- Login & Register Content End -->
+
+               
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-6 ml-auto">
+                <!-- Cart Calculation Area -->
+                <?php
+                    if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
+                        echo ' <div class="cart-calculator-wrapper">
+                    <h3>Cart Totals: $'.$total.'</h3>
+                    <a href="checkout.html" class="btn-add-to-cart">Proceed To Checkout</a>
+                </div>';
+                    }
+                
+                ?>
+               
+            </div>
+        </div>
+        <!-- Cart Page Content End -->
     </div>
 </div>
 <!--== Page Content Wrapper End ==-->
@@ -611,149 +598,19 @@ if(!empty($_SESSION['userName'])){
 
 
 <!--=======================Javascript============================-->
-
-<script>
-
-    function checkForm(){
-        var userName = document.getElementById('userName').value;
-        var fullName = document.getElementById('fullName').value;
-        var eMail = document.getElementById('eMail').value;
-        var phoneNum = document.getElementById('phoneNumber').value;
-        var passWord =  document.getElementById('passWord').value;
-        var regExPhoneNum = /^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$\b/;
-        var regExEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        var flag = true;
-
-        if(userName.length < 5 ){
-            document.getElementById('error_username').innerText= 'User Name must be at least 5 characters '
-            document.getElementById('error_username').style.color = "red"
-            document.getElementById('error_username').style.display = "block"
-
-            flag = false
-        }else
-            document.getElementById('error_username').style.display = "none"
-        console.log(flag)
-
-
-        if(fullName.length < 5){
-            document.getElementById('error_fullname').innerText= 'Full Name must be at least 5 characters'
-            document.getElementById('error_fullname').style.color = 'red'
-            document.getElementById('error_fullname').style.display= 'block'
-            flag = false
+    
+    <script>
+        function setValue(index){
+            
+            var quantity = document.getElementById(index).value;
+            if(quantity <= 0)
+                quantity = 1;
+            console.log(quantity);
+            window.location.href = "updateCart.php?index="+index+"&quantity="+quantity;
+            
         }
-        else {
-            document.getElementById('error_fullname').style.display = "none"
-        }
-        if(!regExEmail.test(eMail)){
-            document.getElementById('error_email').innerText = 'Please enter valid email'
-            document.getElementById('error_email').style.color ="red"
-            document.getElementById('error_email').style.display = 'block'
-            flag = false
-        }
-        else {
-            document.getElementById('error_email').style.display = "none"
-        }
-        if(!regExPhoneNum.test(phoneNum)){
-            document.getElementById('error_phonenumber').innerText = 'Please enter valid phone number'
-            document.getElementById('error_phonenumber').style.color ='red'
-            document.getElementById('error_phonenumber').style.display = 'block'
-            flag = false
-        }
-        else {
-            document.getElementById('error_phonenumber').style.display = "none"
-        }
-        if(phoneNum.length > 11 || phoneNum.length < 10){
-            document.getElementById('error_phonenumber').innerText='Phone number must be at least 10 and maximum 11 number';
-            document.getElementById('error_phonenumber').style.color='red'
-            document.getElementById('error_phonenumber').style.display = 'block'
-            flag = false
-        }
-        else{
-            document.getElementById('error_phonenumber').style.display = "none"}
+    </script>
 
-
-
-        if(passWord.length < 8){
-            document.getElementById('error_password').innerText =' Password must be at least 8 character';
-            document.getElementById('error_password').style.color = 'red'
-            flag =false
-        }
-        else{
-            document.getElementById('error_password').style.display = "none"}
-        <?php
-        $checkSql = "select * from `khachhang`";
-        $result = executeQuery($checkSql);
-        if($result->num_rows > 0)
-        {
-            while($row = $result->fetch_array()) {
-                echo 'if(' . "'". $row['userName'] . "'"." == userName){";
-                echo "document.getElementById('error_username').innerText= 'Username exist. Try another username!!!';";
-                echo 'document.getElementById("error_username").style.display = "block";';
-
-                echo 'document.getElementById("error_username").style.color = "red";';
-                echo 'flag = false;';
-                echo '}';
-            }
-        }
-        ?>
-        return flag
-    }
-</script>
-<script>
-   var districts = {
-       hcm : ['Tan Phu','Phu Nhuan','Tan Binh'],
-       dn : ['Hai Chau','Cam Le','Thanh Khe'],
-       hn : ['Cau Giay ','Hoan Kiem','Dong Da'],
-       ct :['Binh Thuy','Cai Rang','Ninh Kieu']
-   };
-   var wards = {
-       'Tan Binh': ['Ward 9','Ward 10'],
-       'Phu Nhuan': ['Ward 1','Ward 2'],
-       'Tan Phu' : ['Tan Son Nhi','Tay Thanh'],
-       'Hai Chau' : ['Thach Thanh','Thanh Binh'],
-       'Cam Le' : [ 'Khue Trung', 'Hoa Phat'],
-       'Thanh Khe' : ['Vinh Trung', 'Tan Chinh'],
-       'Cau Giay ' : ['Nghia Do','Nghia Tan'],
-       'Hoan Kiem' : ['Cua Dong','Cua Nam'],
-       'Dong Da' : ['Lang Thuong','Kim Lien'],
-       'Binh Thuy': ['Binh Thuy','Tra An'],
-       'Cai Rang' : ['Le Binh', 'Hung Phu'],
-       'Ninh Kieu' : ['An Binh','An Cu']
-   };
-   var citySelection = document.getElementById('city')
-   var districtSelection = document.getElementById('district')
-   var wardSelection = document.getElementById('ward')
-   function checkDistrict(){
-       districtSelection.innerHTML='<option value ="">Select a District</option>'
-       wardSelection.innerHTML = '<option value=""> Select a Ward </option>'
-
-       var selectedCity = citySelection.value;
-       if(selectedCity){
-           var selectedDistrict = districts[selectedCity]
-           selectedDistrict.forEach(function (district){
-               var option = document.createElement("option")
-               option.value = district
-               option.text =district
-               districtSelection.appendChild(option)
-           })
-       }
-   }
-   function checkWard(){
-       wardSelection.innerHTML = '<option value="">Select a Ward </option>'
-       var selectedDistrict = districtSelection.value
-       if(selectedDistrict){
-           var selectedWard = wards[selectedDistrict]
-           selectedWard.forEach(function (ward){
-               var option = document.createElement("option")
-               option.value = ward
-               option.text = ward
-               wardSelection.appendChild(option)
-           })
-       }
-   }
-
-
-</script>
 <!--=== Jquery Min Js ===-->
 <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
 <!--=== Jquery Migrate Min Js ===-->
@@ -765,3 +622,8 @@ if(!empty($_SESSION['userName'])){
 <!--=== Plugins Min Js ===-->
 <script src="assets/js/plugins.js"></script>
 
+<!--=== Active Js ===-->
+<script src="assets/js/active.js"></script>
+</body>
+
+</html>

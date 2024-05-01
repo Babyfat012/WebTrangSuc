@@ -1,5 +1,7 @@
 <?php
-    require 'lib/DataProvider.php';
+    session_start();
+    require 'lib/lib.php';
+    
     if(isset($_REQUEST['id'])) {
         $id = $_REQUEST['id'];
         $sql = "SELECT * FROM sanpham where idsanpham LIKE '$id'";
@@ -15,9 +17,22 @@
             $size = $row['kichthuoc'];
             $type = $row['maloaisp'];
             $gender = $row['gioitinh'];
+            $quantity = $row['soluong'];
             
         } else
             echo 'Not found';
+    }
+    if(isset($_POST['addToCart']))
+    {
+        $id = $_POST['id'];
+        $quantity = $_POST['quantity'];
+        addToCart($id, $quantity);
+        header('location: single-product.php?id='.$id);
+       
+    }
+    if(isset($_SESSION['cart'])){
+        var_dump($_SESSION['cart']);
+        echo count($_SESSION['cart']);
     }
 ?>
 
@@ -165,14 +180,32 @@
 
                               
                                 
-
+                                
                                 <div class="product-quantity d-flex align-items-center">
-                                    <div class="quantity-field">
-                                        <label for="qty">Qty</label>
-                                        <input type="number" id="qty" min="1" max="100" value="1"/>
-                                    </div>
+                                    <form  method="post">
+                                        <input type="hidden" name="id" value="<?php echo $id ?>">
+                                        <?php
+                                            if($quantity > 0)
+                                            {
+                                                echo ' <div class="quantity-field">';
+                                                echo '<label for="qty">Qty</label>';
+                                                echo '<input type="number" name="quantity" id="qty" min="1" max="'.$quantity.'" value="1"/>';
+                                                echo '<button type="submit" name="addToCart" value="addCart" style="border:1px solid #c5c5c5;" class="btn btn-add-to-cart">Add to Cart</button>';
+                                                echo '</div>';
+                                            }else
+                                            {
+                                                echo ' <div class="quantity-field">';
+                                                echo '<h3> Out of stock </h3>';
+                                                echo '</div>';
+                                                
+                                                
+                                            }
+                                        ?>
 
-                                    <a href="single-product.html" class="btn btn-add-to-cart">Add to Cart</a>
+                                     
+                                      
+
+                                    </form>
                                 </div>
                                 <div class="product-full-info-reviews">
                                     <!-- Single Product tab Menu -->
