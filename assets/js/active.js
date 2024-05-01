@@ -269,8 +269,17 @@
             $(".account-create").slideToggle("100");
         });
 
-        $("#ship_to_different").on("change", function () {
-            $(".ship-to-different").slideToggle("100");
+        $("#address").on("change", function () {
+            if($("#address").attr("value") == 'Myaddress'){
+                $("#myadd").slideDown("100");
+                $("#newadd").slideUp("100");
+
+
+            }
+            else {
+                $("#myadd").slideUp("100");
+                $("#newadd").slideDown("100");
+            }
         });
 
         // Payment Method Accordion

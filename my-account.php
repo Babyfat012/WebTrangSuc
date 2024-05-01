@@ -1,3 +1,8 @@
+
+<?php
+session_start();
+require 'lib/lib.php';
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -30,7 +35,7 @@
 
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
-
+   
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -341,19 +346,15 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="myaccount-tab-menu nav" role="tablist">
-                                <a href="#dashboad" class="active" data-toggle="tab"><i class="fa fa-dashboard"></i>
-                                    Dashboard</a>
+                                <a href="#account-info" data-toggle="tab" id="info" class="active"><i class="fa fa-user"></i> Account Details</a>
 
-                                <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
+                                <a href="#orders" data-toggle="tab" id="ord"><i class="fa fa-cart-arrow-down"></i> Orders</a>
 
-                                <a href="#download" data-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
+                               
 
-                                <a href="#payment-method" data-toggle="tab"><i class="fa fa-credit-card"></i> Payment
-                                    Method</a>
+                                <a href="#address" data-toggle="tab" id="addr"><i class="fa fa-map-marker"></i> Password</a>
 
-                                <a href="#address" data-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
-
-                                <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
+                              
 
                                 <a href="login-register.html"><i class="fa fa-sign-out"></i> Logout</a>
                             </div>
@@ -364,20 +365,7 @@
                         <div class="col-lg-9 mt-5 mt-lg-0">
                             <div class="tab-content" id="myaccountContent">
                                 <!-- Single Tab Content Start -->
-                                <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
-                                    <div class="myaccount-content">
-                                        <h3>Dashboard</h3>
-
-                                        <div class="welcome">
-                                            <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong><a
-                                                    href="login-register.html" class="logout"> Logout</a>)</p>
-                                        </div>
-
-                                        <p class="mb-0">From your account dashboard. you can easily check & view your
-                                            recent orders, manage your shipping and billing addresses and edit your
-                                            password and account details.</p>
-                                    </div>
-                                </div>
+                                
                                 <!-- Single Tab Content End -->
 
                                 <!-- Single Tab Content Start -->
@@ -386,248 +374,105 @@
                                         <h3>Orders</h3>
 
                                         <div class="myaccount-table table-responsive text-center">
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>Order</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                    <th>Total</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <thead>
-                                                <tr>
-                                                    <th>1</th>
-                                                    <th>Aug 22, 2018</th>
-                                                    <th>Pending</th>
-                                                    <th>$3000</th>
-                                                    <th><a href="cart.html" class="btn-add-to-cart">View</a></th>
-                                                </tr>
-                                                </thead>
-
-                                                <tr>
-                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
-                                                                                               alt="Product"/></a></td>
-                                                    <td  colspan="4">
-                                                        <a href="#"><h4>Chain Bracelet</h4></a>
-                                                        <hr>
-                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
-                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
-                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
-                                                                                                                  alt="Product"/></a></td>
-                                                    <td  colspan="4">
-                                                        <a href="#"><h4>Chain Bracelet</h4></a>
-                                                        <hr>
-                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
-                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
-                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
-                                                    </td>
-                                                </tr>
+                                            <?php
                                                 
-                                                </tbody>
-                                            </table>
-
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>Order</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                    <th>Total</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <thead>
-                                                <tr>
-                                                    <th>1</th>
-                                                    <th>Aug 22, 2018</th>
-                                                    <th>Pending</th>
-                                                    <th>$3000</th>
-                                                    <th><a href="cart.html" class="btn-add-to-cart">View</a></th>
-                                                </tr>
-                                                </thead>
-
-                                                <tr>
-                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
-                                                                                                                  alt="Product"/></a></td>
-                                                    <td  colspan="4">
-                                                        <a href="#"><h4>Chain Bracelet</h4></a>
-                                                        <hr>
-                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
-                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
-                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
-                                                                                                                  alt="Product"/></a></td>
-                                                    <td  colspan="4">
-                                                        <a href="#"><h4>Chain Bracelet</h4></a>
-                                                        <hr>
-                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
-                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
-                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
-                                                    </td>
-                                                </tr>
-
-                                                </tbody>
-                                            </table>
-
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>Order</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                    <th>Total</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <thead>
-                                                <tr>
-                                                    <th>1</th>
-                                                    <th>Aug 22, 2018</th>
-                                                    <th>Pending</th>
-                                                    <th>$3000</th>
-                                                    <th><a href="cart.html" class="btn-add-to-cart">View</a></th>
-                                                </tr>
-                                                </thead>
-
-                                                <tr>
-                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
-                                                                                                                  alt="Product"/></a></td>
-                                                    <td  colspan="4">
-                                                        <a href="#"><h4>Chain Bracelet</h4></a>
-                                                        <hr>
-                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
-                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
-                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 20%" class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
-                                                                                                                  alt="Product"/></a></td>
-                                                    <td  colspan="4">
-                                                        <a href="#"><h4>Chain Bracelet</h4></a>
-                                                        <hr>
-                                                        <p style="text-align: left; font-weight: 700">Type: Ring</p>
-                                                        <p style="text-align: left; font-weight: 700">Price: $500</p>
-                                                        <p style="text-align: left; font-weight: 700">Quantity: 5</p>
-                                                    </td>
-                                                </tr>
-
-                                                </tbody>
-                                            </table>
+                                                $sql = "SELECT * FROM hoadon WHERE taikhoankh = '".$_SESSION['userName']."'";
+                                                $result = executeQuery($sql);
+                                                if($result->num_rows > 0){
+                                                    while($row = $result->fetch_assoc()){
+                                                        echo '<table class="table table-bordered">';
+                                                        echo ' <thead class="thead-light">';
+                                                        echo '<tr>';
+                                                        echo '<th>Order</th>
+                                                              <th>Date</th>
+                                                              <th>Status</th>
+                                                              <th>Total</th>
+                                                              <th>Action</th>';
+                                                        echo '</tr>';
+                                                        echo '</thead>';
+                                                        echo '<tbody>';
+                                                        echo '<thead>';
+                                                        echo '<tr>';
+                                                        echo '<th>'.$row['idhoadon'].'</th>';
+                                                        echo '<th>'.$row['ngaymua'].'</th>';
+                                                        switch($row['trangthai'])
+                                                        {
+                                                            case 0: echo '<th>Confirm</th>';
+                                                            break;
+                                                            case 1: echo '<th>Complete</th>';
+                                                            break;
+                                                            case -1: echo '<th>Cancel</th>';
+                                                        }
+                                                        echo '<th>'.$row['tongtien'].'</th>';
+                                                        echo '<th><a href="cart.html" class="btn-add-to-cart">View</a></th>';
+                                                        echo '</tr>';
+                                                        echo '</thead>';
+                                                        $sql1 = "SELECT CT.idsanpham, CT.dongia, .CT.soluong, SP.hinhanh, SP.tensp, SP.maloaisp FROM chitiethoadon CT, sanpham SP WHERE idhoadon ='". "$row[idhoadon]' AND CT.idsanpham = SP.idsanpham";
+                                                        echo $sql1;
+                                                        $result1 = executeQuery($sql1);
+                                                        if($result1->num_rows > 0){
+                                                            while($row1 = $result1->fetch_array()){
+                                                                echo '<tr>';
+                                                                echo '<td style="width: 20%" class="pro-thumbnail"><a href="single-product.php?id='.$row1['idsanpham'].'"><img'.'>';
+                                                                switch($row1['maloaisp'])
+                                                                {
+                                                                    case 'NKL':
+                                                                        echo ' <img class="img-fluid" src="assets/img/Necklace/'.$row1['hinhanh'].'"
+                                                                                               alt="Product"/></a></td>';
+                                                                        $type = "Necklace";
+                                                                        break;
+                                                                    case 'BRL':
+                                                                        echo ' <img class="img-fluid" src="assets/img/Bracelet/'.$row1['hinhanh'].'"
+                                                                                               alt="Product"/></a></td>';
+                                                                        $type = "Bracelet";
+                                                                        
+                                                                        break;
+                                                                    case 'RG':
+                                                                        echo ' <img class="img-fluid" src="assets/img/Ring/'.$row1['hinhanh'].'"
+                                                                                               alt="Product"/></a></td>';
+                                                                        $type = "Ring";
+                                                                        
+                                                                        break;
+                                                                }
+                                                                echo '<td  colspan="4">';
+                                                                echo '<a href="single-product.php?id='.$row1['idsanpham'].'"><h4>'.$row1['tensp'].'</h4></a>';
+                                                                echo '<hr>';
+                                                                echo '<p style="text-align: left; font-weight: 700">Type:'.$type.'</p>
+                                                        <p style="text-align: left; font-weight: 700">Price:'.$row1['dongia'].'</p>
+                                                        <p style="text-align: left; font-weight: 700">Quantity: '.$row1['soluong'][0].'</p>';
+                                                                echo '</td>';
+                                                                echo '</tr>';
+                                                            }
+                                                        }
+                                                        echo '</tbody>';
+                                                        echo '</table>';
+                                                        
+                                                       
+                                                        
+                                                    }
+                                                }
+                                            ?>
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Single Tab Content End -->
 
                                 <!-- Single Tab Content Start -->
-                                <div class="tab-pane fade" id="download" role="tabpanel">
-                                    <div class="myaccount-content">
-                                        <h3>Downloads</h3>
-
-                                        <div class="myaccount-table table-responsive text-center">
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>Product</th>
-                                                    <th>Date</th>
-                                                    <th>Expire</th>
-                                                    <th>Download</th>
-                                                </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                <tr>
-                                                    <td>Haven - Free Real Estate PSD Template</td>
-                                                    <td>Aug 22, 2018</td>
-                                                    <td>Yes</td>
-                                                    <td><a href="#" class="btn-add-to-cart">Download File</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>HasTech - Profolio Business Template</td>
-                                                    <td>Sep 12, 2018</td>
-                                                    <td>Never</td>
-                                                    <td><a href="#" class="btn-add-to-cart">Download File</a></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                                 <!-- Single Tab Content End -->
 
                                 <!-- Single Tab Content Start -->
-                                <div class="tab-pane fade" id="payment-method" role="tabpanel">
-                                    <div class="myaccount-content">
-                                        <h3>Payment Method</h3>
-
-                                        <p class="saved-message">You Can't Saved Your Payment Method yet.</p>
-                                    </div>
-                                </div>
+                               
                                 <!-- Single Tab Content End -->
 
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="address" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3>Billing Address</h3>
-
-                                        <address>
-                                            <p><strong>Alex Tuntuni</strong></p>
-                                            <p>1355 Market St, Suite 900 <br>
-                                                San Francisco, CA 94103</p>
-                                            <p>Mobile: (123) 456-7890</p>
-                                        </address>
-
-                                        <a href="#" class="btn-add-to-cart d-inline-block"><i class="fa fa-edit"></i>
-                                            Edit Address</a>
-                                    </div>
-                                </div>
-                                <!-- Single Tab Content End -->
-
-                                <!-- Single Tab Content Start -->
-                                <div class="tab-pane fade" id="account-info" role="tabpanel">
-                                    <div class="myaccount-content">
-                                        <h3>Account Details</h3>
+                                        <h3>Change password</h3>
 
                                         <div class="account-details-form">
                                             <form action="#">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="single-input-item">
-                                                            <label for="first-name" class="required">First Name</label>
-                                                            <input type="text" id="first-name"
-                                                                   placeholder="First Name"/>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <div class="single-input-item">
-                                                            <label for="last-name" class="required">Last Name</label>
-                                                            <input type="text" id="last-name" placeholder="Last Name"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="single-input-item">
-                                                    <label for="display-name" class="required">Display Name</label>
-                                                    <input type="text" id="display-name" placeholder="Display Name"/>
-                                                </div>
-
-                                                <div class="single-input-item">
-                                                    <label for="email" class="required">Email Addres</label>
-                                                    <input type="email" id="email" placeholder="Email Address"/>
-                                                </div>
 
                                                 <fieldset>
                                                     <legend>Password change</legend>
@@ -659,6 +504,112 @@
                                                     </div>
                                                 </fieldset>
 
+                                                <div class="single-input-item">
+                                                    <button class="btn-login btn-add-to-cart">Save Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+                                <?php
+                                    $sql = "SELECT * FROM khachhang WHERE taikhoankh = '".$_SESSION['userName']."'";
+                                    
+                                    $result = executeQuery($sql);
+                                    if($result->num_rows > 0){
+                                        $customer = $result->fetch_array();
+                                    }
+                                    
+                                ?>
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade show active" id="account-info" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Account Details</h3>
+
+                                        <div class="account-details-form">
+                                            <form action="#">
+                                                <div class="single-input-item">
+                                                    <label for="display-name" class="required">Username</label>
+                                                    <h3>Sog1n123</h3>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="first-name" class="required">Fullname</label>
+                                                            <input type="text" id="first-name"
+                                                                   placeholder="Fullname" value="<?php echo $customer['hoten'] ?>"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="last-name" class="required">Phone</label>
+                                                            <input type="text" id="last-name" value="<?php echo $customer['sodienthoai'] ?>" placeholder="Phone"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="single-input-item">
+                                                    <label for="email" class="required">Email Addres</label>
+                                                    <input type="email" id="email" placeholder="Email Address" value="<?php echo $customer['email'] ?>"/>
+                                                </div>
+                                                
+                                                <fieldset>
+                                                    <legend>Address</legend>
+                                                    <div class="single-input-item">
+                                                        <label for="city" class="required" >Province / City</label>
+                                                        <select name="city" id="city" ">
+                                                        <option value=""> Select a city</option>
+                                                        <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                                        <option value="Hà Nội">Hà Nội</option>
+                                                        <option value="Đà Nẵng">Đà Nẵng</option>
+                                                        <option value="Hải Phòng">Hải Phòng</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="single-input-item" id="districtform">
+                                                        <label for="district" class="required" >District</label>
+                                                        <select name="district" id="district" >
+                                                            <option value="-1"> Select a District
+                                                            </option>
+                                                            <option value="District 1">District 1</option>
+                                                            <option value="District 2">District 2</option>
+                                                            <option value="District 3">District 3</option>
+                                                            <option value="District 4">District 4</option>
+                                                            <option value="District 5">District 5</option>
+                                                            <option value="District 6">District 6</option>
+                                                            <option value="District 7">District 7</option>
+                                                            <option value="District 8">District 8</option>
+                                                            <option value="District 9">District 9</option>
+                                                            <option value="District 10">District 10</option>
+                                                            <option value="District 11">District 11</option>
+                                                            <option value="District 12">District 12</option>
+
+
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="single-input-item" id="wardform">
+                                                        <label for="ward" class="required" >Ward</label>
+                                                        <select name="ward" id="ward">
+                                                            <option value=""> Select a Ward</option>
+                                                            <option value="Ward 1">Ward 1</option>
+                                                            <option value="Ward 2">Ward 2</option>
+                                                            <option value="Ward 3" selected>Ward 3</option>
+                                                            <option value="Ward 4">Ward 4</option>
+                                                            <option value="Ward 5">Ward 5</option>
+                                                            <option value="Ward 6">Ward 6</option>
+                                                            <option value="Ward 7">Ward 7</option>
+                                                            <option value="Ward 8">Ward 8</option>
+                                                            <option value="Ward 9">Ward 9</option>
+                                                            <option value="Ward 10">Ward 10</option>
+                                                            <option value="Ward 11">Ward 11</option>
+                                                            <option value="Ward 12">Ward 12</option>
+                                                        </select>
+                                                    </div>
+                                                </fieldset>
+                                                
+                                               
                                                 <div class="single-input-item">
                                                     <button class="btn-login btn-add-to-cart">Save Changes</button>
                                                 </div>
@@ -828,7 +779,64 @@
 <a href="#" class="scrolltotop"><i class="fa fa-angle-up"></i></a>
 <!-- Scroll to Top End -->
 
+    <script>
+        <?php
+            if(isset($_GET['url'])) {
+                switch($_GET['url']) {
+                    case 'order':
+                    {
+        ?>
+        document.getElementById("info").classList.remove("active")
+        document.getElementById("ord").classList.add("active")
+        document.getElementById("addr").classList.remove("active")
+        document.getElementById("account-info").classList.remove("show")
+        document.getElementById("account-info").classList.remove("active")
+        document.getElementById("orders").classList.add("show")
+        document.getElementById("orders").classList.add("active")
+        document.getElementById("address").classList.remove("show")
+        document.getElementById("address").classList.remove("active")
 
+
+        <?php
+                    break;
+                    }
+        case 'info':
+            {
+                ?>
+        document.getElementById("info").classList.add("active")
+        document.getElementById("ord").classList.remove("active")
+        document.getElementById("addr").classList.remove("active")
+        document.getElementById("account-info").classList.add("show")
+        document.getElementById("account-info").classList.add("active")
+        document.getElementById("orders").classList.remove("show")
+        document.getElementById("orders").classList.remove("active")
+        document.getElementById("address").classList.remove("show")
+        document.getElementById("address").classList.remove("active")
+            <?php
+            break;
+            }
+            case 'address':
+            {
+                    ?>
+        document.getElementById("info").classList.remove("active")
+        document.getElementById("ord").classList.remove("active")
+        document.getElementById("addr").classList.add("active")
+        document.getElementById("account-info").classList.remove("show")
+        document.getElementById("account-info").classList.remove("active")
+        document.getElementById("orders").classList.remove("show")
+        document.getElementById("orders").classList.remove("active")
+        document.getElementById("address").classList.add("show")
+        document.getElementById("address").classList.add("active")
+                <?php
+            break;
+            }
+                }
+            }
+        ?>
+        
+       
+        
+    </script>
 <!--=======================Javascript============================-->
 <!--=== Jquery Min Js ===-->
 <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>

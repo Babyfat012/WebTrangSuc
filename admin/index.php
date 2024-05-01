@@ -3,7 +3,9 @@
     session_start();
     require '../lib/db.inc';
     require '../lib/DataProvider.php';
-
+   
+    
+    
     if(isset($_POST['submit']))
     {
         if(isset($_POST['taikhoan']) && isset($_POST['matkhau']))

@@ -34,13 +34,18 @@
             $_SESSION['cart'][$i][1] += $quantity;
     }
     
-   
-    function isCartEmpty()
-    {
-        if(isset($_SESSION['cart'])){}
+    function isLogin(){
+        if(isset($_SESSION['userName']) && !empty($_SESSION['userName'])){
+            return true;
+        }
+        return false;
     }
     
+
+    
     ?>
+
+
 
     
 
