@@ -36,7 +36,8 @@ if(isset($_POST['submit'])) {
     else
         echo 'kh co';
     // Cap nhat
-
+    
+    
     $id = $_POST['id'];
     $name = $_POST['name'];
     $quantity = $_POST['quantity'];
@@ -47,6 +48,24 @@ if(isset($_POST['submit'])) {
     $gender = $_POST['gender'];
     $description = $_POST['description'];
     $image = $_FILES['pic']['name'];
+    
+    $sql = "SELECT * FROM sanpham WHERE idsanpham='" . $id . "'";
+    $result =executeQuery($sql);
+    $row = $result->fetch_array();
+    $type1 = $row['maloaisp'];
+    $folder1 = "../assets/img/";
+    switch ($type1)
+    {
+        case 'BRL':
+            $folder1 = $folder1 . "Bracelet/";
+            break;
+        case 'NKL':
+            $folder1 = $folder1 . "Necklace/";
+            break;
+        case 'RG':
+            $folder1 = $folder1 . "Ring/";
+            break;
+    }
 
     if($image != NULL)
     {
@@ -60,7 +79,6 @@ if(isset($_POST['submit'])) {
         echo($sql);
         $result = executeQuery($sql);
     }
-    header('location: quantri.php?page_layout=danhsachsp');
 
 }
 

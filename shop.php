@@ -149,7 +149,7 @@
     <meta name="description" content="meta description">
 
     <title>Shop :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
-
+    
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
 
@@ -179,6 +179,9 @@
     <![endif]-->
 </head>
 <body>
+
+    
+
     <!--== Header Area Start ==-->
     <?php
         include_once 'Header.php';

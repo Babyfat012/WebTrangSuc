@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['cart'])){
+        $_SESSION['cart'] = [];
+    }
     require "lib/lib.php";
     
     if (isset($_GET['delProduct']) && isset($_GET['delProduct']) >= 0) {

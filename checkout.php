@@ -1,14 +1,102 @@
 <?php
     session_start();
     require 'lib/lib.php';
-    if(!isset($_SESSION['cart']) && empty($_SESSION['cart']))
+    var_dump( $_SESSION['cart']);
+    if(!isset($_SESSION['cart']) || empty($_SESSION['cart']))
     {
         header('Location:cart.php');
     }
     if(!isLogin())
     {
         header('Location:login-register.php');
+    }else
+    {
+        $sql = "SELECT * FROM khachhang WHERE taikhoankh = '".$_SESSION['userName']."'";
+        $result = executeQuery($sql);
+        $user = $result->fetch_array();
     }
+    
+    if(isset($_POST['orderbtn'])){
+        $sql1 = "SELECT * FROM hoadon";
+        $result = executeQuery($sql1);
+        $ID = "BILL";
+        
+        if(isset($_POST['total']))
+        
+        if($result->num_rows > 0){
+            $j = 1;
+            $flag = false;
+            while($flag == false){
+                $flag = true;
+                $result = executeQuery($sql1);
+                
+                while($row = $result->fetch_array())
+                {
+                    $temp = $ID . $j;
+                    if( "$temp"== "$row[idhoadon]")
+                    {
+                        
+                        $flag = false;
+                        break;
+                    }
+                }
+                if($flag == true)
+                    break;
+                $j++;
+            }
+            $ID = $ID . $j;
+        }else
+            $ID = "BILL1";
+        if($_POST['addressSelect'] == "Myaddress"){
+            if(isset($_POST['total']) && isset($_POST['paymentmethod'])){
+                $total = $_POST['total'];
+                $pttt  = $_POST['paymentmethod'];
+                $sql1 = "INSERT INTO `hoadon`(idhoadon, taikhoankh, hoten, sodienthoai, sonha, tentp, tenquan, tenphuong, ngaymua, phuongthucthanhtoan, trangthai, tongtien)".
+                    " VALUES('$ID', "."'".$_SESSION['userName']."', "."'$user[hoten]','$user[sodienthoai]', '$user[sonha]', '$user[tentp]', '$user[tenquan]', '$user[tenphuong]', CURRENT_DATE(), $pttt, 1, $total)";
+                echo $sql1;
+                executeQuery($sql1);
+            }
+           
+            
+        }
+        else {
+            if(isset($_POST['fullname']) && isset($_POST['phone']) && isset($_POST['city']) && isset($_POST['district']) && isset($_POST['ward']) && isset($_POST['address']) && isset($_POST['total']) && isset($_POST['paymentmethod']) ){
+                $fullname = $_POST['fullname'];
+                $phone = $_POST['phone'];
+                $city = $_POST['city'];
+                $district = $_POST['district'];
+                $ward = $_POST['ward'];
+                $address = $_POST['address'];
+                $total = $_POST['total'];
+                $paymentmethod = $_POST['paymentmethod'];
+                $sql1 = "INSERT INTO `hoadon`(idhoadon, taikhoankh, hoten, sodienthoai, sonha, tentp, tenquan, tenphuong, ngaymua, phuongthucthanhtoan, trangthai, tongtien)".
+                    " VALUES('$ID', "."'".$_SESSION['userName']."'".",'$fullname','$phone', '$address', '$city', '$district', '$ward', CURRENT_DATE(), $paymentmethod, 1, $total)";
+                echo $sql1;
+                
+                executeQuery($sql1);
+                
+            }
+        
+        }
+        for($i = 0; $i < count($_SESSION['cart']); $i++)
+        {
+            $sql = "SELECT * FROM sanpham WHERE idsanpham = '".$_SESSION['cart'][$i][0]."'";
+            $result = executeQuery($sql);;
+            $product = $result->fetch_array();
+            $idproduct = $_SESSION['cart'][$i][0];
+            $quantity = $_SESSION['cart'][$i][1];
+            $price = $product['dongia'];
+            $sql = "INSERT INTO `chitiethoadon`(idhoadon,idsanpham,soluong,dongia) VALUES".
+                "('$ID', '$idproduct', $quantity, $price)";
+            executeQuery($sql);
+        }
+        array_splice($_SESSION['cart'], 0, count($_SESSION['cart']));
+        header('Location:index.php');
+    }
+    
+
+    
+    
     ?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -354,26 +442,30 @@
                 <!-- Checkout Login Coupon Accordion End -->
             </div>
         </div>
-
+        <form action="checkout.php" method="post">
         <div class="row">
             <!-- Checkout Billing Details -->
             <div class="col-lg-6">
                 <div class="checkout-billing-details-wrap">
                     <h2>Billing Details</h2>
                     <div class="billing-form-wrap">
-                        <form action="#">
+                       
 
                             <div class="single-input-item">
                                 <label for="country_2" class="required">address</label>
-                                <select name="country" id="address" onchange="setaddress()">
+                                <select name="addressSelect" id="address" onchange="setaddress()">
                                     <option value="Myaddress">My address:</option>
                                     <option value="NewAdddress">New Adddess</option>
-                                   
                                 </select>
                             </div>
 
                             <div class="ship-to-different single-form-row show" id="myadd" style="display: block" >
-                                <h2>Nguyen Phuong Vinh 0909930828</h2>
+                                <h2>Receiver: <?php echo $user['hoten'];?></h2>
+                                <p style="font-size: 1.9rem"><strong>Phone:</strong> <?php echo $user['sodienthoai'];?></p>
+                                <p style="font-size: 1.9rem"><strong>Address:</strong> <?php echo $user['sonha'].", ".$user['tenphuong'].", ".$user['tenquan'].", ".$user['tentp'];?></p>
+
+
+
                             </div>
 
                             <div class="checkout-box-wrap">
@@ -382,51 +474,85 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="single-input-item">
-                                                <label for="f_name_2" class="required">First Name</label>
-                                                <input type="text" id="f_name_2" placeholder="First Name"/>
+                                                <label for="f_name_2" class="required">Fullname</label>
+                                                <input name="fullname" type="text" id="f_name_2" placeholder="Fullname"/>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="single-input-item">
-                                                <label for="l_name_2" class="required">Last Name</label>
-                                                <input type="text" id="l_name_2" placeholder="Last Name"/>
+                                                <label for="l_name_2" class="required">Phone</label>
+                                                <input name="phone" type="text" id="l_name_2" placeholder="Phone"/>
                                             </div>
                                         </div>
                                     </div>
-
-                                    
-
                                     <div class="single-input-item">
-                                        <label for="street-address_2" class="required">Street address</label>
-                                        <input type="text" id="street-address_2" placeholder="Street address Line 1"/>
+                                        <label for="city" class="required" >Province / City</label>
+                                        <select name="city" id="city" ">
+                                            <option value=""> Select a city</option>
+                                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                            <option value="Hà Nội">Hà Nội</option>
+                                            <option value="Đà Nẵng">Đà Nẵng</option>
+                                            <option value="Hải Phòng">Hải Phòng</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="single-input-item" id="districtform">
+                                        <label for="district" class="required" >District</label>
+                                        <select name="district" id="district" >
+                                            <option value="-1"> Select a District
+                                            </option>
+                                            <option value="District 1">District 1</option>
+                                            <option value="District 2">District 2</option>
+                                            <option value="District 3">District 3</option>
+                                            <option value="District 4">District 4</option>
+                                            <option value="District 5">District 5</option>
+                                            <option value="District 6">District 6</option>
+                                            <option value="District 7">District 7</option>
+                                            <option value="District 8">District 8</option>
+                                            <option value="District 9">District 9</option>
+                                            <option value="District 10">District 10</option>
+                                            <option value="District 11">District 11</option>
+                                            <option value="District 12">District 12</option>
+                                            
+
+                                        </select>
+                                    </div>
+
+                                    <div class="single-input-item" id="wardform">
+                                        <label for="ward" class="required" >Ward</label>
+                                        <select name="ward" id="ward">
+                                            <option value=""> Select a Ward</option>
+                                            <option value="Ward 1">Ward 1</option>
+                                            <option value="Ward 2">Ward 2</option>
+                                            <option value="Ward 3">Ward 3</option>
+                                            <option value="Ward 4">Ward 4</option>
+                                            <option value="Ward 5">Ward 5</option>
+                                            <option value="Ward 6">Ward 6</option>
+                                            <option value="Ward 7">Ward 7</option>
+                                            <option value="Ward 8">Ward 8</option>
+                                            <option value="Ward 9">Ward 9</option>
+                                            <option value="Ward 10">Ward 10</option>
+                                            <option value="Ward 11">Ward 11</option>
+                                            <option value="Ward 12">Ward 12</option>
+                                        </select>
                                     </div>
 
                                     <div class="single-input-item">
-                                        <input type="text" placeholder="Street address Line 2 (Optional)"/>
+                                        <label for="f_name_2" class="required">Address</label>
+                                        <input name="address" type="text" id="address" placeholder="Address"/>
                                     </div>
 
-                                    <div class="single-input-item">
-                                        <label for="town_2" class="required">Province / City</label>
-                                        <input type="text" id="town_2" placeholder="Town / City"/>
-                                    </div>
+                                  
 
-                                    <div class="single-input-item">
-                                        <label for="state_2">District</label>
-                                        <input type="text" id="state_2" placeholder="D"/>
-                                    </div>
 
-                                    <div class="single-input-item">
-                                        <label for="state_2">District</label>
-                                        <input type="text" id="state_2" placeholder="D"/>
-                                    </div>
+                                  
 
                                     
                                 </div>
                             </div>
 
                            
-                        </form>
                     </div>
                 </div>
             </div>
@@ -461,6 +587,7 @@
                                         echo '</tr>';
                                         $total += $row['dongia'];
                                     }
+                                    echo '<input type="hidden" name="total" value="'.$total.'">';
                                 ?>
                                 </tbody>
                                 <tfoot>
@@ -478,7 +605,7 @@
                             <div class="single-payment-method show">
                                 <div class="payment-method-name">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="cashon" name="paymentmethod" value="cash"
+                                        <input type="radio" id="cashon" name="paymentmethod" value="1"
                                                class="custom-control-input" checked/>
                                         <label class="custom-control-label" for="cashon">Cash On Delivery</label>
                                     </div>
@@ -491,7 +618,7 @@
                             <div class="single-payment-method">
                                 <div class="payment-method-name">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="directbank" name="paymentmethod" value="bank"
+                                        <input type="radio" id="directbank" name="paymentmethod" value="0"
                                                class="custom-control-input"/>
                                         <label class="custom-control-label" for="directbank">Direct Bank
                                             Transfer</label>
@@ -504,35 +631,7 @@
                                 </div>
                             </div>
 
-                            <div class="single-payment-method">
-                                <div class="payment-method-name">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="checkpayment" name="paymentmethod" value="check"
-                                               class="custom-control-input"/>
-                                        <label class="custom-control-label" for="checkpayment">Pay with Check</label>
-                                    </div>
-                                </div>
-                                <div class="payment-method-details" data-method="check">
-                                    <p>Please send a check to Store Name, Store Street, Store Town, Store State /
-                                        County, Store Postcode.</p>
-                                </div>
-                            </div>
-
-                            <div class="single-payment-method">
-                                <div class="payment-method-name">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="paypalpayment" name="paymentmethod" value="paypal"
-                                               class="custom-control-input"/>
-                                        <label class="custom-control-label" for="paypalpayment">Paypal <img
-                                                src="assets/img/paypal-card.jpg" class="img-fluid paypal-card"
-                                                alt="Paypal"/></label>
-                                    </div>
-                                </div>
-                                <div class="payment-method-details" data-method="paypal">
-                                    <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
-                                        account.</p>
-                                </div>
-                            </div>
+                            
 
                             <div class="summary-footer-area">
                                 <div class="custom-control custom-checkbox">
@@ -542,13 +641,16 @@
                                                 href="index.html">terms and conditions.</a></label>
                                 </div>
 
-                                <a href="#" class="btn-add-to-cart"> Place Order</a>
+                                <button type="submit" name="orderbtn" value="order" class="btn-add-to-cart"> Place Order</button>
                             </div>
+                       
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
         <!--== Checkout Page Content End ==-->
     </div>
 </div>
@@ -722,8 +824,12 @@
         }
     }
     
+    
+    
 </script>
 <!--=======================Javascript============================-->
+    
+
 <!--=== Jquery Min Js ===-->
 <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
 <!--=== Jquery Migrate Min Js ===-->

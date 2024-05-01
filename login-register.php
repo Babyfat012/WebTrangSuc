@@ -1,7 +1,10 @@
 <?php
 require 'lib/DataProvider.php';
+    session_start();
+
 if(isset($_POST['register-submit'])) {
-    if (!empty($_POST['userName']) && !empty($_POST['fullName']) && !empty($_POST['eMail']) && !empty($_POST['phoneNumber']) && !empty($_POST['passWord']) && !empty($_POST['houseNumbering']) &&!empty($_POST['city'])&&!!empty($_POST['district'])&&!empty($_POST['ward']) &&!empty(($_POST['streetName']))) {
+    echo $_POST['city'];
+    if (!empty($_POST['userName']) && !empty($_POST['fullName']) && !empty($_POST['eMail']) && !empty($_POST['phoneNumber']) && !empty($_POST['passWord']) && !empty($_POST['houseNumbering']) &&!empty($_POST['city'])&&!empty($_POST['district'])&&!empty($_POST['ward']) ) {
         $userName = trim($_POST['userName']);
         $fullName = trim($_POST['fullName']);
         $eMail = trim($_POST['eMail']);
@@ -10,17 +13,18 @@ if(isset($_POST['register-submit'])) {
         $city = $_POST['city'];
         $district = $_POST['district'];
         $ward = $_POST['ward'];
-        $streetName = trim($_POST['streetName']);
         $passWord = trim($_POST['passWord']);
         $repassWord = trim($_POST['re-passWord']);
-        $passWordHash = password_hash($passWord, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `khachhang` (hoten , taikhoan ,matkhau ,email, sonha,tenduong,tenquan,tenphuong,tentp,sodienthoai) VALUES ('$fullName','$userName','$passWordHash','$eMail','$houseNumbering','$streetName','$district','$ward','$city','$phoneNumber'";
+        $passWordHash = md5($passWord);
+        
+        $sql = "INSERT INTO `khachhang` (hoten, taikhoankh, matkhau , email, sonha, tenquan, tenphuong, tentp, sodienthoai, trangthaitk) VALUES ('$fullName', '$userName', '$passWordHash', '$eMail', '$houseNumbering', '$district', '$ward', '$city', '$phoneNumber',1)";
+        echo $sql;
+        
         $result = executeQuery($sql);
-        session_start();
         $_SESSION['userName'] = $userName;
         $_SESSION['fullName'] = $fullName;
         $_SESSION['passWord'] = $passWord;
-        header("Location: index.php");
+     
     }
 }
 ?>
@@ -29,15 +33,16 @@ if(isset($_POST['login-submit'])){
     if(!empty($_POST['userName'])&&!empty($_POST['passWord'])){
         $userName = $_POST['userName'];
         $passWord = $_POST['passWord'];
-        $sql = "SELECT * FROM `khachang` WHERE taikhoan like '$userName'";
+        $sql = "SELECT * FROM khachhang WHERE taikhoankh like '$userName'";
         $result = executeQuery($sql);
         $user = $result->fetch_assoc();
         if($user){
-            password_verify($passWord, $user['passWord']);
-            session_start();
-            $_SESSION['userName'] = $user['userName'];
-            $_SESSION['passWord'] = $user['passWord'];
-            $_SESSION['fullName'] = $user['fullName'];
+            if(md5($passWord) == $user['matkhau']){
+                $_SESSION['userName'] = $user['taikhoankh'];
+                $_SESSION['passWord'] = $user['matkhau'];
+                $_SESSION['fullName'] = $user['hoten'];
+            }
+          
             //print_r($_SESSION);
             header('Location:index.php');
             exit;
@@ -368,7 +373,7 @@ if(!empty($_SESSION['userName'])){
                         </div>
 
                         <div class="tab-pane fade" id="register" role="tabpanel">
-                            <div class="login-reg-form-wrap">
+                            <div class="login-reg-form-wrap  checkout-billing-details-wrap">
                                 <form  action="login-register.php" method="post"  id="form-register" onsubmit="return checkForm()">
                                     <div class="single-input-item">
                                         <input id="userName" name="userName" type="text" placeholder="User Name" required>
@@ -387,34 +392,50 @@ if(!empty($_SESSION['userName'])){
                                         <input id="phoneNumber" name="phoneNumber" type="text" placeholder="Phone Number" required>
                                         <div id="error_phonenumber"></div>
                                     </div>
+                                    
+                                    
+                                    
+                                  
+                                    <table>
+                                        <tr>
+                                            <div class="single-input-item">
+                                                <td><label for="city">City Name</label></td>
+                                                <td> <select class="" id="city" name="city" style="display: inline-block; width: 80%; height: 50px" onchange="checkDistrict()">
+                                                        <option value=""> Select a city</option>
+                                                        <option value ="hcm" name="hcm">Ho Chi Minh City</option>
+                                                        <option value ="hn" name="hn">Ha Noi City</option>
+                                                        <option value ="dn" name ="dn">Da Nang City</option>
+                                                        <option value ="ct" name = "ct">Can Tho City</option>
+                                                    </select></td>
+                                               
+                                            </div>
+                                        </tr>
+                                        <tr>
+                                            <div class="single-input-item">
+                                                <td><label for="district">District Name</label></td>
+                                                <td><select id="district" name="district" style="display: inline-block; width: 80%; height: 50px" onchange="checkWard()">
+                                                        <option value=""> Select a District</option>
+                                                    </select></td>
+                                                
+                                                
+                                            </div>
+                                        </tr>
+                                        <tr>
+                                            <div class="single-input-item">
+                                                <td  style="width: 20%"> <label for="ward">Ward Name</label></td>
+                                                <td style="width: 80%"><select id="ward" name="ward" style="display: inline-block; width: 80%; height: 50px">
+                                                        <option value=""> Select a ward</option>
+                                                    </select></td>
+                                               
+                                                
+                                            </div>
+                                        </tr>
+                                    </table>
+
+
                                     <div class="single-input-item">
-                                        <input id="houseNumbering" name="houseNumbering" type="text" placeholder="House Numbering" required>
+                                        <input id="houseNumbering" name="houseNumbering" type="text" placeholder="Address" required>
                                         <div id=""></div>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <label for="city">City Name</label>
-                                        <select id="city" name="city" style="display: inline-block" onchange="checkDistrict()">
-                                            <option value=""> Select a city</option>
-                                            <option value ="hcm" name="hcm">Ho Chi Minh City</option>
-                                            <option value ="hn" name="hn">Ha Noi City</option>
-                                            <option value ="dn" name ="dn">Da Nang City</option>
-                                            <option value ="ct" name = "ct">Can Tho City</option>
-                                        </select>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <label for="district">District Name</label>
-                                        <select id="district" name="district" style="display: inline-block" onchange="checkWard()">
-                                            <option value=""> Select a District</option>
-                                        </select>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <label for="ward">Ward Name</label>
-                                        <select id="ward" name="ward" style="display: inline-block">
-                                            <option value=""> Select a ward</option>
-                                        </select>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input id="streetName" name="streetName" type="text" placeholder="Street Name" required>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">

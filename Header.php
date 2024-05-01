@@ -1,6 +1,5 @@
 <?php
-
-    ?>
+?>
 <header id="header-area">
     <div class="ruby-container">
         <div class="row">
@@ -87,8 +86,8 @@
                             </div>
                         </li>
                         <?php
-                        if(isset($_SESSION['userName'])){ ?>
-                            <li class="settings"><a href="" onclick="onClickUserIcon()"><i class="fa fa-user"> <?php echo $_SESSION['fullName']?></i></a>
+                        if(isset($_SESSION['userName'])){?>
+                            <li class="settings"><a href="" onclick="onClickUserIcon()"><i class="fa fa-user"> <?php echo $_SESSION['userName']?></i></a>
                         <div class="site-settings d-block d-sm-flex">
                             <dl class="my-account">
                                 <dt>My Account</dt>
