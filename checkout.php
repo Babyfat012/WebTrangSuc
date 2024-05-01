@@ -5,6 +5,10 @@
     {
         header('Location:cart.php');
     }
+    if(!isLogin())
+    {
+        header('Location:login-register.php');
+    }
     ?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -361,30 +365,20 @@
 
                             <div class="single-input-item">
                                 <label for="country_2" class="required">address</label>
-                                <select name="country" id="country_2">
-                                    <option value="Bangladesh">Bangladesh</option>
-                                    <option value="India">India</option>
-                                    <option value="Pakistan">Pakistan</option>
-                                    <option value="England">England</option>
-                                    <option value="London">London</option>
-                                    <option value="London">London</option>
-                                    <option value="Chaina">Chaina</option>
+                                <select name="country" id="address" onchange="setaddress()">
+                                    <option value="Myaddress">My address:</option>
+                                    <option value="NewAdddress">New Adddess</option>
+                                   
                                 </select>
                             </div>
-                            
+
+                            <div class="ship-to-different single-form-row show" id="myadd" style="display: block" >
+                                <h2>Nguyen Phuong Vinh 0909930828</h2>
+                            </div>
+
                             <div class="checkout-box-wrap">
-                                <div class="single-input-item">
-                                    <div class="custom-control custom-checkbox">
-                                        <label  for="ship_to_different">Ship to a different
-                                            address?</label>
-                                        <select name="ship_to_different" id="ship_to_different">
-                                            <option>user</option>
-                                            <option>khac</option>
-                                        </select>
-                                        
-                                    </div>
-                                </div>
-                                <div class="ship-to-different single-form-row">
+                               
+                                <div class="ship-to-different single-form-row " id="newadd">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="single-input-item">
@@ -401,28 +395,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="single-input-item">
-                                        <label for="email_2" class="required">Email Address</label>
-                                        <input type="email" id="email_2" placeholder="Email Address"/>
-                                    </div>
-
-                                    <div class="single-input-item">
-                                        <label for="com-name_2">Company Name</label>
-                                        <input type="text" id="com-name_2" placeholder="Company Name"/>
-                                    </div>
-
-                                    <div class="single-input-item">
-                                        <label for="country_2" class="required">Country</label>
-                                        <select name="country" id="country_2">
-                                            <option value="Bangladesh">Bangladesh</option>
-                                            <option value="India">India</option>
-                                            <option value="Pakistan">Pakistan</option>
-                                            <option value="England">England</option>
-                                            <option value="London">London</option>
-                                            <option value="London">London</option>
-                                            <option value="Chaina">Chaina</option>
-                                        </select>
-                                    </div>
+                                    
 
                                     <div class="single-input-item">
                                         <label for="street-address_2" class="required">Street address</label>
@@ -436,6 +409,11 @@
                                     <div class="single-input-item">
                                         <label for="town_2" class="required">Province / City</label>
                                         <input type="text" id="town_2" placeholder="Town / City"/>
+                                    </div>
+
+                                    <div class="single-input-item">
+                                        <label for="state_2">District</label>
+                                        <input type="text" id="state_2" placeholder="D"/>
                                     </div>
 
                                     <div class="single-input-item">
@@ -522,7 +500,7 @@
                                 <div class="payment-method-details" data-method="bank">
                                     <p>Make your payment directly into our bank account. Please use your Order ID as the
                                         payment reference. Your order will not be shipped until the funds have cleared
-                                        in our account..</p>
+                                        in our account.</p>
                                 </div>
                             </div>
 
@@ -725,7 +703,26 @@
 <a href="#" class="scrolltotop"><i class="fa fa-angle-up"></i></a>
 <!-- Scroll to Top End -->
 
+<script>
+    
+    function setaddress(){
+        if(document.getElementById("address").value == 'Myaddress')
+        {
+            document.getElementById('myadd').style.display = "block";
+            document.getElementById('newadd').style.display = "none";
+            document.getElementById('myadd').classList.add("show");
+            document.getElementById('newadd').classList.remove("show");
 
+        }else
+        {
+            document.getElementById('myadd').style.display = "none";
+            document.getElementById('newadd').style.display = "block";
+            document.getElementById('myadd').classList.remove("show");
+            document.getElementById('newadd').classList.add("show");
+        }
+    }
+    
+</script>
 <!--=======================Javascript============================-->
 <!--=== Jquery Min Js ===-->
 <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>

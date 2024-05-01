@@ -1,8 +1,19 @@
 <?php
     session_start();
-    require "lib/DataProvider.php";
+    require "lib/lib.php";
+    
+    if (isset($_GET['delProduct']) && isset($_GET['delProduct']) >= 0) {
+        $index = $_GET['delProduct'];
+        $sql1 = "SELECT * FROM sanpham WHERE idsanpham = '" . $_SESSION['cart'][$index][0] . "'";
+        $result = executeQuery($sql1);
+        $row = $result->fetch_array();
+        
+        $sql2 = "UPDATE sanpham SET soluong = " . ($row['soluong'] + $_SESSION['cart'][$index][1]) . " WHERE idsanpham = '" . $_SESSION['cart'][$index][0] . "'";
+        executeQuery($sql2);
+        array_splice($_SESSION['cart'], $_GET['delProduct'], 1);
+        header('location:index.php');
+    } ?>
 
-?>
 
 
 

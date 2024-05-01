@@ -5,7 +5,6 @@
         switch($GET['id'])
         {
             case 1: {
-                echo '<script></script>'
             }
         }
     }
@@ -37,11 +36,11 @@
             $result = executeQuery($sql);
             $user = $result->fetch_assoc();
             if($user){
-                password_verify($passWord, $user['passWord']);
+                password_verify($passWord, $user['matkhau']);
                 session_start();
-                $_SESSION['userName'] = $user['userName'];
-                $_SESSION['passWord'] = $user['passWord'];
-                $_SESSION['fullName'] = $user['fullName'];
+                $_SESSION['userName'] = $user['taikhoankh'];
+                $_SESSION['passWord'] = $user['matkhau'];
+                $_SESSION['fullName'] = $user['hoten'];
                 //print_r($_SESSION);
                 header('Location:index.php');
                 exit;

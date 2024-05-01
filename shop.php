@@ -7,14 +7,14 @@
         $quantity = $_POST['quantity'];
         addToCart($id, $quantity);
     }
-    if(isset($_SESSION['cart']))
-        var_dump($_SESSION['cart']);
+   
     
     
     
     $rowsPerPage = 6;
     $pageNum = 1;
     $self ="shop.php";
+    $root = "shop.php";
     if(isset($_GET["page"])){
         $pageNum = $_GET["page"];
     }
@@ -133,6 +133,10 @@
         
         
     }
+    echo $self;
+    
+    
+
 
 ?>
 <!DOCTYPE html>
