@@ -62,6 +62,7 @@ if(isset($_POST['submit'])) {
     }
     header('location: quantri.php?page_layout=danhsachsp');
 
+
 }
 
 ?>

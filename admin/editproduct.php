@@ -84,7 +84,7 @@ if(isset($_GET['edit_id']))
 
                 <div class="form-group">
                     <label for="gender">GENDER</label>
-                    <select class="form-control" id="gender" name="gender">
+                    <select class="form-control form-control-lg" id="gender" name="gender">
                         <option value="-1">Select gender</option>
                         <option value="F" <?php isCheckedGender("F",$gender); ?>>Women</option>
                         <option value="M" <?php isCheckedGender("M",$gender); ?>>Men</option>
@@ -104,7 +104,7 @@ if(isset($_GET['edit_id']))
 
                 <div class="form-group">
                     <label for="type">TYPE</label>
-                    <select class="form-control" id="type" name="type">
+                    <select class="form-control form-control-lg" id="type" name="type">
                         <option value="-1">Select type</option>
                         <option value="BRL" <?php isCheckedType("BRL",$type); ?>>Bracelet</option>
                         <option value="NKL" <?php isCheckedType("NKL",$type); ?>>Necklace</option>
