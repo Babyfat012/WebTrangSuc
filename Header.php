@@ -67,7 +67,7 @@
                                                 echo '<div class="cal d-flex align-items-center">';
                                                 echo '<span class="quantity">'.$_SESSION['cart'][$i][1].'</span>';
                                                 echo '<span class="multiplication">X</span>';
-                                                echo '<span class="price">$'.$row['dongia'].'</span>';
+                                                echo '<span class="price">$'.number_format($row['dongia'],2,".","," ).'</span>';
                                                 echo '</div>';
                                                 echo '</div>';
                                               
@@ -91,8 +91,8 @@
                         <div class="site-settings d-block d-sm-flex">
                             <dl class="my-account">
                                 <dt>My Account</dt>
-                                <dd><a href="#">Dashboard</a></dd>
-                                <dd><a href="#">Profile</a></dd>
+                                <dd><a href="my-account.php?url=info">Profile</a></dd>
+                                <dd><a href="my-account.php?url=order">My order</a></dd>
                                 <dd><a href="logout.php">Sign Out</a></dd>
                             </dl>
                         </div>

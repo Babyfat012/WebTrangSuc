@@ -7,7 +7,7 @@
         $quantity = $_POST['quantity'];
         addToCart($id, $quantity);
     }
-   
+   var_dump($_SESSION['cart']);
     
     
     
@@ -370,13 +370,13 @@
                                                    onchange="setMin()" value="'.$_GET['min'].'">';
                                                 }
                                                 else{
-                                                    echo ' <input type="number" id="min" name="min" min="1" style="width: 75px"';
+                                                    echo ' <input type="number" onchange="setMin()" id="min" name="min" min="1" style="width: 75px"';
                                                 }
                                                 echo '<span>to</span>';
                                                 if(isset($_GET['max'])){
-                                                    echo '<input type="number" id="max" name="max" style="width: 75px" value="'.$_GET['max'].'">';
+                                                    echo '<input type="number" onchange="setMin()" id="max" name="max" style="width: 75px" value="'.$_GET['max'].'">';
                                                 }else
-                                                    echo '<input type="number" id="max" name="max" style="width: 75px">'
+                                                    echo '<input type="number" onchange="setMin()" id="max" name="max" style="width: 75px">'
                                             ?>
                                             
 
@@ -437,7 +437,7 @@
                                                 echo '</figure>';
                                                 echo '<div class="product-details">';
                                                 echo '<h2><a href="single-product.php?id='.$row['idsanpham'].'">'.$row['tensp'].'</a></h2>';
-                                                echo '<span class="price">'.'$'.$row['dongia'].'</span>';
+                                                echo '<span class="price">'.'$'.number_format( $row['dongia'],2,".",",").'</span>';
                                                 echo '<form method="post">';
                                                 echo '<input type="hidden" name="id" value="'.$row['idsanpham'].'">';
                                                 echo '<input type="hidden" name="quantity" value="1">';
