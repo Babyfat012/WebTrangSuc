@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require 'lib/lib.php';
+    require '../lib/lib.php';
 ?>
 
 <!DOCTYPE html>
@@ -112,7 +112,7 @@
                                                                 case -1: echo '<th>Canceled</th>';
                                                             }
                                                             echo '<th>$'.number_format($row['tongtien'],2,".",",") .'</th>';
-                                                            echo '<th><a href="cart.html" class="btn-add-to-cart">View</a></th>';
+                                                            echo '<th><a href="../cart.html" class="btn-add-to-cart">View</a></th>';
                                                             echo '</tr>';
                                                             echo '</thead>';
                                                             $sql1 = "SELECT CT.idsanpham, CT.dongia, .CT.soluong, SP.hinhanh, SP.tensp, SP.maloaisp FROM chitiethoadon CT, sanpham SP WHERE idhoadon ='". "$row[idhoadon]' AND CT.idsanpham = SP.idsanpham";

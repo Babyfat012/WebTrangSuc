@@ -424,8 +424,13 @@ if(isset($_POST['apply'])){
                                                             break;
                                                             case -1: echo '<th>Canceled</th>';
                                                         }
+                                                        
                                                         echo '<th>$'.number_format($row['tongtien'],2,".",",") .'</th>';
-                                                        echo '<th><a href="cart.html" class="btn-add-to-cart">View</a></th>';
+                                                        echo '<form action="detailBill.php" method="post"> >';
+                                                        echo '<input type="hidden" name="id" value="'.$row['idhoadon'].'">';
+                                                        echo '<input type="hidden" name="user" value="'.$row['taikhoankh'] .'">';
+                                                        echo '<th><button name="view" value="view" type="submit" class="btn-add-to-cart">View</button></th>';
+                                                        echo '</form>';
                                                         echo '</tr>';
                                                         echo '</thead>';
                                                         $sql1 = "SELECT CT.idsanpham, CT.dongia, .CT.soluong, SP.hinhanh, SP.tensp, SP.maloaisp FROM chitiethoadon CT, sanpham SP WHERE idhoadon ='". "$row[idhoadon]' AND CT.idsanpham = SP.idsanpham";
