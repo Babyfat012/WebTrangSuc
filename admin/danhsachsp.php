@@ -1,13 +1,6 @@
 <?php
 
 
-    if(isset($_GET['del_id']))
-    {
-        $sql = "UPDATE sanpham SET soluong = 0 WHERE idsanpham='" . $_GET['del_id'] . "'";
-        $result =executeQuery($sql);
-        header('location: quantri.php?page_layout=danhsachsp');
-    }
-
     $sql ='SELECT * FROM sanpham';
 
     $result = executeQuery($sql);
@@ -50,9 +43,9 @@
             echo'</td>';
 
             echo'<td>';
-            echo "<form method='get' action='danhsachsp.php'>";
+            echo "<form method='post' action='quantri.php?page_layout=danhsachsp' onsubmit='return Del(".$row['tensp'].")'>";
             echo "<input type='hidden' name='del_id' value='" . $row['idsanpham'] . "'>";
-            echo '<button type="submit" onclick="return Del(\'' . $row['tensp'] . '\')" class="btn btn-outline-secondary btn-light btn-rounded btn-icon btn-lg"><i class="ti-trash"></i></button>';
+            echo '<button type="submit" name="deleteBtn" value="delete"  class="btn btn-outline-secondary btn-light btn-rounded btn-icon btn-lg"><i class="ti-trash"></i></button>';
             echo'</form>';
             echo'</td>';
 

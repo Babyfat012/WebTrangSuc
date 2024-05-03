@@ -80,6 +80,7 @@ if(isset($_POST['submit'])) {
         $result = executeQuery($sql);
     }
 
+    header('location: quantri.php?page_layout=danhsachsp');
 
 }
 

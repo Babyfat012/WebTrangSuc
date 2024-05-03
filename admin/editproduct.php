@@ -96,32 +96,12 @@ if(isset($_GET['edit_id']))
                     <label for="exampleTextarea1">DESCRIPTION</label>
                     <textarea class="form-control" name="description" rows="4"><?php echo $row['mota']; ?></textarea>
                 </div>
-                <button type="submit" value="submit" name="submit" class="btn btn-primary me-2">Edit</button>
+                <button type="submit" value="submit" name="submit" class="btn btn-primary me-2">Edit    </button>
                 <button class="btn btn-light">Cancel</button>
             </form>
         </div>
     </div>
 </div>
 
-<script>
-    function ImagesFileAsURL() {
-        var fileSelected = document.getElementById('pic').files;
-        if (fileSelected.length > 0) {
-            var fileToLoad = fileSelected[0];
-            var fileReader = new FileReader();
-            fileReader.onload = function(fileLoaderEvent) {
-                var srcData = fileLoaderEvent.target.result;
-                var newImage = document.createElement('img');
-                newImage.src = srcData;
-                newImage.style.width = "250px";
-                document.getElementById('displayImg').innerHTML = newImage.outerHTML;
 
-                var display = document.getElementById('displayImg');
-                display.style.width="250px";
-                display.src = srcData;
-                display.outerHTML;
-            }
-            fileReader.readAsDataURL(fileToLoad);
-        }
-    }</script>
 

@@ -1,5 +1,4 @@
 <?php
-require'../lib/DataProvider.php';
 
 if(isset($_POST['submit']))
 {
@@ -29,7 +28,7 @@ if(isset($_POST['submit']))
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">ADD USER</h4>
-            <form class="forms-sample" action="adduser.php" method="post">
+            <form class="forms-sample" action="quantri.php?page_layout=adduser" method="post">
 
                 <div class="form-group">
                     <label>Name</label>
