@@ -19,6 +19,7 @@
         $pageNum = $_GET["page"];
     }
     $offset = ($pageNum - 1) * $rowsPerPage;
+
     $where = '';
     if(isset($_GET['key']))
     {
@@ -86,7 +87,7 @@
             else
             {
                 $where .= "gioitinh LIKE '" . $gender[$i] . "' OR ";
-                $self .= "Gender[]r=$gender[$i]&";
+                $self .= "Gender[]=$gender[$i]&";
             }
         }
     }
@@ -127,7 +128,6 @@
                 
             }
             $where .=" )";
-
         }
     
         
@@ -322,7 +322,7 @@
                                                             }
                                                             else
                                                                 echo '<input type="checkbox" value="M" name="Gender[]">';
-                                                            
+
                                                         }else
                                                             echo '<input type="checkbox" value="M" name="Gender[]">';
                                                     ?>

@@ -1,5 +1,4 @@
 <?php
-require '../lib/DataProvider.php';
 
 if(isset($_GET['temptk']) && !empty($_GET['temptk'])) {
     $taikhoanedit = $_GET['temptk'];
@@ -29,17 +28,17 @@ if(isset($_GET['temptk']) && !empty($_GET['temptk'])) {
                     echo"<input type='hidden' name='temptk' id='temptk' value=". $taikhoanedit .">";
                 ?>
                 <div class="form-group">
-                    <label>Name</label>
+                    <label>NAME</label>
                     <input type="text" class="form-control" name="name" id="name" value="<?php echo($row['hoten']); ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputEmail3">Email address</label>
+                    <label for="exampleInputEmail3">EMAIL</label>
                     <input type="email" class="form-control" id="email" name="email" value="<?php echo($row['email']); ?>">
                 </div>
 
                 <div class="form-group">
-                    <label>Home Number</label>
+                    <label>ADDRESS</label>
                     <input type="text" class="form-control" name="home_number" id="home_number" value="<?php echo($row['sonha']); ?>">
                 </div>
 

@@ -22,10 +22,12 @@
     {
         while($row = $result->fetch_array())
         {
+            echo'<tr>';
             echo '<td>' . $row['hoten'] . '</td>';
             echo '<td>' . $row['taikhoan'] . '</td>';
             echo '<td>' . $row['matkhau'] . '</td>';
             echo '<td>' . $row['trangthaitk'] . '</td>';
+            echo'</tr>';
         }
     }
     echo'</tbody>';

@@ -12,6 +12,7 @@
             $sql = "INSERT INTO `manager` (hoten, taikhoan, matkhau, trangthaitk) VALUES ('$name', '$username', '$passwordHash', '$trangthaitk')";
             echo $sql;
             $result = executeQuery($sql);
+            header('location: quantri.php?page_layout=danhsachadmin');
         }
     }
 ?>

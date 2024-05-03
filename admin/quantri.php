@@ -4,7 +4,24 @@
     session_start();
     require '../lib/db.inc';
     require '../lib/lib.php';
-    
+    if(empty($_SESSION['taikhoan']))
+    {
+        header('location: index.php');
+    }
+    if(isset($_POST['deleteBtn'])){
+        if(isset($_POST['del_id']))
+        {
+            $sql = "UPDATE sanpham SET soluong = 0 WHERE idsanpham='" . $_POST['del_id'] . "'";
+            $result =executeQuery($sql);
+            header("location:quantri.php?page_layout=danhsachsp");
+        }
+    }
+
+    if(isset($_POST['filterBtn']))
+    {
+
+    }
+
 ?>
 
 
@@ -105,7 +122,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/charts/chartjs.html">
+                    <a class="nav-link" href="quantri.php?page_layout=thongke">
                         <i class="ti-bar-chart-alt menu-icon"></i>
                         <span class="menu-title">Reports</span>
                     </a>
@@ -159,6 +176,8 @@
                     break;
                 case 'danhsachadmin': include_once './danhsachadmin.php';
                     break;
+                case 'thongke': include_once './thongke.php';
+                    break;
             }
         }
         else
@@ -170,6 +189,121 @@
     <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
+
+<script>
+
+    function check(){
+        var regNumber = /^[0-9]+$/;
+        var regFloat = /^\d*\.\d+$/;
+        var stock = document.getElementById("stock").value;
+        var type = document.getElementById("type").value;
+        var size = document.getElementById("size").value;
+        var price = document.getElementById("price").value;
+        var gender = document.getElementById("gender").value;
+        console.log(size);
+        console.log(stock);
+        flag = true;
+        if((regFloat.test(size) || regNumber.test(size)) && parseFloat(size) >0){
+            document.getElementById("errorSize").style.display = "none";
+
+        }else{
+            flag = false;
+
+            document.getElementById("errorSize").innerHTML = "Data is wrong";
+            document.getElementById("errorSize").style.display = "block";
+            document.getElementById("errorSize").style.color = "red";
+
+        }
+
+
+        if(!regNumber.test(stock) || parseInt(stock) < 0){
+            flag = false;
+
+            document.getElementById("errorStock").innerHTML = "Data is wrong";
+            document.getElementById("errorStock").style.display = "block";
+            document.getElementById("errorStock").style.color = "red";
+
+        }else
+            document.getElementById("errorStock").style.display = "none";
+
+        if((regFloat.test(price) || regNumber.test(price)) && parseFloat(price)>0){
+            document.getElementById("errorPrice").style.display = "none";
+
+        }else{
+            flag = false;
+
+            document.getElementById("errorPrice").innerHTML = "Data is wrong";
+            document.getElementById("errorPrice").style.display = "block";
+            document.getElementById("errorPrice").style.color = "red";
+
+        }
+
+
+        if(type == -1){
+            document.getElementById("errorType").innerHTML = "Data is wrong";
+            document.getElementById("errorType").style.display = "block";
+            document.getElementById("errorType").style.color = "red";
+
+            flag = false;
+        }else
+            document.getElementById("errorType").style.display = "none";
+
+        if(gender == -1){
+            document.getElementById("errorGender").innerHTML = "Data is wrong";
+            document.getElementById("errorGender").style.display = "block";
+            document.getElementById("errorGender").style.color = "red";
+
+            flag = false;
+        }else
+            document.getElementById("errorGender").style.display = "none";
+
+        return flag;
+
+
+    }
+
+
+
+    function ImagesFileAsURL() {
+        var fileSelected = document.getElementById('pic').files;
+        if (fileSelected.length > 0) {
+            var fileToLoad = fileSelected[0];
+            var fileReader = new FileReader();
+            fileReader.onload = function(fileLoaderEvent) {
+                var srcData = fileLoaderEvent.target.result;
+                var newImage = document.createElement('img');
+                newImage.src = srcData;
+                newImage.style.width = "250px";
+                document.getElementById('displayImg').innerHTML = newImage.outerHTML;
+            }
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+</script>
+
+
+<script>
+    function ImagesFileAsURL() {
+        var fileSelected = document.getElementById('pic').files;
+        if (fileSelected.length > 0) {
+            var fileToLoad = fileSelected[0];
+            var fileReader = new FileReader();
+            fileReader.onload = function(fileLoaderEvent) {
+                var srcData = fileLoaderEvent.target.result;
+                var newImage = document.createElement('img');
+                newImage.src = srcData;
+                newImage.style.width = "250px";
+                document.getElementById('displayImg').innerHTML = newImage.outerHTML;
+
+                var display = document.getElementById('displayImg');
+                display.style.width="250px";
+                display.src = srcData;
+                display.outerHTML;
+            }
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }</script>
+
 
 <!-- plugins:js -->
 <script src="vendors/base/vendor.bundle.base.js"></script>

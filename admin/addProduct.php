@@ -113,11 +113,17 @@
                     <div class="form-group">
                         <label for="stock">QUANTITY</label>
                         <input type="text" name="stock" id="stock"  class="form-control" required>
+                        <div id="errorStock"></div>
                     </div>
+
+
                     <div class="form-group">
                         <label for="price">PRICE</label>
                         <input type="text" name="price" id="price" class="form-control" required>
+                        <div id="errorPrice"></div>
                     </div>
+
+
 
                     <div class="form-group">
                         <label for="material">MATERIAL</label>
@@ -132,6 +138,7 @@
                     <div class="form-group">
                         <label for="size">SIZE</label>
                         <input type="text" name="size" id="size" class="form-control" required>
+                        <div id="errorSize"></div>
                     </div>
 
 
@@ -143,6 +150,8 @@
                             <option value="M" >Men</option>
                             <option value="U" >Unisex</option>
                         </select>
+
+                        <div id="errorGender"></div>
                     </div>
 
                     <div class="form-group">
@@ -160,102 +169,18 @@
                             }
                             ?>
                         </select>
+                        <div id="errorType"></div>
                     </div>
 
                     <div class="form-group">
                         <label for="desc">DESCRIPTION</label>
                         <textarea class="form-control" id="desc" name="desc" rows="4"></textarea>
                     </div>
-                    <button type="submit" value="submit" name="submitBtn" class="btn btn-primary me-2">Edit</button>
+                    <button type="submit" value="submit" name="submitBtn" class="btn btn-primary me-2">Add</button>
                     <button class="btn btn-light">Cancel</button>
                 </form>
             </div>
         </div>
     </div>
-    <script>
-
-        function check(){
-            var regNumber = /^[0-9]+$/;
-            var regFloat = /^\d*\.\d+$/;
-            var stock = document.getElementById("stock").value;
-            var type = document.getElementById("type").value;
-            var size = document.getElementById("size").value;
-            var price = document.getElementById("price").value;
-            var gender = document.getElementById("gender").value;
-            flag = true;
-            if((regFloat.test(size) || regNumber.test(size)) && parseFloat(size) >0){
-                document.getElementById("errorSize").style.display = "none";
-
-            }else{
-                document.getElementById("errorSize").innerHTML = "Data is wrong";
-                document.getElementById("errorSize").style.display = "block";
-                document.getElementById("errorSize").style.color = "red";
-
-                flag = false;
-            }
-
-
-            if(!regNumber.test(stock) || parseInt(stock) < 0){
-                document.getElementById("errorStock").innerHTML = "Data is wrong";
-                document.getElementById("errorStock").style.display = "block";
-                document.getElementById("errorStock").style.color = "red";
-
-                flag = false;
-            }else
-                document.getElementById("errorStock").style.display = "none";
-
-            if((regFloat.test(price) || regNumber.test(price)) && parseFloat(price)>0){
-                document.getElementById("errorPrice").style.display = "none";
-
-            }else{
-                document.getElementById("errorPrice").innerHTML = "Data is wrong";
-                document.getElementById("errorPrice").style.display = "block";
-                document.getElementById("errorPrice").style.color = "red";
-
-                flag = false;
-            }
-
-
-            if(type == -1){
-                document.getElementById("errorType").innerHTML = "Data is wrong";
-                document.getElementById("errorType").style.display = "block";
-                document.getElementById("errorType").style.color = "red";
-
-                flag = false;
-            }else
-            document.getElementById("errorType").style.display = "none";
-
-            if(gender == -1){
-                document.getElementById("errorGender").innerHTML = "Data is wrong";
-                document.getElementById("errorGender").style.display = "block";
-                document.getElementById("errorGender").style.color = "red";
-
-                flag = false;
-            }else
-                document.getElementById("errorGender").style.display = "none";
-
-            return flag;
-
-
-        }
-
-
-
-            function ImagesFileAsURL() {
-                var fileSelected = document.getElementById('pic').files;
-                if (fileSelected.length > 0) {
-                    var fileToLoad = fileSelected[0];
-                    var fileReader = new FileReader();
-                    fileReader.onload = function(fileLoaderEvent) {
-                        var srcData = fileLoaderEvent.target.result;
-                        var newImage = document.createElement('img');
-                        newImage.src = srcData;
-                        newImage.style.width = "250px";
-                        document.getElementById('displayImg').innerHTML = newImage.outerHTML;
-                    }
-                    fileReader.readAsDataURL(fileToLoad);
-                }
-            }
-    </script>
 </body>
 </html>
