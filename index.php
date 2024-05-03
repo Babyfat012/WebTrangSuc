@@ -212,7 +212,7 @@
                                                     ' </figure>' .
                                                     '<div class="product-details">' .
                                                     '<h2><a href="single-product.php?id='. $row['idsanpham'] .'">'. $row['tensp'] .'</a></h2>'.
-                                                    '<span class="price">$' . $row['dongia'] . '</span>' .
+                                                    '<span class="price">$' . number_format($row['dongia'],2,".","," ) . '</span>' .
                                                     '<a href="single-product.html" class="btn btn-add-to-cart">+ Add to Cart</a>'.
                                                     '</div>' .
                                                     '</div>';
@@ -245,7 +245,7 @@
                                                     ' </figure>' .
                                                     '<div class="product-details">' .
                                                     '<h2><a href="single-product.html">'. $row['tensp'] .'</a></h2>'.
-                                                    '<span class="price">$' . $row['dongia'] . '</span>' .
+                                                    '<span class="price">$' . number_format($row['dongia'],2,".","," ) . '</span>' .
                                                     '<a href="single-product.html" class="btn btn-add-to-cart">+ Add to Cart</a>'.
                                                     '</div>' .
                                                     '</div>';
@@ -280,7 +280,7 @@
                                                     ' </figure>' .
                                                     '<div class="product-details">' .
                                                     '<h2><a href="single-product.html">'. $row['tensp'] .'</a></h2>'.
-                                                    '<span class="price">$' . $row['dongia'] . '</span>' .
+                                                    '<span class="price">$' . number_format($row['dongia'],2,".","," ) . '</span>' .
                                                     '<a href="single-product.html" class="btn btn-add-to-cart">+ Add to Cart</a>'.
                                                     '</div>' .
                                                     '</div>';

@@ -2,6 +2,27 @@
 <?php
 session_start();
 require 'lib/lib.php';
+if(!isLogin()){
+    header('Location: login-register.php');
+}
+var_dump($_SESSION['userName']);
+
+if(isset($_POST['apply'])){
+    if(isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['email']) && isset($_POST['city']) && isset($_POST['district']) && isset($_POST['ward']) &&  isset($_POST['street']) )
+    {
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $city = $_POST['city'];
+        $district = $_POST['district'];
+        $ward = $_POST['ward'];
+        $street = $_POST['street'];
+        $sql = "UPDATE khachhang SET hoten = '$name', sodienthoai = '$phone', email = '$email', sonha = '$street', tenquan = '$district', tenphuong = '$ward', tentp = '$city' WHERE taikhoankh = '".$_SESSION['userName']."'";
+        echo $sql;
+        executeQuery($sql);
+        
+    }
+}
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
@@ -397,13 +418,13 @@ require 'lib/lib.php';
                                                         echo '<th>'.$row['ngaymua'].'</th>';
                                                         switch($row['trangthai'])
                                                         {
-                                                            case 0: echo '<th>Confirm</th>';
+                                                            case 0: echo '<th>Confirmed</th>';
                                                             break;
-                                                            case 1: echo '<th>Complete</th>';
+                                                            case 1: echo '<th>Completed</th>';
                                                             break;
-                                                            case -1: echo '<th>Cancel</th>';
+                                                            case -1: echo '<th>Canceled</th>';
                                                         }
-                                                        echo '<th>'.$row['tongtien'].'</th>';
+                                                        echo '<th>$'.number_format($row['tongtien'],2,".",",") .'</th>';
                                                         echo '<th><a href="cart.html" class="btn-add-to-cart">View</a></th>';
                                                         echo '</tr>';
                                                         echo '</thead>';
@@ -438,7 +459,7 @@ require 'lib/lib.php';
                                                                 echo '<a href="single-product.php?id='.$row1['idsanpham'].'"><h4>'.$row1['tensp'].'</h4></a>';
                                                                 echo '<hr>';
                                                                 echo '<p style="text-align: left; font-weight: 700">Type:'.$type.'</p>
-                                                        <p style="text-align: left; font-weight: 700">Price:'.$row1['dongia'].'</p>
+                                                        <p style="text-align: left; font-weight: 700">Price:$'.number_format($row1['dongia']) .'</p>
                                                         <p style="text-align: left; font-weight: 700">Quantity: '.$row1['soluong'][0].'</p>';
                                                                 echo '</td>';
                                                                 echo '</tr>';
@@ -527,91 +548,99 @@ require 'lib/lib.php';
                                         <h3>Account Details</h3>
 
                                         <div class="account-details-form">
-                                            <form action="#">
+                                            <form action="my-account.php" method="post" onsubmit="return checkForm()">
                                                 <div class="single-input-item">
                                                     <label for="display-name" class="required">Username</label>
-                                                    <h3>Sog1n123</h3>
+                                                    <h3><?php echo $_SESSION['userName'] ?></h3>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="single-input-item">
-                                                            <label for="first-name" class="required">Fullname</label>
+                                                            <label for="first-name" class="required" id="nameError">Fullname</label>
                                                             <input type="text" id="first-name"
-                                                                   placeholder="Fullname" value="<?php echo $customer['hoten'] ?>"/>
+                                                                   placeholder="Fullname" name="name" value="<?php echo $customer['hoten'] ?>"/>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-6">
                                                         <div class="single-input-item">
-                                                            <label for="last-name" class="required">Phone</label>
-                                                            <input type="text" id="last-name" value="<?php echo $customer['sodienthoai'] ?>" placeholder="Phone"/>
+                                                            <label for="last-name" class="required" id="phoneError">Phone</label>
+                                                            <input type="text" id="last-name" name="phone" value="<?php echo $customer['sodienthoai'] ?>" placeholder="Phone"/>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="single-input-item">
-                                                    <label for="email" class="required">Email Addres</label>
-                                                    <input type="email" id="email" placeholder="Email Address" value="<?php echo $customer['email'] ?>"/>
+                                                    <label for="email" class="required" id="emailError">Email Addres</label>
+                                                    <input type="email" id="email" name="email" placeholder="Email Address" value="<?php echo $customer['email'] ?>"/>
                                                 </div>
                                                 
                                                 <fieldset>
+                                                    <?php function isSelected($str1, $str2)
+                                                    {
+                                                        if($str1 == $str2)
+                                                            echo "selected";
+                                                        
+                                                    } ?>
                                                     <legend>Address</legend>
-                                                    <div class="single-input-item">
-                                                        <label for="city" class="required" >Province / City</label>
+                                                    <div class="single-input-item"  >
+                                                        <label for="city" class="required" id="cityError" >Province / City</label>
                                                         <select name="city" id="city" ">
-                                                        <option value=""> Select a city</option>
-                                                        <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                                                        <option value="Hà Nội">Hà Nội</option>
-                                                        <option value="Đà Nẵng">Đà Nẵng</option>
-                                                        <option value="Hải Phòng">Hải Phòng</option>
+                                                        <option value="-1"> Select a city</option>
+                                                        <option value="Ho Chi Minh" <?php isSelected($customer['tentp'],"Ho Chi Minh");?> >Ho Chi Minh</option>
+                                                        <option value="Ha Noi" <?php isSelected($customer['tentp'],"Ha Noi");?>>Ha Noi</option>
+                                                        <option value="Da Nang" <?php isSelected($customer['tentp'],"Da Nang");?>>Da Nang</option>
+                                                        <option value="Hai Phong" <?php isSelected($customer['tentp'],"Hai Phong");?>>Hai Phong</option>
                                                         </select>
                                                     </div>
 
-                                                    <div class="single-input-item" id="districtform">
-                                                        <label for="district" class="required" >District</label>
+                                                    <div class="single-input-item" >
+                                                        <label for="district" class="required" id="districtError" >District</label>
                                                         <select name="district" id="district" >
                                                             <option value="-1"> Select a District
                                                             </option>
-                                                            <option value="District 1">District 1</option>
-                                                            <option value="District 2">District 2</option>
-                                                            <option value="District 3">District 3</option>
-                                                            <option value="District 4">District 4</option>
-                                                            <option value="District 5">District 5</option>
-                                                            <option value="District 6">District 6</option>
-                                                            <option value="District 7">District 7</option>
-                                                            <option value="District 8">District 8</option>
-                                                            <option value="District 9">District 9</option>
-                                                            <option value="District 10">District 10</option>
-                                                            <option value="District 11">District 11</option>
-                                                            <option value="District 12">District 12</option>
-
-
+                                                            <option value="District 1" <?php isSelected($customer['tenquan'],"District 1");?>>District 1</option>
+                                                            <option value="District 2" <?php isSelected($customer['tenquan'],"District 2");?>>District 2</option>
+                                                            <option value="District 3" <?php isSelected($customer['tenquan'],"District 3");?>>District 3</option>
+                                                            <option value="District 4" <?php isSelected($customer['tenquan'],"District 4");?>>District 4</option>
+                                                            <option value="District 5" <?php isSelected($customer['tenquan'],"District 5");?>>District 5</option>
+                                                            <option value="District 6" <?php isSelected($customer['tenquan'],"District 6");?>>District 6</option>
+                                                            <option value="District 7" <?php isSelected($customer['tenquan'],"District 7");?>>District 7</option>
+                                                            <option value="District 8" <?php isSelected($customer['tenquan'],"District 8");?>>District 8</option>
+                                                            <option value="District 9" <?php isSelected($customer['tenquan'],"District 9");?>>District 9</option>
+                                                            <option value="District 10" <?php isSelected($customer['tenquan'],"District 10");?>>District 10</option>
+                                                            <option value="District 11" <?php isSelected($customer['tenquan'],"District 11");?>>District 11</option>
+                                                            <option value="District 12" <?php isSelected($customer['tenquan'],"District 12");?>>District 12</option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                    <div class="single-input-item" >
+                                                        <label for="ward" class="required" id="wardError">Ward</label>
+                                                        <select name="ward" id="ward">
+                                                            <option value="Ward 1" <?php isSelected($customer['tenphuong'],"Ward 1");?>>Ward 1</option>
+                                                            <option value="Ward 2" <?php isSelected($customer['tenphuong'],"Ward 2");?>>Ward 2</option>
+                                                            <option value="Ward 3" <?php isSelected($customer['tenphuong'],"Ward 3");?>>Ward 3</option>
+                                                            <option value="Ward 4" <?php isSelected($customer['tenphuong'],"Ward 4");?>>Ward 4</option>
+                                                            <option value="Ward 5" <?php isSelected($customer['tenphuong'],"Ward 5");?>>Ward 5</option>
+                                                            <option value="Ward 6" <?php isSelected($customer['tenphuong'],"Ward 6");?>>Ward 6</option>
+                                                            <option value="Ward 7" <?php isSelected($customer['tenphuong'],"Ward 7");?>>Ward 7</option>
+                                                            <option value="Ward 8" <?php isSelected($customer['tenphuong'],"Ward 8");?>>Ward 8</option>
+                                                            <option value="Ward 9" <?php isSelected($customer['tenphuong'],"Ward 9");?>>Ward 9</option>
+                                                            <option value="Ward 10" <?php isSelected($customer['tenphuong'],"Ward 10");?>>Ward 10</option>
+                                                            <option value="Ward 11" <?php isSelected($customer['tenphuong'],"Ward 11");?>>Ward 11</option>
+                                                            <option value="Ward 12" <?php isSelected($customer['tenphuong'],"Ward 12");?>>Ward 12</option>
                                                         </select>
                                                     </div>
 
-                                                    <div class="single-input-item" id="wardform">
-                                                        <label for="ward" class="required" >Ward</label>
-                                                        <select name="ward" id="ward">
-                                                            <option value=""> Select a Ward</option>
-                                                            <option value="Ward 1">Ward 1</option>
-                                                            <option value="Ward 2">Ward 2</option>
-                                                            <option value="Ward 3" selected>Ward 3</option>
-                                                            <option value="Ward 4">Ward 4</option>
-                                                            <option value="Ward 5">Ward 5</option>
-                                                            <option value="Ward 6">Ward 6</option>
-                                                            <option value="Ward 7">Ward 7</option>
-                                                            <option value="Ward 8">Ward 8</option>
-                                                            <option value="Ward 9">Ward 9</option>
-                                                            <option value="Ward 10">Ward 10</option>
-                                                            <option value="Ward 11">Ward 11</option>
-                                                            <option value="Ward 12">Ward 12</option>
-                                                        </select>
+                                                    <div class="single-input-item" >
+                                                        <label for="ward" class="required" id="streetError">Address</label>
+                                                        <input name="street" id="street" value="<?php echo $customer['sonha'];?>">
                                                     </div>
                                                 </fieldset>
                                                 
                                                
                                                 <div class="single-input-item">
-                                                    <button class="btn-login btn-add-to-cart">Save Changes</button>
+                                                    <button name="apply" value="edit"  class="btn-login btn-add-to-cart" type="submit" ">Save Changes</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -835,7 +864,73 @@ require 'lib/lib.php';
         ?>
         
        
-        
+        function checkForm(){
+            flag = true;
+            var name = document.getElementById("first-name").value;
+            var phone = document.getElementById("last-name").value;
+            var email = document.getElementById("email").value;
+            var city = document.getElementById("city").value;
+            var district = document.getElementById("district").value;
+            var ward = document.getElementById("ward").value;
+            var street = document.getElementById("street").value;
+            var regExEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            var regExPhoneNum = /^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$\b/;
+
+            if(city == '-1'){
+                document.getElementById("cityError").style.color= "red";
+                flag = false;
+            }else
+                document.getElementById("cityError").style.color= "black";
+
+            if(district == '-1'){
+                document.getElementById("districtError").style.color="red";
+                flag = false;
+            }else
+                document.getElementById("districtError").style.color= "black";
+            
+            if(ward == '-1'){
+                document.getElementById("wardError").style.color="red";
+                flag = false;
+            }else
+                document.getElementById("wardError").style.color="black";
+            
+            if(street.trim() == "")
+            {
+                document.getElementById("streetError").style.color = "red";
+                flag = false;
+            }else
+                document.getElementById("streetError").style.color = "black";
+
+            if(name.trim() == "")
+            {
+                document.getElementById("nameError").style.color = "red";
+                flag = false;
+            }else
+                document.getElementById("nameError").style.color = "black";
+
+            if(phone.trim() == "" || !regExPhoneNum.test(phone))
+            {
+                document.getElementById("phoneError").style.color = "red";
+                flag = false;
+            }else
+                document.getElementById("phoneError").style.color = "black";
+
+            if(email.trim() == "" || !regExEmail.test(email))
+            {
+                document.getElementById("emailError").style.color = "red";
+                flag = false;
+            }else
+                document.getElementById("emailError").style.color = "black";
+            
+            
+            if(flag == false){
+                alert(" Please complete all information");
+            }
+            console.log(flag);
+            return flag;
+
+
+        }
     </script>
 <!--=======================Javascript============================-->
 <!--=== Jquery Min Js ===-->

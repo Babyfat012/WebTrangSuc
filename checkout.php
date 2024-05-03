@@ -52,7 +52,7 @@
                 $total = $_POST['total'];
                 $pttt  = $_POST['paymentmethod'];
                 $sql1 = "INSERT INTO `hoadon`(idhoadon, taikhoankh, hoten, sodienthoai, sonha, tentp, tenquan, tenphuong, ngaymua, phuongthucthanhtoan, trangthai, tongtien)".
-                    " VALUES('$ID', "."'".$_SESSION['userName']."', "."'$user[hoten]','$user[sodienthoai]', '$user[sonha]', '$user[tentp]', '$user[tenquan]', '$user[tenphuong]', CURRENT_DATE(), $pttt, 1, $total)";
+                    " VALUES('$ID', "."'".$_SESSION['userName']."', "."'$user[hoten]','$user[sodienthoai]', '$user[sonha]', '$user[tentp]', '$user[tenquan]', '$user[tenphuong]', CURRENT_DATE(), $pttt, 0, $total)";
                 echo $sql1;
                 executeQuery($sql1);
             }

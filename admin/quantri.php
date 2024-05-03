@@ -4,10 +4,7 @@
     session_start();
     require '../lib/db.inc';
     require '../lib/lib.php';
-    if(empty($_SESSION['taikhoan']))
-    {
-        header('location: index.php');
-    }
+    
 ?>
 
 

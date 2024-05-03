@@ -323,52 +323,122 @@
 
                         <div class="tab-pane fade" id="register" role="tabpanel">
                             <div class="login-reg-form-wrap">
-                                <form onsubmit="signup()" action="#" method="post">
+                                <form  action="login-register.php" method="post"  id="form-register" onsubmit="return checkForm()">
                                     <div class="single-input-item">
-                                        <input id="fullName" type="text" placeholder="Full Name" required/>
+                                        <input id="userName" name="userName" type="text" placeholder="User Name" required>
+                                        <div id="error_username"></div>
                                     </div>
 
                                     <div class="single-input-item">
-                                        <input id="email" type="email" placeholder="Enter your Email" required/>
+                                        <select  name="userName">
+                                            <option>123 </option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="single-input-item">
+                                        <input id="fullName" name="fullName" type="text" placeholder="Full Name" required/>
+                                        <div id="error_fullname"></div>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <input id="eMail" name="eMail" type="email" placeholder="Enter Your Email" required/>
+                                        <div id="error_email"></div>
                                     </div>
 
                                     <div class="single-input-item">
-                                        <input id="phone" type="text" placeholder="Phone" required>
+                                        <input id="phoneNumber" name="phoneNumber" type="text" placeholder="Phone Number" required>
+                                        <div id="error_phonenumber"></div>
                                     </div>
 
                                     <div class="single-input-item">
-                                        <input id="username" type="text" placeholder="Username" required>
+                                        <label for="city" class="required" >Province / City</label>
+                                        <select name="city" id="city" ">
+                                        <option value=""> Select a city</option>
+                                        <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                        <option value="Hà Nội">Hà Nội</option>
+                                        <option value="Đà Nẵng">Đà Nẵng</option>
+                                        <option value="Hải Phòng">Hải Phòng</option>
+                                        </select>
                                     </div>
+
+                                    <div class="single-input-item" id="districtform">
+                                        <label for="district" class="required" >District</label>
+                                        <select name="district" id="district" >
+                                            <option value="-1"> Select a District
+                                            </option>
+                                            <option value="District 1">District 1</option>
+                                            <option value="District 2">District 2</option>
+                                            <option value="District 3">District 3</option>
+                                            <option value="District 4">District 4</option>
+                                            <option value="District 5">District 5</option>
+                                            <option value="District 6">District 6</option>
+                                            <option value="District 7">District 7</option>
+                                            <option value="District 8">District 8</option>
+                                            <option value="District 9">District 9</option>
+                                            <option value="District 10">District 10</option>
+                                            <option value="District 11">District 11</option>
+                                            <option value="District 12">District 12</option>
+
+
+                                        </select>
+                                    </div>
+
+                                    <div class="single-input-item" id="wardform">
+                                        <label for="ward" class="required" >Ward</label>
+                                        <select name="ward" id="ward">
+                                            <option value=""> Select a Ward</option>
+                                            <option value="Ward 1">Ward 1</option>
+                                            <option value="Ward 2">Ward 2</option>
+                                            <option value="Ward 3">Ward 3</option>
+                                            <option value="Ward 4">Ward 4</option>
+                                            <option value="Ward 5">Ward 5</option>
+                                            <option value="Ward 6">Ward 6</option>
+                                            <option value="Ward 7">Ward 7</option>
+                                            <option value="Ward 8">Ward 8</option>
+                                            <option value="Ward 9">Ward 9</option>
+                                            <option value="Ward 10">Ward 10</option>
+                                            <option value="Ward 11">Ward 11</option>
+                                            <option value="Ward 12">Ward 12</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="single-input-item">
+                                        <label for="f_name_2" class="required">Address</label>
+                                        <input name="address" type="text" id="address" placeholder="Address"/>
+                                    </div>
+
 
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
-                                                <input id="password" type="password" placeholder="Enter your Password" required/>
+                                                <input id="passWord" name="passWord" type="password" placeholder="Enter Your Password" required/>
+                                                <div id="error_password"></div>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
-                                                <input  type="password" placeholder="Repeat your Password" required/>
+                                                <input  type="password" name="re-passWord" placeholder="Repeat Your Password" required/>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="single-input-item">
-                                        <div class="login-reg-form-meta">
-                                            <div class="remember-meta">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                           id="subnewsletter">
-                                                    <label class="custom-control-label" for="subnewsletter">Subscribe
-                                                        Our Newsletter</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!--                                    <div class="single-input-item">-->
+                                    <!--                                        <div class="login-reg-form-meta">-->
+                                    <!--                                            <div class="remember-meta">-->
+                                    <!--                                                <div class="custom-control custom-checkbox">-->
+                                    <!--                                                    <input type="checkbox" class="custom-control-input"-->
+                                    <!--                                                           id="subnewsletter">-->
+                                    <!--                                                    <label class="custom-control-label" for="subnewsletter">Subscribe-->
+                                    <!--                                                        Our Newsletter</label>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
 
                                     <div class="single-input-item">
-                                        <button class="btn-login">Register</button>
+                                        <input type="submit" name="register-submit" class="btn-login" value="Register">
+                                        <!--                                        <button class="btn-login">Register</button>-->
                                     </div>
                                 </form>
                             </div>
@@ -547,8 +617,6 @@
 <!--=== Active Js ===-->
 <script src="assets/js/active.js"></script>
 
-<!--=== Dang nhap User Js ===-->
-<script src="assets/js/user-login.js"></script>
 </body>
 
 </html>

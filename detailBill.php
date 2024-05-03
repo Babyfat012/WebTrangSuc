@@ -1,70 +1,26 @@
 <?php
-require 'lib/DataProvider.php';
-    session_start();
-
-if(isset($_POST['register-submit'])) {
-    echo $_POST['city'];
-    if (!empty($_POST['userName']) && !empty($_POST['fullName']) && !empty($_POST['eMail']) && !empty($_POST['phoneNumber']) && !empty($_POST['passWord']) && !empty($_POST['houseNumbering']) &&!empty($_POST['city'])&&!empty($_POST['district'])&&!empty($_POST['ward']) ) {
-        $userName = trim($_POST['userName']);
-        $fullName = trim($_POST['fullName']);
-        $eMail = trim($_POST['eMail']);
-        $phoneNumber = trim($_POST['phoneNumber']);
-        $houseNumbering = trim($_POST['houseNumbering']);
-        $city = $_POST['city'];
-        $district = $_POST['district'];
-        $ward = $_POST['ward'];
-        $passWord = trim($_POST['passWord']);
-        $repassWord = trim($_POST['re-passWord']);
-        $passWordHash = md5($passWord);
-        
-        $sql = "INSERT INTO `khachhang` (hoten, taikhoankh, matkhau , email, sonha, tenquan, tenphuong, tentp, sodienthoai, trangthaitk) VALUES ('$fullName', '$userName', '$passWordHash', '$eMail', '$houseNumbering', '$district', '$ward', '$city', '$phoneNumber',1)";
-        echo $sql;
-        
-        $result = executeQuery($sql);
-        $_SESSION['userName'] = $userName;
-        $_SESSION['fullName'] = $fullName;
-        $_SESSION['passWord'] = $passWord;
-     
-    }
+session_start();
+require "lib/lib.php";
+if(!isLogin())
+    header("location:login-register.php");
+if(isset($_GET['id']))
+{
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM `hoadon` HD, `chitiethoadon` CT  WHERE T.idhoadon = '".$id."' AND taikhoankh = '".$_SESSION['userName']."' AND CT.idhoadon = HD.idhoadon ";
+    $result = executeQuery($sql);
 }
+    
 ?>
-<?php
-if(isset($_POST['login-submit'])){
-    if(!empty($_POST['userName'])&&!empty($_POST['passWord'])){
-        $userName = $_POST['userName'];
-        $passWord = $_POST['passWord'];
-        $sql = "SELECT * FROM khachhang WHERE taikhoankh like '$userName'";
-        $result = executeQuery($sql);
-        $user = $result->fetch_assoc();
-        if($user){
-            if(md5($passWord) == $user['matkhau']){
-                $_SESSION['userName'] = $user['taikhoankh'];
-                $_SESSION['passWord'] = $user['matkhau'];
-                $_SESSION['fullName'] = $user['hoten'];
-            }
-          
-            //print_r($_SESSION);
-            header('Location:index.php');
-            exit;
-        }
-    }
-}
-?>
-<?php
-if(!empty($_SESSION['userName'])){
-    header('Location: index.php');
-}
-?>
-
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
 
-    <title>Member Area :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
+    <title>Cart :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
 
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
@@ -87,6 +43,8 @@ if(!empty($_SESSION['userName'])){
 
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -123,7 +81,7 @@ if(!empty($_SESSION['userName'])){
                             <li class="dropdown-show"><a href="#">Shop</a>
                                 <ul class="mega-menu-wrap dropdown-nav">
                                     <li class="mega-menu-item"><a href="shop.html" class="mega-item-title">Shop
-                                            Layout</a>
+                                        Layout</a>
                                         <ul>
                                             <li><a href="shop.html">Shop Left Sidebar</a></li>
                                             <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
@@ -134,7 +92,7 @@ if(!empty($_SESSION['userName'])){
                                     </li>
 
                                     <li class="mega-menu-item"><a href="single-product.html" class="mega-item-title">Single
-                                            Products</a>
+                                        Products</a>
                                         <ul>
                                             <li><a href="single-product.html">Single Product</a></li>
                                             <li><a href="single-product-normal.html">Single Product Normal</a></li>
@@ -150,7 +108,7 @@ if(!empty($_SESSION['userName'])){
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="compare.html">Compare</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="login-register.html">Login & Register</a></li>
+                                    <li><a href="login-register.php">Login & Register</a></li>
                                     <li><a href="my-account.html">My Account</a></li>
                                     <li><a href="404.html">404 Error</a></li>
                                 </ul>
@@ -286,6 +244,62 @@ if(!empty($_SESSION['userName'])){
                                 </dl>
                             </div>
                         </li>
+                        <li class="shop-cart"><a href="#"><i class="fa fa-shopping-bag"></i> <span
+                                class="count">3</span></a>
+                            <div class="mini-cart">
+                                <div class="mini-cart-body">
+                                    <div class="single-cart-item d-flex">
+                                        <figure class="product-thumb">
+                                            <a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
+                                                             alt="Products"/></a>
+                                        </figure>
+
+                                        <div class="product-details">
+                                            <h2><a href="#">Sprite Yoga Companion</a></h2>
+                                            <div class="cal d-flex align-items-center">
+                                                <span class="quantity">3</span>
+                                                <span class="multiplication">X</span>
+                                                <span class="price">$77.00</span>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
+                                    </div>
+                                    <div class="single-cart-item d-flex">
+                                        <figure class="product-thumb">
+                                            <a href="#"><img class="img-fluid" src="assets/img/product-2.jpg"
+                                                             alt="Products"/></a>
+                                        </figure>
+                                        <div class="product-details">
+                                            <h2><a href="#">Yoga Companion Kit</a></h2>
+                                            <div class="cal d-flex align-items-center">
+                                                <span class="quantity">2</span>
+                                                <span class="multiplication">X</span>
+                                                <span class="price">$6.00</span>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
+                                    </div>
+                                    <div class="single-cart-item d-flex">
+                                        <figure class="product-thumb">
+                                            <a href="#"><img class="img-fluid" src="assets/img/product-3.jpg"
+                                                             alt="Products"/></a>
+                                        </figure>
+                                        <div class="product-details">
+                                            <h2><a href="#">Sprite Yoga Companion Kit</a></h2>
+                                            <div class="cal d-flex align-items-center">
+                                                <span class="quantity">1</span>
+                                                <span class="multiplication">X</span>
+                                                <span class="price">$116.00</span>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="remove-icon"><i class="fa fa-trash-o"></i></a>
+                                    </div>
+                                </div>
+                                <div class="mini-cart-footer">
+                                    <a href="checkout.html" class="btn-add-to-cart">Checkout</a>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -310,16 +324,18 @@ if(!empty($_SESSION['userName'])){
     </div>
 </div>
 <!--== Search Box Area End ==-->
+
 <!--== Page Title Area Start ==-->
 <div id="page-title-area">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
                 <div class="page-title-content">
-                    <h1>Member Area</h1>
+                    <h1>Shopping Cart</h1>
                     <ul class="breadcrumb">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="login-register.html" class="active">Login & Register</a></li>
+                        <li><a href="shop-left-full-wide.html">Shop</a></li>
+                        <li><a href="cart.html" class="active">Cart</a></li>
                     </ul>
                 </div>
             </div>
@@ -331,167 +347,89 @@ if(!empty($_SESSION['userName'])){
 <!--== Page Content Wrapper Start ==-->
 <div id="page-content-wrapper" class="p-9">
     <div class="container">
+        <!-- Cart Page Content Start -->
         <div class="row">
-            <div class="col-lg-7 m-auto">
-                <!-- Login & Register Content Start -->
-                <div class="login-register-wrapper">
-                    <!-- Login & Register tab Menu -->
-                    <nav class="nav login-reg-tab-menu">
-                        <a class="active" id="login-tab" data-toggle="tab" href="#login">Login</a>
-                        <a id="register-tab" data-toggle="tab" href="#register">Register</a>
-                    </nav>
-                    <!-- Login & Register tab Menu -->
-                    <div class="tab-content" id="login-reg-tabcontent">
-                        <div class="tab-pane fade show active" id="login" role="tabpanel">
-                            <div class="login-reg-form-wrap">
-                                <form action="login-register.php" method="post" id="form-login" >
-                                    <div class="single-input-item">
-                                        <input id="login-username" type="text" name="userName" placeholder="Enter Username" required/>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input id="login-password" type="password" name ="passWord"placeholder="Enter your Password" required />
-                                    </div>
-                                    <div class="single-input-item">
-                                        <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
-                                            <div class="remember-meta">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                                    <label class="custom-control-label" for="rememberMe">Remember
-                                                        Me</label>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="forget-pwd">Forget Password?</a>
-                                        </div>
-                                    </div>
+            <div class="col-lg-12">
+                <!-- Cart Table Area -->
+                <div class="cart-table table-responsive">
+                    <div>
+                        <h2 style="font-family: 'Droid Serif'">ID BILL: BILL2</h2>
+                        <h2 style="font-family: 'Droid Serif'">Username: Sog1n090</h2>
+                        <h4 style="font-family: 'Droid Serif'">Receiver: Nguyen Vinh</h4>
+                        <h4 style="font-family: 'Droid Serif'">Address: 102/6 Hoa Hung, Ward 13, District 10, Ho Chi Minh </h4>
+                        <h4 style="font-family: 'Droid Serif'; color: green">Status: Cancel</h4>
 
-                                    <div class="single-input-item">
-                                        <input type="submit" name="login-submit" class="btn-login" value="Login">
-                                        <!--                                        <button class="btn-login">Login</button>-->
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="register" role="tabpanel">
-                            <div class="login-reg-form-wrap">
-                                <form  action="login-register.php" method="post"  id="form-register" onsubmit="return checkForm()">
-                                    <div class="single-input-item">
-                                        <input id="userName" name="userName" type="text" placeholder="User Name" required>
-                                        <div id="error_username"></div>
-                                    </div>
-                                    
-                                    <div class="single-input-item">
-                                        <input id="fullName" name="fullName" type="text" placeholder="Full Name" required/>
-                                        <div id="error_fullname"></div>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input id="eMail" name="eMail" type="email" placeholder="Enter Your Email" required/>
-                                        <div id="error_email"></div>
-                                    </div>
-
-                                    <div class="single-input-item">
-                                        <input id="phoneNumber" name="phoneNumber" type="text" placeholder="Phone Number" required>
-                                        <div id="error_phonenumber"></div>
-                                    </div>
-
-                                    <div class="single-input-item">
-                                        <label for="city" class="required" >Province / City</label>
-                                        <select name="city" id="city" ">
-                                        <option value=""> Select a city</option>
-                                        <option value="Ho Chi Minh">Ho Chi Minh</option>
-                                        <option value="Ha Noi">Ha Noi</option>
-                                        <option value="Da Nang">Da Nang</option>
-                                        <option value="Hai Phong">Hải Phòng</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="single-input-item" id="districtform">
-                                        <label for="district" class="required" >District</label>
-                                        <select name="district" id="district" >
-                                            <option value="-1"> Select a District
-                                            </option>
-                                            <option value="District 1">District 1</option>
-                                            <option value="District 2">District 2</option>
-                                            <option value="District 3">District 3</option>
-                                            <option value="District 4">District 4</option>
-                                            <option value="District 5">District 5</option>
-                                            <option value="District 6">District 6</option>
-                                            <option value="District 7">District 7</option>
-                                            <option value="District 8">District 8</option>
-                                            <option value="District 9">District 9</option>
-                                            <option value="District 10">District 10</option>
-                                            <option value="District 11">District 11</option>
-                                            <option value="District 12">District 12</option>
-
-
-                                        </select>
-                                    </div>
-
-                                    <div class="single-input-item" id="wardform">
-                                        <label for="ward" class="required" >Ward</label>
-                                        <select name="ward" id="ward">
-                                            <option value=""> Select a Ward</option>
-                                            <option value="Ward 1">Ward 1</option>
-                                            <option value="Ward 2">Ward 2</option>
-                                            <option value="Ward 3">Ward 3</option>
-                                            <option value="Ward 4">Ward 4</option>
-                                            <option value="Ward 5">Ward 5</option>
-                                            <option value="Ward 6">Ward 6</option>
-                                            <option value="Ward 7">Ward 7</option>
-                                            <option value="Ward 8">Ward 8</option>
-                                            <option value="Ward 9">Ward 9</option>
-                                            <option value="Ward 10">Ward 10</option>
-                                            <option value="Ward 11">Ward 11</option>
-                                            <option value="Ward 12">Ward 12</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="single-input-item">
-                                        <label for="f_name_2" class="required">Address</label>
-                                        <input name="address" type="text" id="address" placeholder="Address"/>
-                                    </div>
-                                    
-                                    
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="single-input-item">
-                                                <input id="passWord" name="passWord" type="password" placeholder="Enter Your Password" required/>
-                                                <div id="error_password"></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="single-input-item">
-                                                <input  type="password" name="re-passWord" placeholder="Repeat Your Password" required/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--                                    <div class="single-input-item">-->
-                                    <!--                                        <div class="login-reg-form-meta">-->
-                                    <!--                                            <div class="remember-meta">-->
-                                    <!--                                                <div class="custom-control custom-checkbox">-->
-                                    <!--                                                    <input type="checkbox" class="custom-control-input"-->
-                                    <!--                                                           id="subnewsletter">-->
-                                    <!--                                                    <label class="custom-control-label" for="subnewsletter">Subscribe-->
-                                    <!--                                                        Our Newsletter</label>-->
-                                    <!--                                                </div>-->
-                                    <!--                                            </div>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-
-                                    <div class="single-input-item">
-                                        <input type="submit" name="register-submit" class="btn-login" value="Register">
-                                        <!--                                        <button class="btn-login">Register</button>-->
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="pro-thumbnail">Thumbnail</th>
+                            <th class="pro-title">Product</th>
+                            <th class="pro-price">Price</th>
+                            <th class="pro-quantity">Quantity</th>
+                            <th class="pro-subtotal">Total</th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-1.jpg"
+                                                                       alt="Product"/></a></td>
+                            <td class="pro-title"><a href="#">Zeon Zen 4 Pro</a></td>
+                            <td class="pro-price"><span>$295.00</span></td>
+                            <td class="pro-quantity">1</td>
+                            <td class="pro-subtotal"><span>$295.00</span></td>
+                           
+                        </tr>
+                        <tr>
+                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-2.jpg"
+                                                                       alt="Product"/></a></td>
+                            <td class="pro-title"><a href="#">Aquet Drone D 420</a></td>
+                            <td class="pro-price"><span>$275.00</span></td>
+                            <td class="pro-quantity">1</td>
+
+                            <td class="pro-subtotal"><span>$550.00</span></td>
+                           
+                        </tr>
+                        <tr>
+                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-3.jpg"
+                                                                       alt="Product"/></a></td>
+                            <td class="pro-title"><a href="#">Game Station X 22</a></td>
+                            <td class="pro-price"><span>$295.00</span></td>
+                            <td class="pro-quantity">1</td>
+
+                            <td class="pro-subtotal"><span>$295.00</span></td>
+                           
+                        </tr>
+                        <tr>
+                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product-4.jpg"
+                                                                       alt="Product"/></a></td>
+                            <td class="pro-title"><a href="#">Roxxe Headphone Z 75 </a></td>
+                            <td class="pro-price"><span>$110.00</span></td>
+                            <td class="pro-quantity">1</td>
+
+                            <td class="pro-subtotal"><span>$110.00</span></td>
+                            
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- Login & Register Content End -->
+
+                <!-- Cart Update Option -->
+               
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-6 ml-auto">
+                <!-- Cart Calculation Area -->
+                <div class="cart-calculator-wrapper">
+                    <h3>Bill Totals: $1.000</h3>
+                   
+                </div>
+            </div>
+        </div>
+        <!-- Cart Page Content End -->
     </div>
 </div>
 <!--== Page Content Wrapper End ==-->
@@ -647,104 +585,6 @@ if(!empty($_SESSION['userName'])){
 
 
 <!--=======================Javascript============================-->
-
-<script>
-
-    function checkForm(){
-        var userName = document.getElementById('userName').value;
-        var fullName = document.getElementById('fullName').value;
-        var eMail = document.getElementById('eMail').value;
-        var phoneNum = document.getElementById('phoneNumber').value;
-        var passWord =  document.getElementById('passWord').value;
-        var regExPhoneNum = /^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$\b/;
-        var regExEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        var flag = true;
-
-        if(userName.length < 5 ){
-            document.getElementById('error_username').innerText= 'User Name must be at least 5 characters '
-            document.getElementById('error_username').style.color = "red"
-            document.getElementById('error_username').style.display = "block"
-
-            flag = false
-        }else
-            document.getElementById('error_username').style.display = "none"
-        console.log(flag)
-
-
-        if(fullName.length < 5){
-            document.getElementById('error_fullname').innerText= 'Full Name must be at least 5 characters'
-            document.getElementById('error_fullname').style.color = 'red'
-            document.getElementById('error_fullname').style.display= 'block'
-            flag = false
-        }
-        else {
-            document.getElementById('error_fullname').style.display = "none"
-        }
-        if(!regExEmail.test(eMail)){
-            document.getElementById('error_email').innerText = 'Please enter valid email'
-            document.getElementById('error_email').style.color ="red"
-            document.getElementById('error_email').style.display = 'block'
-            flag = false
-        }
-        else {
-            document.getElementById('error_email').style.display = "none"
-        }
-        if(!regExPhoneNum.test(phoneNum)){
-            document.getElementById('error_phonenumber').innerText = 'Please enter valid phone number'
-            document.getElementById('error_phonenumber').style.color ='red'
-            document.getElementById('error_phonenumber').style.display = 'block'
-            flag = false
-        }
-        else {
-            document.getElementById('error_phonenumber').style.display = "none"
-        }
-        if(phoneNum.length > 11 || phoneNum.length < 10){
-            document.getElementById('error_phonenumber').innerText='Phone number must be at least 10 and maximum 11 number';
-            document.getElementById('error_phonenumber').style.color='red'
-            document.getElementById('error_phonenumber').style.display = 'block'
-            flag = false
-        }
-        else{
-            document.getElementById('error_phonenumber').style.display = "none"}
-
-
-
-        if(passWord.length < 8){
-            document.getElementById('error_password').innerText =' Password must be at least 8 character';
-            document.getElementById('error_password').style.color = 'red'
-            flag =false
-        }
-        else{
-            document.getElementById('error_password').style.display = "none"}
-        <?php
-        $checkSql = "select * from `khachhang`";
-        $result = executeQuery($checkSql);
-        if($result->num_rows > 0)
-        {
-            while($row = $result->fetch_array()) {
-                echo 'if(' . "'". $row['userName'] . "'"." == userName){";
-                echo "document.getElementById('error_username').innerText= 'Username exist. Try another username!!!';";
-                echo 'document.getElementById("error_username").style.display = "block";';
-
-                echo 'document.getElementById("error_username").style.color = "red";';
-                echo 'flag = false;';
-                echo '}';
-            }
-        }
-        ?>
-
-        var city = document.getElementById("city").value;
-        var district = document.getElementById("district").value;
-        var ward = document.getElementById("ward").value;
-        var street = document.getElementById("street").value;
-        return flag
-    }
-</script>
-<script>
-
-
-
-</script>
 <!--=== Jquery Min Js ===-->
 <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
 <!--=== Jquery Migrate Min Js ===-->
@@ -756,9 +596,8 @@ if(!empty($_SESSION['userName'])){
 <!--=== Plugins Min Js ===-->
 <script src="assets/js/plugins.js"></script>
 
-    <!--=== Active Js ===-->
-    <script src="assets/js/active.js"></script>
-
+<!--=== Active Js ===-->
+<script src="assets/js/active.js"></script>
 </body>
 
 </html>
