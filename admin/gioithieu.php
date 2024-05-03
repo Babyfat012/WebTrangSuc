@@ -57,61 +57,59 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-title mb-0">Top Products</p>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Product</th>
-                                        <th>Status</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Photoshop</td>
-                                        <td><label class="badge badge-outline-danger">Pending</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Messsy</td>
-                                        <td>Flash</td>
-                                        <td><label class="badge badge-outline-warning">In progress</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Premier</td>
-                                        <td><label class="badge badge-outline-info">Fixed</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Peter</td>
-                                        <td>After effects</td>
-                                        <td><label class="badge badge-outline-success">Completed</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dave</td>
-                                        <td>53275535</td>
-                                        <td><label class="badge badge-outline-warning">In progress</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Messsy</td>
-                                        <td>Flash</td>
-                                        <td><label class="badge badge-outline-info">Fixed</label></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <!-- partial -->
-    </div>
-    <!-- main-panel ends -->
+            <?php
+                echo'<div class="col-md-12 grid-margin stretch-card">';
+                echo'<div class="card">';
+                echo'<div class="card-body">';
+                echo'<p class="card-title mb-0">Top Products</p>';
+                echo'<div class="table-responsive">';
+                echo'<table class="table table-hover">';
+                echo'<thead>';
+                echo'<tr>';
+                echo'<th>PRODUCT</th>';
+                echo'<th>TYPE</th>';
+                echo'<th>PRICE</th>';
+                echo'<th>SELL</th>';
+                echo'</tr>';
+                echo'</thead>';
+
+                echo'<tbody>';
+                $sql = " SELECT SUM(soluong)as soluong, idsanpham FROM chitiethoadon GROUP BY idsanpham ORDER BY soluong DESC ";
+                $result = executeQuery($sql);
+                if($result-> num_rows>0)
+                {
+                    while($row = $result->fetch_array())
+                    {
+                        $sql = " SELECT * FROM sanpham WHERE idsanpham = '" . $row['idsanpham'] . "'";
+                        $PRODUCT = executeQuery($sql);
+                        $product = $PRODUCT->fetch_array();
+                                echo'<tr>';
+                                echo'<td>' . $product['tensp'] . '</td>';
+                                switch($product['maloaisp'])
+                                {
+                                    case 'BRL':
+                                        echo'<td>Bracelet</td>';
+                                        break;
+                                    case 'NKL':
+                                        echo'<td>Necklace</td>';
+                                        break;
+                                    case 'RG':
+                                        echo'<td>Ring</td>';
+                                        break;
+                                }
+                                echo'<td> $' . number_format($product['dongia'] ,2 , "." ,",");
+                                echo'<td>' . $row['soluong'] . '</td>';
+                                echo'<tr>';
+                    }
+                }
+                echo'</tbody>';
+                echo'</table>';
+                echo'</div>';
+                echo'</div>';
+                echo'</div>';
+                echo'</div>';
+                echo'</div>';
+                echo'</div>';
+
+            ?>
+

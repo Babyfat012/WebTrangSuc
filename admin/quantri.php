@@ -17,10 +17,7 @@
         }
     }
 
-    if(isset($_POST['filterBtn']))
-    {
 
-    }
 
 ?>
 
@@ -28,7 +25,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -44,6 +40,7 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="images/favicon.png" />
+
 </head>
 
 <body>
@@ -180,10 +177,19 @@
                     break;
             }
         }
+        else if(isset($_POST['page_layout']))
+        {
+            echo'<div style="width: 100%">';
+            include_once './detailBill.php';
+            echo'</div>';
+        }
         else
         {
             include_once './gioithieu.php';
         }
+
+
+
         ?>
     </div>
     <!-- page-body-wrapper ends -->
@@ -321,6 +327,7 @@
 <!-- Custom js for this page-->
 <script src="js/dashboard.js"></script>
 <!-- End custom js for this page-->
+
 </body>
 
 </html>

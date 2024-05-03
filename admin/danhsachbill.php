@@ -114,11 +114,11 @@
                         </td>
                         <td>
                             <label for="from">From: </label>
-                            <?php if(isset($_GET['from'])) {echo '<input style="width: 150px; height: 40px" id="from" name="from" type="date" value= "' .$_GET['from'] . '">';}?>
+                            <?php if(isset($_GET['from'])) {echo '<input style="width: 150px; height: 40px" id="from" name="from" type="date" value= "' .$_GET['from'] . '">';} else{echo '<input style="width: 150px; height: 40px" id="from" name="from" type="date">';}?>
                         </td>
                         <td>
                             <label for="from">To: </label>
-                            <?php if(isset($_GET['from'])) {echo '<input style="width: 150px; height: 40px" id="to" name="to" type="date" value= "' .$_GET['to'] . '">';}?>
+                            <?php if(isset($_GET['from'])) {echo '<input style="width: 150px; height: 40px" id="to" name="to" type="date" value= "' .$_GET['to'] . '">';} else{echo '<input style="width: 150px; height: 40px" id="to" name="to" type="date">';}?>
                         </td>
                     </tr>
                 </table>
@@ -155,6 +155,7 @@
 
     echo'<thead>';
     echo'<tr>';
+    echo'<th>VIEW DETAILS</th>';
     echo'<th>BILL ID</th>';
     echo'<th>BILL ACCOUNT</th>';
 //    echo'<th>PHONE</th>';
@@ -168,7 +169,6 @@
     echo'<th>PAYMENT METHOD</th>';
     echo'<th>PRICE</th>';
     echo'<th>CHANGE STATUS</th>';
-    echo'<th>VIEW DETAILS</th>';
 
 echo'</tr>';
 
@@ -181,6 +181,12 @@ echo'</tr>';
         while($row = $result->fetch_array())
         {
             echo'<tr>';
+            echo'<form action="quantri.php" method="post">';
+            echo'<input type="hidden" name="page_layout" value="detailBill">';
+            echo'<input type="hidden" name="id" value="'. $row['idhoadon'] . '">';
+            echo'<input type="hidden" name="user" value="'. $row['taikhoankh'] . '">';
+            echo'<td><button type="submit" name="view" value="view" class="btn btn-info">View</button></td>';
+            echo'</form>';
             echo'<td>' . $row['idhoadon'] . '</td>';
             echo'<td>' . $row['taikhoankh'] . '</td>';
 //            echo'<td>' . $row['sodienthoai'] . '</td>';
@@ -231,8 +237,6 @@ echo'</tr>';
             {
                 echo'<td></td>';
             }
-            echo'<td><a href="#"><button type="button" class="btn btn-info">View</button></a></td>';
-
             echo '</tr>';
         }
     }

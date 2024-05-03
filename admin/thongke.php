@@ -39,7 +39,10 @@
                 while($user = $USER->fetch_array())
                 {
                     echo'<tr>';
-                    echo'<td><button type="button" class="btn btn-primary">View</button></td>';
+                    echo'<form action="orderlist.php" method="post">';
+                    echo'<input type="hidden" name="user" value=" '. $user['taikhoankh'] .' ">';
+                    echo'<td><button type="submit" name="view" value="view" class="btn btn-primary">View</button></td>';
+                    echo'</form>';
                     echo'<td>' . $user['hoten'] . '</td>';
                     echo'<td>' . $user['taikhoankh'] . '</td>';
                     echo'<td>' . $user['sodienthoai'] . '</td>';
