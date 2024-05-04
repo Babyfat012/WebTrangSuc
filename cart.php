@@ -13,7 +13,6 @@
         array_splice($_SESSION['cart'],$_GET['delProduct'],1);
         header('location:cart.php');
     }
-    var_dump($_SESSION['cart']);
     ?>
 
 <!DOCTYPE html>
@@ -135,11 +134,11 @@
                             <td class="pro-thumbnail"><a href="single-product.php?id='.$_SESSION['cart'][$i][0].'"><img class="img-fluid" src="'.$pic.'"
                                                                        alt="Product"/></a></td>
                             <td class="pro-title"><a href="single-product.php?id='.$_SESSION['cart'][$i][0].'">'.$row['tensp'].'</a></td>
-                            <td class="pro-price"><span>$'.$row['dongia'].'</span></td>
+                            <td class="pro-price"><span>$'.number_format($row['dongia'],2,".",",") .'</span></td>
                             <td class="pro-quantity">
                                 <div class="pro-qty"><input type="text" id="'.$i.'" onchange="setValue(this.id)" onkeypress="return isNumber(event)" inputmode="numeric" value="'.$_SESSION['cart'][$i][1].'"></div>
                             </td>
-                            <td class="pro-subtotal"><span>$'.$row['dongia']*$_SESSION['cart'][$i][1].'</span></td>
+                            <td class="pro-subtotal"><span>$'.number_format( $row['dongia']*$_SESSION['cart'][$i][1],2,".",",").'</span></td>
                             <td class="pro-remove"><a href="cart.php?delProduct='.$i.'"><i class="fa fa-trash-o"></i></a></td>
                         </tr>';
                                     $total += $row['dongia']*$_SESSION['cart'][$i][1];
@@ -167,7 +166,7 @@
                 <?php
                     if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
                         echo ' <div class="cart-calculator-wrapper">
-                    <h3>Cart Totals: $'.$total.'</h3>
+                    <h3>Cart Totals: $'.number_format($row['dongia'],2,".",",").'</h3>
                     <a href="checkout.php" class="btn-add-to-cart">Proceed To Checkout</a>
                 </div>';
                     }

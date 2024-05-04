@@ -142,7 +142,7 @@
                         <div class="col-lg-7 mt-5 mt-lg-0">
                             <div class="product-details">
                                 <h2><?php echo $row['tensp']?></a></h2>
-                                <span class="price">$<?php echo $price ?></span>
+                                <span class="price">$<?php echo number_format($price,2,".",",")  ?></span>
                                 <div class="product-info-stock-sku">
                                     <span class="product-sku-status"><strong>Gender:</strong> <?php  switch ($gender)
                                             {
@@ -163,7 +163,9 @@
                                 <div class="product-info-stock-sku">
                                     <span class="product-sku-status"><strong>Size:</strong> <?php echo $size ?> </span>
                                 </div>
-                                
+                                <div class="product-info-stock-sku">
+                                    <span class="product-sku-status"><strong>Available:</strong> <?php echo $row['soluong'] ?> </span>
+                                </div>
 
                               
                                 

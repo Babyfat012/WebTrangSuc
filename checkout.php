@@ -313,7 +313,7 @@
                                         $row = $result->fetch_array();
                                         echo '<tr>';
                                         echo '<td><a href="single-product.php?id='.$row['idsanpham'].'">'.$row['tensp'].' <strong> × '.$_SESSION['cart'][$i][1].'</strong></a></td>';
-                                        echo '<td>$'.$row['dongia'].'</td>';
+                                        echo '<td>$'.number_format($row['dongia'],2,".",",") .'</td>';
                                         echo '</tr>';
                                         $total += $row['dongia'];
                                     }
@@ -324,7 +324,7 @@
                                 
                                 <tr>
                                     <td>Total Amount</td>
-                                    <td><strong>$ <?php echo $total ?></strong></td>
+                                    <td><strong>$ <?php echo  number_format($total,2,".",",") ?></strong></td>
                                 </tr>
                                 </tfoot>
                             </table>

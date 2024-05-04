@@ -215,7 +215,7 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <div class="page-title-content">
-                        <h1>Shop</h1>
+                        <h1>Ring</h1>
                         <ul class="breadcrumb">
                             <li><a href="index.php">Home</a></li>
                             <li><a href="shop.php" class="active">Shop</a></li>

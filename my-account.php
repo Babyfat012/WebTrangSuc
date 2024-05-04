@@ -222,7 +222,7 @@ if(isset($_POST['change']))
                                                                 echo '<a href="single-product.php?id='.$row1['idsanpham'].'"><h4>'.$row1['tensp'].'</h4></a>';
                                                                 echo '<hr>';
                                                                 echo '<p style="text-align: left; font-weight: 700">Type:'.$type.'</p>
-                                                        <p style="text-align: left; font-weight: 700">Price:$'.number_format($row1['dongia']) .'</p>
+                                                        <p style="text-align: left; font-weight: 700">Price:$'.number_format($row1['dongia'],2,".",".") .'</p>
                                                         <p style="text-align: left; font-weight: 700">Quantity: '.$row1['soluong'][0].'</p>';
                                                                 echo '</td>';
                                                                 echo '</tr>';
