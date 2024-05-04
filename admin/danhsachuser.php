@@ -13,16 +13,16 @@ echo'<div class="table-responsive">';
 echo'<table class="table table-striped">';
 echo'<thead>';
 echo'<tr>';
-echo'<th>Full Name</th>';
-echo'<th>Email Address</th>';
-echo'<th>House Number</th>';
-echo'<th>Ward </th>';
-echo'<th>District </th>';
-echo'<th>City </th>';
-echo'<th>Phone Number</th>';
-echo'<th>Account Status</th>';
-echo'<th>Edit</th>';
-echo'<th>Action</th>';
+echo'<th>NAME</th>';
+echo'<th>EMAIL</th>';
+echo'<th>ADDRESS</th>';
+echo'<th>WARD</th>';
+echo'<th>DISTRICT</th>';
+echo'<th>CITY</th>';
+echo'<th>PHONE</th>';
+echo'<th>STATUS</th>';
+echo'<th>EDIT</th>';
+echo'<th>ACTION</th>';
 
 echo'</tr>';
 echo'</thead>';
@@ -40,7 +40,15 @@ if($result->num_rows > 0)
         echo'<td>' . $row['tenquan'] . '</td>';
         echo'<td>' . $row['tentp'] . '</td>';
         echo'<td>' . $row['sodienthoai'] . '</td>';
-        echo'<td>' . $row['trangthaitk'] . '</td>';
+        switch($row['trangthaitk'])
+        {
+            case 0:
+                echo'<td><label class="badge badge-outline-danger">Locked</label></td>';
+                break;
+            case 1:
+                echo'<td><label class="badge badge-outline-primary">Active</label></td>';
+                break;
+        }
         echo'<td>';
         echo "<form method='get' action='editUser.php'>";
         echo '<a href="quantri.php?page_layout=editUser&temptk='.$row['taikhoankh'].'"><i class="ti-pencil"></i></a>';

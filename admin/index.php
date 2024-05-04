@@ -17,26 +17,27 @@
             $user = $result->fetch_assoc();
             if($user)
             {
-
-
-                if(md5($matkhau) == $user['matkhau'])
+                if($user['trangthaitk'] == 0)
                 {
-                    $_SESSION['taikhoan'] = $user['taikhoan'];
-                    header('location: quantri.php');
+                    echo '<script>';
+                    echo 'alert("Your account was locked.");';
+                    echo '</script>';
                 }
                 else
                 {
-                    echo '<script>';
-                    echo 'alert("Wrong username or password.");';
-                    echo '</script>';
+                        if(md5($matkhau) == $user['matkhau'])
+                        {
+                            $_SESSION['taikhoan'] = $user['taikhoan'];
+                            header('location: quantri.php');
+                        }
+                        else
+                        {
+                            echo '<script>';
+                            echo 'alert("Wrong username or password.");';
+                            echo '</script>';
+                        }
                 }
 
-            }
-            else
-            {
-                echo '<script>';
-                echo 'alert("Wrong username or password.");';
-                echo '</script>';
             }
         }
     }

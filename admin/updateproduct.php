@@ -30,11 +30,8 @@ if(isset($_POST['submit'])) {
     // Hinh anh sp
     if(!empty($_FILES['pic']))
     {
-        echo 'co anh?';
         echo basename($_FILES['pic']['name']);
     }
-    else
-        echo 'kh co';
     // Cap nhat
     
     
@@ -46,7 +43,7 @@ if(isset($_POST['submit'])) {
     $color = $_POST['color'];
     $size = $_POST['size'];
     $gender = $_POST['gender'];
-    $description = $_POST['description'];
+    $description = ($_POST['description']);
     $image = $_FILES['pic']['name'];
     
     $sql = "SELECT * FROM sanpham WHERE idsanpham='" . $id . "'";
@@ -69,14 +66,14 @@ if(isset($_POST['submit'])) {
 
     if($image != NULL)
     {
-        $sql = "UPDATE sanpham SET tensp='$name', soluong=$quantity, dongia=$price, chatlieu='$material', mausac='$color', kichthuoc=$size, gioitinh='$gender', mota='$description', hinhanh='$image' WHERE idsanpham = '$id'";
-        echo($sql);
+        $sql = "UPDATE sanpham SET tensp='$name', soluong=$quantity, dongia=$price, chatlieu='$material', mausac='$color', kichthuoc=$size, gioitinh='$gender', mota='" . $description . "', hinhanh='$image' WHERE idsanpham = '$id'";
+        echo $sql;
         $result = executeQuery($sql);
     }
     else
     {
-        $sql = "UPDATE sanpham SET tensp='$name', soluong=$quantity, dongia=$price, chatlieu='$material', mausac='$color', kichthuoc=$size, gioitinh='$gender', mota='$description' WHERE idsanpham = '$id'";
-        echo($sql);
+        $sql = "UPDATE sanpham SET tensp='$name', soluong=$quantity, dongia=$price, chatlieu='$material', mausac='$color', kichthuoc=$size, gioitinh='$gender', mota='" . $description . "' WHERE idsanpham = '$id'";
+        echo $sql;
         $result = executeQuery($sql);
     }
 

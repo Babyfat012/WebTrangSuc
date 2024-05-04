@@ -1,3 +1,9 @@
+<script>
+    function DelProduct(name)
+    {
+        return confirm("Are you sure to delete product: " + name + " ?");
+    }
+</script>
 <?php
 
 
@@ -16,19 +22,18 @@
                             echo'<thead>';
                                     echo'<tr>';
 
-                                    echo'<th>Edit</th>';
-                                    echo'<th>Delete</th>';
-                                    echo'<th>Ordinal number</th>';
-                                    echo'<th>Jewelry name</th>';
-                                    echo'<th>Picture</th>';
-                                    echo'<th>Material</th>';
-                                    echo'<th>Color</th>';
-                                    echo'<th>Size</th>';
-                                    echo'<th>Quantity</th>';
-                                    echo'<th>Price</th>';
-                                    echo'<th>Gender</th>';
-                                    echo'<th>Type</th>';
-                                    echo'<th>Description</th>';
+                                    echo'<th>EDIT</th>';
+                                    echo'<th>DELETE</th>';
+                                        echo'<th>NAME</th>';
+                                    echo'<th>PICTURE</th>';
+                                    echo'<th>MATERIAL</th>';
+                                    echo'<th>COLOR</th>';
+                                    echo'<th>SIZE</th>';
+                                    echo'<th>QUANTITY</th>';
+                                    echo'<th>PRICE</th>';
+                                    echo'<th>GENDER</th>';
+                                    echo'<th>TYPE</th>';
+                                    echo'<th>DESCRIPTION</th>';
 
                                     echo'</tr>';
     if($result->num_rows > 0) {
@@ -43,13 +48,12 @@
             echo'</td>';
 
             echo'<td>';
-            echo "<form method='post' action='quantri.php?page_layout=danhsachsp' onsubmit='return Del(".$row['tensp'].")'>";
+            echo " <form method='post' action='quantri.php?page_layout=danhsachsp' onsubmit='return DelProduct(\"" . $row['tensp'] . "\")'> ";
             echo "<input type='hidden' name='del_id' value='" . $row['idsanpham'] . "'>";
             echo '<button type="submit" name="deleteBtn" value="delete"  class="btn btn-outline-secondary btn-light btn-rounded btn-icon btn-lg"><i class="ti-trash"></i></button>';
             echo'</form>';
             echo'</td>';
 
-            echo '<td>' . $i . '</td>';
             echo '<td>' . $row['tensp'] . '</td>';
             switch ($row['maloaisp'])
             {
@@ -68,20 +72,37 @@
             echo '<td>' . $row['kichthuoc'] . '</td>';
             echo '<td>' . $row['soluong'] . '</td>';
             echo '<td>' . $row['dongia'] . '</td>';
-            echo '<td>' . $row['gioitinh'] . '</td>';
-            echo '<td>' . $row['maloaisp'] . '</td>';
+            switch($row['gioitinh'])
+            {
+                case 'F':
+                    echo '<td>Women</td>';
+                    break;
+                case 'M':
+                    echo '<td>Men</td>';
+                    break;
+                case 'U':
+                    echo '<td>Unisex</td>';
+                    break;
+
+            }
+            switch($row['maloaisp'])
+            {
+                case 'BRL':
+                    echo '<td>Bracelet</td>';
+                    break;
+                case 'NKL':
+                    echo '<td>Necklace</td>';
+                    break;
+                case 'RG':
+                    echo '<td>Ring</td>';
+                    break;
+
+            }
             echo '<td>' . $row['mota'] . '</td>';
 
             echo '</tr>';
-            $i++;
         }
     }
     echo'</table>';
 
 ?>
-<script>
-    function Del(name)
-    {
-        return confirm("Are you sure to delete product: " + name + " ?");
-    }
-</script>

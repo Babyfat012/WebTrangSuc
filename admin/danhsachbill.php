@@ -106,10 +106,10 @@
                         <td>
                             <select style="width: 150px; height: 40px" name="city">
                                 <option value="-1" selected>City</option>
-                                <?php if(isset($_GET['place']) && $_GET['place'] == "Ho Chi Minh") {echo '<option value="Ho Chi Minh" selected>Ho Chi Minh</option>';} else {echo '<option value="Ho Chi Minh">Ho Chi Minh</option>';}?>
-                                <?php if(isset($_GET['place']) && $_GET['place'] == "Ha Noi") {echo '<option value="Ha Noi" selected>Ha Noi</option>';} else {echo '<option value="Ha Noi">Ha Noi</option>';}?>
-                                <?php if(isset($_GET['place']) && $_GET['place'] == "Hai Phong") {echo '<option value="Hai Phong" selected>Hai Phong</option>';} else {echo '<option value="Hai Phong">Hai Phong</option>';}?>
-                                <?php if(isset($_GET['place']) && $_GET['place'] == "Da Nang") {echo '<option value="Da Nang" selected>Da Nang</option>';} else {echo '<option value="Da Nang">Da Nang</option>';}?>
+                                <?php if(isset($_GET['city']) && $_GET['city'] == "Ho Chi Minh") {echo '<option value="Ho Chi Minh" selected>Ho Chi Minh</option>';} else {echo '<option value="Ho Chi Minh">Ho Chi Minh</option>';}?>
+                                <?php if(isset($_GET['city']) && $_GET['city'] == "Ha Noi") {echo '<option value="Ha Noi" selected>Ha Noi</option>';} else {echo '<option value="Ha Noi">Ha Noi</option>';}?>
+                                <?php if(isset($_GET['city']) && $_GET['city'] == "Hai Phong") {echo '<option value="Hai Phong" selected>Hai Phong</option>';} else {echo '<option value="Hai Phong">Hai Phong</option>';}?>
+                                <?php if(isset($_GET['city']) && $_GET['city'] == "Da Nang") {echo '<option value="Da Nang" selected>Da Nang</option>';} else {echo '<option value="Da Nang">Da Nang</option>';}?>
                             </select>
                         </td>
                         <td>

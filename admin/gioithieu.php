@@ -67,6 +67,7 @@
                 echo'<thead>';
                 echo'<tr>';
                 echo'<th>PRODUCT</th>';
+                echo'<th>PICTURE</th>';
                 echo'<th>TYPE</th>';
                 echo'<th>PRICE</th>';
                 echo'<th>SELL</th>';
@@ -88,12 +89,15 @@
                                 switch($product['maloaisp'])
                                 {
                                     case 'BRL':
+                                        echo "<td><img src='../assets/img/Bracelet/" . $product["hinhanh"] . "'></td>";
                                         echo'<td>Bracelet</td>';
                                         break;
                                     case 'NKL':
+                                        echo "<td><img src='../assets/img/Necklace/" . $product["hinhanh"] . "'></td>";
                                         echo'<td>Necklace</td>';
                                         break;
                                     case 'RG':
+                                        echo "<td><img src='../assets/img/Ring/" . $product["hinhanh"] . "'></td>";
                                         echo'<td>Ring</td>';
                                         break;
                                 }

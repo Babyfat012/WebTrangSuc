@@ -74,7 +74,7 @@
                         <span>Hello, <?php if(isset($_SESSION['taikhoan'])) {echo $_SESSION['taikhoan'];} ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item">
+                        <a class="dropdown-item" href="quantri.php?page_layout=danhsachadmin">
                             <i class="ti-settings text-primary"></i>
                             Settings
                         </a>
@@ -134,7 +134,6 @@
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="quantri.php?page_layout=dangky">Add</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="#">Edit</a></li>
                             <li class="nav-item"> <a class="nav-link" href="dangxuat.php">Log Out</a></li>
                         </ul>
                     </div>
@@ -162,8 +161,6 @@
                 case 'adduser':include_once './adduser.php';
                     break;
                 case 'editUser': include_once './editUser.php';
-                    break;
-                case 'lockUser': include_once './lockUser.php';
                     break;
                 case 'addProduct': include_once './addProduct.php';
                     break;
