@@ -40,7 +40,7 @@
                 {
                     echo'<tr>';
                     echo'<form action="orderlist.php" method="post">';
-                    echo'<input type="hidden" name="user" value=" '. $user['taikhoankh'] .' ">';
+                    echo'<input type="hidden" name="user" value="'. $user['taikhoankh'] .'">';
                     echo'<td><button type="submit" name="view" value="view" class="btn btn-primary">View</button></td>';
                     echo'</form>';
                     echo'<td>' . $user['hoten'] . '</td>';

@@ -17,7 +17,16 @@
         header('location:index.php');
     } ?>
 
-
+<?php
+    if(isset($_POST['addToCart']))
+    {
+        $id = $_POST['id'];
+        $quantity = $_POST['quantity'];
+        addToCart($id, $quantity);
+        header('location: single-product.php?id='.$id);
+        
+    }
+?>
 
 
 <!DOCTYPE html>
@@ -68,19 +77,7 @@
 <!--== Header Area End ==-->
 
 <!--== Search Box Area Start ==-->
-<div class="body-popup-modal-area">
-    <span class="modal-close"><img src="assets/img/cancel.png" alt="Close" class="img-fluid"/></span>
-    <div class="modal-container d-flex">
-        <div class="search-box-area">
-            <div class="search-box-form">
-                <form action="shop.php" method="get">
-                    <input type="search" name="key" placeholder="type keyword and hit enter"/>
-                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!--== Search Box Area End ==-->
 
 <!--== Banner // Slider Area Start ==-->
@@ -213,7 +210,11 @@
                                                     '<div class="product-details">' .
                                                     '<h2><a href="single-product.php?id='. $row['idsanpham'] .'">'. $row['tensp'] .'</a></h2>'.
                                                     '<span class="price">$' . number_format($row['dongia'],2,".","," ) . '</span>' .
-                                                    '<a href="single-product.html" class="btn btn-add-to-cart">+ Add to Cart</a>'.
+                                                    '<form action="index" method="post">'.
+                                                    '<input type="hidden" name="id" value="'.$row['idsanpham'].'">'.
+                                                    '<input type="hidden" name="quantity" value="1">'.
+                                                    '<button type="submit" class="btn btn-add-to-cart">+ Add to Cart</button>'.
+                                                    '</form>'.
                                                     '</div>' .
                                                     '</div>';
                                                     
@@ -244,9 +245,13 @@
                                                     'alt="Products" class="img-fluid"></a>' .
                                                     ' </figure>' .
                                                     '<div class="product-details">' .
-                                                    '<h2><a href="single-product.html">'. $row['tensp'] .'</a></h2>'.
+                                                    '<h2><a href="single-product.php?id=' . $row['idsanpham'].' ">'. $row['tensp'] .'</a></h2>'.
                                                     '<span class="price">$' . number_format($row['dongia'],2,".","," ) . '</span>' .
-                                                    '<a href="single-product.html" class="btn btn-add-to-cart">+ Add to Cart</a>'.
+                                                    '<form action="index" method="post">'.
+                                                    '<input type="hidden" name="id" value="'.$row['idsanpham'].'">'.
+                                                    '<input type="hidden" name="quantity" value="1">'.
+                                                    '<button type="submit" class="btn btn-add-to-cart">+ Add to Cart</button>'.
+                                                    '</form>'.
                                                     '</div>' .
                                                     '</div>';
                                                 
@@ -279,10 +284,13 @@
                                                     'alt="Products" class="img-fluid"></a>' .
                                                     ' </figure>' .
                                                     '<div class="product-details">' .
-                                                    '<h2><a href="single-product.html">'. $row['tensp'] .'</a></h2>'.
+                                                    '<h2><a href="single-product.php?id=' . $row['idsanpham'].' ">'. $row['tensp'] .'</a></h2>'.
                                                     '<span class="price">$' . number_format($row['dongia'],2,".","," ) . '</span>' .
-                                                    '<a href="single-product.html" class="btn btn-add-to-cart">+ Add to Cart</a>'.
-                                                    '</div>' .
+                                                    '<form action="index" method="post">'.
+                                                    '<input type="hidden" name="id" value="'.$row['idsanpham'].'">'.
+                                                    '<input type="hidden" name="quantity" value="1">'.
+                                                    '<button type="submit" class="btn btn-add-to-cart">+ Add to Cart</button>'.
+                                                    '</form>'.                                                    '</div>' .
                                                     '</div>';
                                                 
                                                 

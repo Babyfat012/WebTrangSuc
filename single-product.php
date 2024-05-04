@@ -84,19 +84,6 @@
 <!--== Header Area End ==-->
 
 <!--== Search Box Area Start ==-->
-<div class="body-popup-modal-area">
-    <span class="modal-close"><img src="assets/img/cancel.png" alt="Close" class="img-fluid"/></span>
-    <div class="modal-container d-flex">
-        <div class="search-box-area">
-            <div class="search-box-form">
-                <form action="#" method="post">
-                    <input type="search" placeholder="type keyword and hit enter"/>
-                    <button class="btn" type="button"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <!--== Search Box Area End ==-->
 
 <!--== Page Title Area Start ==-->
@@ -107,8 +94,8 @@
                 <div class="page-title-content">
                     <ul class="breadcrumb">
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="shop-full-wide.html">Shop</a></li>
-                        <li><a href="single-product.php" class="active"><?php echo $name ?></a></li>
+                        <li><a href="shop.php">Shop</a></li>
+                        <li><a href="#" class="active"><?php echo $name ?></a></li>
                     </ul>
                 </div>
             </div>

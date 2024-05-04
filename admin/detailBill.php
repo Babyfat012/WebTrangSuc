@@ -124,9 +124,9 @@ if(isset($_POST['view']))
                                                 }
                                         }
                                         echo '<tr>';
-                                        echo '<td style="font-size: 2rem" class="pro-thumbnail"><a href="single-product.php?id='.$product['idsanpham'].'"><img style="width: 100px;height: 100px" class="img-fluid" src="'.$folder.$product['hinhanh'].'"
-                                                                       alt="Product"/></a></td>';
-                                        echo '<td style="font-size: 2rem" class="pro-title"><a href="single-product.php?id='.$product['idsanpham'].'">'.$product['tensp'].'</a></td>';
+                                        echo '<td style="font-size: 2rem" class="pro-thumbnail"><img style="width: 100px;height: 100px" class="img-fluid" src="'.$folder.$product['hinhanh'].'"
+                                                                       alt="Product"/></td>';
+                                        echo '<td style="font-size: 2rem" class="pro-title">'.$product['tensp'].'l</td>';
                                         echo '<td style="font-size: 2rem" class="pro-price"><span>$'.number_format($detail['dongia'],2,".",",").'</span></td>';
                                         echo '<td style="font-size: 2rem" class="pro-quantity">'.$detail['soluong'].'</td>';
                                         echo '<td style="font-size: 2rem" class="pro-subtotal"><span>$'.number_format($detail['soluong']*$detail['dongia'],2,".",",").'</span></td>';

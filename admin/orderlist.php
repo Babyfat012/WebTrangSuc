@@ -1,6 +1,11 @@
 <?php
     session_start();
     require '../lib/lib.php';
+    if(isset($_POST['view'])){
+        if(isset($_POST['user'])){
+            $user = $_POST['user'];
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -52,19 +57,19 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="myaccount-tab-menu nav" role="tablist">
+                                    <?php
+                                        $sql = "SELECT * FROM khachhang WHERE taikhoankh = '$user'";
+                                        $CUS = executeQuery($sql);
+                                        $customer = $CUS->fetch_array();
+                                    
+                                    ?>
                                     <a href="#account-info" data-toggle="tab" id="info" class="active"><i class="fa fa-user"></i> Account Details</a>
-                                   
-                               
-                                       
-                                        <h3 style=" font-family: 'Droid Serif'; margin-top:20px ">Username:   Sog1n090</h3></span>
-                                        <p style=" font-family: 'Droid Serif' ; margin-top:10px"><strong>Fullname: </strong>Nguyen Vinh</p>
-                                        <p style=" font-family: 'Droid Serif';"><strong>Address: </strong>102/6 Hoa Hung, Ward 13, District 10, TPHCM</p>
-                        
-                                    
-                                    
-                                    
-                                    
-                                    <a href="login-register.html"><i class="fa fa-sign-out"></i> Back</a>
+                                        <h3 style=" font-family: 'Droid Serif'; margin-top:20px ">Username:   <?php echo $customer['taikhoankh'] ?></h3></span>
+                                        <p style=" font-family: 'Droid Serif' ; margin-top:10px"><strong>Fullname: </strong><?php echo $customer['hoten'] ?></p>
+                                    <p style=" font-family: 'Droid Serif' ; margin-top:10px"><strong>Phone: </strong><?php echo $customer['sodienthoai'] ?></p>
+
+                                    <p style=" font-family: 'Droid Serif';"><strong>Address: </strong><?php echo $customer['sonha'].", ".$customer['tenphuong'].", ".$customer['tenquan'].", ".$customer['tentp'] ;?></p>
+                                    <a href="quantri.php?page_layout=thongke"><i class="fa fa-sign-out"></i> Back</a>
                                 </div>
                             </div>
                             <!-- My Account Tab Menu End -->
@@ -84,7 +89,7 @@
                                             <div class="myaccount-table table-responsive text-center">
                                                 <?php
                                                     
-                                                    $sql = "SELECT * FROM hoadon WHERE taikhoankh = '".$_SESSION['userName']."'";
+                                                    $sql = "SELECT * FROM hoadon WHERE taikhoankh = '".$user."'";
                                                     $result = executeQuery($sql);
                                                     if($result->num_rows > 0){
                                                         while($row = $result->fetch_assoc()){
@@ -105,48 +110,51 @@
                                                             echo '<th>'.$row['ngaymua'].'</th>';
                                                             switch($row['trangthai'])
                                                             {
-                                                                case 0: echo '<th>Confirmed</th>';
+                                                                case 0: echo '<th style="color:blue">Confirmed</th>';
                                                                     break;
-                                                                case 1: echo '<th>Completed</th>';
+                                                                case 1: echo '<th style="color:green">Completed</th>';
                                                                     break;
-                                                                case -1: echo '<th>Canceled</th>';
+                                                                case -1: echo '<th style="color:red">Canceled</th>';
                                                             }
                                                             echo '<th>$'.number_format($row['tongtien'],2,".",",") .'</th>';
-                                                            echo '<th><a href="../cart.html" class="btn-add-to-cart">View</a></th>';
+                                                            echo '<form action="quantri.php" method="post" >';
+                                                            echo '<input type="hidden" name="page_layout" value="danhsachbill">';
+                                                            echo'<input type="hidden" name="id" value="'. $row['idhoadon'] . '">';
+                                                            echo'<input type="hidden" name="user" value="'. $row['taikhoankh'] . '">';
+                                                            echo '<th><button type="submit" name="view" value="view" class="btn-add-to-cart">View</button></th>';
                                                             echo '</tr>';
                                                             echo '</thead>';
                                                             $sql1 = "SELECT CT.idsanpham, CT.dongia, .CT.soluong, SP.hinhanh, SP.tensp, SP.maloaisp FROM chitiethoadon CT, sanpham SP WHERE idhoadon ='". "$row[idhoadon]' AND CT.idsanpham = SP.idsanpham";
-                                                            echo $sql1;
                                                             $result1 = executeQuery($sql1);
                                                             if($result1->num_rows > 0){
                                                                 while($row1 = $result1->fetch_array()){
                                                                     echo '<tr>';
-                                                                    echo '<td style="width: 20%" class="pro-thumbnail"><a href="single-product.php?id='.$row1['idsanpham'].'"><img'.'>';
+                                                                    echo '<td style="width: 20%" class="pro-thumbnail">';
                                                                     switch($row1['maloaisp'])
                                                                     {
                                                                         case 'NKL':
                                                                             echo ' <img class="img-fluid" src="assets/img/Necklace/'.$row1['hinhanh'].'"
-                                                                                               alt="Product"/></a></td>';
+                                                                                               alt="Product"/></td>';
                                                                             $type = "Necklace";
                                                                             break;
                                                                         case 'BRL':
                                                                             echo ' <img class="img-fluid" src="assets/img/Bracelet/'.$row1['hinhanh'].'"
-                                                                                               alt="Product"/></a></td>';
+                                                                                               alt="Product"/></td>';
                                                                             $type = "Bracelet";
                                                                             
                                                                             break;
                                                                         case 'RG':
                                                                             echo ' <img class="img-fluid" src="assets/img/Ring/'.$row1['hinhanh'].'"
-                                                                                               alt="Product"/></a></td>';
+                                                                                               alt="Product"/></td>';
                                                                             $type = "Ring";
                                                                             
                                                                             break;
                                                                     }
                                                                     echo '<td  colspan="4">';
-                                                                    echo '<a href="single-product.php?id='.$row1['idsanpham'].'"><h4>'.$row1['tensp'].'</h4></a>';
+                                                                    echo '<h4>'.$row1['tensp'].'</h4>';
                                                                     echo '<hr>';
                                                                     echo '<p style="text-align: left; font-weight: 700">Type:'.$type.'</p>
-                                                        <p style="text-align: left; font-weight: 700">Price:$'.number_format($row1['dongia']) .'</p>
+                                                        <p style="text-align: left; font-weight: 700">Price:$'.number_format($row1['dongia'],2,".",",") .'</p>
                                                         <p style="text-align: left; font-weight: 700">Quantity: '.$row1['soluong'][0].'</p>';
                                                                     echo '</td>';
                                                                     echo '</tr>';
