@@ -17,6 +17,15 @@
         }
     }
 
+    $sql = "SELECT * FROM manager WHERE taikhoan ='".$_SESSION['taikhoan']."'";
+    $result = executeQuery($sql);
+    $row = $result->fetch_array();
+    var_dump($_SESSION['taikhoan']);
+    if($row['trangthaitk'] == 0)
+    {
+
+        header('dangxuat.php');
+    }
 
 
 ?>
