@@ -4,7 +4,7 @@
     session_start();
     require '../lib/db.inc';
     require '../lib/lib.php';
-    if(empty($_SESSION['taikhoan']))
+    if(!isset($_SESSION['taikhoan']))
     {
         header('location: index.php');
     }
@@ -17,14 +17,12 @@
         }
     }
 
-    $sql = "SELECT * FROM manager WHERE taikhoan ='".$_SESSION['taikhoan']."'";
+    $sql = "SELECT * FROM manager WHERE taikhoan = '".$_SESSION['taikhoan']."'";
     $result = executeQuery($sql);
     $row = $result->fetch_array();
-    var_dump($_SESSION['taikhoan']);
-    if($row['trangthaitk'] == 0)
+    if($row['trangthaitk'] == '0')
     {
-
-        header('dangxuat.php');
+        header("location:dangxuat.php");
     }
 
 

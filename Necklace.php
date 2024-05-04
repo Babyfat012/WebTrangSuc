@@ -219,7 +219,7 @@
                         <h1>Shop</h1>
                         <ul class="breadcrumb">
                             <li><a href="index.php">Home</a></li>
-                            <li><a href="shop.php" class="active">Shop</a></li>
+                            <li><a href="Necklace.php" class="active">Necklace</a></li>
                         </ul>
                     </div>
                 </div>
@@ -415,7 +415,7 @@
                                 <ul class="pagination">
                                     <?php
                                         $sql = "SELECT COUNT(*) AS numrows FROM sanpham";
-                                            $sql .= " WHERE " . $where . " AND (soluong > 0)";
+                                        $sql .= " WHERE " . $where . " AND (soluong > 0)";
                                         $result = ExecuteQuery($sql);
                                         $row = $result->fetch_array();
                                         

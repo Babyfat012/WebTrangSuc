@@ -13,7 +13,9 @@ echo'<div class="table-responsive">';
 echo'<table class="table table-striped">';
 echo'<thead>';
 echo'<tr>';
-echo'<th>NAME</th>';
+    echo'<th>USERNAME</th>';
+
+echo'<th>FULLNAME</th>';
 echo'<th>EMAIL</th>';
 echo'<th>ADDRESS</th>';
 echo'<th>WARD</th>';
@@ -33,6 +35,8 @@ if($result->num_rows > 0)
     while ($row = $result->fetch_array())
     {
         echo'<tr>';
+        echo'<td>' . $row['taikhoankh'] . '</td>';
+        
         echo'<td>' . $row['hoten'] . '</td>';
         echo'<td>' . $row['email'] . '</td>';
         echo'<td>' . $row['sonha'] . '</td>';

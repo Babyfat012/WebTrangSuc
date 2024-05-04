@@ -1,4 +1,14 @@
 <?php
+ if(isset($_SESSION['userName'])){
+     $sql = "SELECT * FROM khachhang WHERE taikhoankh='".$_SESSION['userName']."'";
+     $result = executeQuery($sql);
+     $row = $result->fetch_array();
+     if($row['trangthaitk'] == '0')
+     {
+         header("location:logout.php");
+     }
+ }
+ 
 ?>
 <header id="header-area">
     <div class="ruby-container">
@@ -19,9 +29,9 @@
                             <li class=""><a href="index.php">Home</a></li>
                             <li ><a href="shop.php">Jewerlry</a></li>
                             
-                            <li ><a href="shop.php?type[]=NKL">Necklaces</a></li>
-                            <li ><a href="shop.php?type[]=BRL">Bracelets</a></li>
-                            <li><a href="shop.php?type[]=RG">Rings</a></li>
+                            <li ><a href="Necklace.php">Necklaces</a></li>
+                            <li ><a href="Bracelet.php">Bracelets</a></li>
+                            <li><a href="Ring.php">Rings</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -78,9 +88,20 @@
                                     
                                     
                                 </div>
-                                <div class="mini-cart-footer">
-                                    <a href="checkout.php" class="btn-add-to-cart">Checkout</a>
-                                </div>
+                                <?php if(isset($_SESSION['cart']))
+                                    {
+                                        if(count($_SESSION['cart']) > 0){
+                                            echo '<div class="mini-cart-footer">';
+                                            echo '<a href="checkout.php" class="btn-add-to-cart">Checkout</a>';
+                                            echo '</div>';
+                                        }else
+                                        {
+                                            echo '<div class="mini-cart-footer">';
+                                            echo '<a href="shop.php" class="btn-add-to-cart">SHOP NOW</a>';
+                                            echo '</div>';
+                                        }
+                                    }?>
+                                
                             </div>
                         </li>
                         <?php

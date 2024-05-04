@@ -92,7 +92,7 @@
                             <h4>Rubby Store</h4>
                             <h2>Ring Solitaire Princess</h2>
                             <p>Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
-                            <a href="#" class="btn-long-arrow">Shop Now</a>
+                            <a href="shop.php" class="btn-long-arrow">Shop Now</a>
                         </div>
                     </div>
                     <!-- Banner Single Carousel End -->
@@ -103,7 +103,7 @@
                             <h4>New Collection 2017</h4>
                             <h2>Beautiful Earrings</h2>
                             <p>Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
-                            <a href="#" class="btn-long-arrow">Shop Now</a>
+                            <a href="shop.php" class="btn-long-arrow">Shop Now</a>
                         </div>
                     </div>
                     <!-- Banner Single Carousel End -->

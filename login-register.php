@@ -1,7 +1,6 @@
 <?php
 require 'lib/DataProvider.php';
     session_start();
-
 if(isset($_POST['register-submit'])) {
     echo $_POST['city'];
     if (!empty($_POST['userName']) && !empty($_POST['fullName']) && !empty($_POST['eMail']) && !empty($_POST['phoneNumber']) && !empty($_POST['passWord']) && !empty($_POST['houseNumbering']) &&!empty($_POST['city'])&&!empty($_POST['district'])&&!empty($_POST['ward']) ) {
@@ -22,17 +21,15 @@ if(isset($_POST['register-submit'])) {
         
         $result = executeQuery($sql);
         $_SESSION['userName'] = $userName;
-        $_SESSION['fullName'] = $fullName;
-        $_SESSION['passWord'] = $passWord;
+      
      
     }
 }
 ?>
 <?php
     $flag=0;
-    
     if(isset($_POST['login-submit'])){
-    if(!empty($_POST['userName'])&&!empty($_POST['passWord'])){
+        if(!empty($_POST['userName'])&&!empty($_POST['passWord'])){
         $userName = $_POST['userName'];
         $passWord = $_POST['passWord'];
         $sql = "SELECT * FROM khachhang WHERE taikhoankh like '$userName'";
@@ -63,7 +60,7 @@ if(isset($_POST['register-submit'])) {
 }
 ?>
 <?php
-if(!empty($_SESSION['userName'])){
+if(isset($_SESSION['userName'])){
     header('Location: index.php');
 }
 ?>
@@ -203,12 +200,14 @@ if(!empty($_SESSION['userName'])){
                                     <div class="single-input-item">
                                         <label for="city" class="required" >Province / City</label>
                                         <select name="city" id="city" ">
-                                        <option value=""> Select a city</option>
+                                        <option value="-1"> Select a city</option>
                                         <option value="Ho Chi Minh">Ho Chi Minh</option>
                                         <option value="Ha Noi">Ha Noi</option>
                                         <option value="Da Nang">Da Nang</option>
                                         <option value="Hai Phong">Hai Phong</option>
                                         </select>
+                                        <div id="errorCity"></div>
+
                                     </div>
 
                                     <div class="single-input-item" id="districtform">
@@ -231,12 +230,14 @@ if(!empty($_SESSION['userName'])){
 
 
                                         </select>
+                                        <div id="errorDistrict"></div>
+
                                     </div>
 
                                     <div class="single-input-item" id="wardform">
                                         <label for="ward" class="required" >Ward</label>
                                         <select name="ward" id="ward">
-                                            <option value=""> Select a Ward</option>
+                                            <option value="-1"> Select a Ward</option>
                                             <option value="Ward 1">Ward 1</option>
                                             <option value="Ward 2">Ward 2</option>
                                             <option value="Ward 3">Ward 3</option>
@@ -250,11 +251,14 @@ if(!empty($_SESSION['userName'])){
                                             <option value="Ward 11">Ward 11</option>
                                             <option value="Ward 12">Ward 12</option>
                                         </select>
+                                        <div id="errorWard"></div>
                                     </div>
 
                                     <div class="single-input-item">
                                         <label for="f_name_2" class="required">Address</label>
-                                        <input name="address" type="text" id="address" placeholder="Address"/>
+                                        <input name="address" type="text" id="address" placeholder="Address" required/>
+                                        <div id="errorAddress"></div>
+
                                     </div>
                                     
                                     
@@ -287,7 +291,7 @@ if(!empty($_SESSION['userName'])){
                                     <!--                                    </div>-->
 
                                     <div class="single-input-item">
-                                        <input type="submit" name="register-submit" class="btn-login" value="Register">
+                                        <input type="submit" name="register-submit" class="btn-login" value="Register" ">
                                         <!--                                        <button class="btn-login">Register</button>-->
                                     </div>
                                 </form>
@@ -317,7 +321,6 @@ if(!empty($_SESSION['userName'])){
 
    
 <script>
-  
     function checkForm(){
         var userName = document.getElementById('userName').value;
         var fullName = document.getElementById('fullName').value;
@@ -329,59 +332,57 @@ if(!empty($_SESSION['userName'])){
         var flag = true;
 
         if(userName.length < 5 ){
-            document.getElementById('error_username').innerText= 'User Name must be at least 5 characters '
-            document.getElementById('error_username').style.color = "red"
-            document.getElementById('error_username').style.display = "block"
+            document.getElementById('error_username').innerText= 'User Name must be at least 5 characters ';
+            document.getElementById('error_username').style.color = "red";
+            document.getElementById('error_username').style.display = "block";
 
             flag = false
         }else
-            document.getElementById('error_username').style.display = "none"
-        console.log(flag)
+            document.getElementById('error_username').style.display = "none";
 
 
         if(fullName.length < 5){
-            document.getElementById('error_fullname').innerText= 'Full Name must be at least 5 characters'
-            document.getElementById('error_fullname').style.color = 'red'
-            document.getElementById('error_fullname').style.display= 'block'
+            document.getElementById('error_fullname').innerText= 'Full Name must be at least 5 characters';
+            document.getElementById('error_fullname').style.color = 'red';
+            document.getElementById('error_fullname').style.display= 'block';
             flag = false
         }
         else {
-            document.getElementById('error_fullname').style.display = "none"
+            document.getElementById('error_fullname').style.display = "none";
         }
         if(!regExEmail.test(eMail)){
-            document.getElementById('error_email').innerText = 'Please enter valid email'
-            document.getElementById('error_email').style.color ="red"
-            document.getElementById('error_email').style.display = 'block'
+            document.getElementById('error_email').innerText = 'Please enter valid email';
+            document.getElementById('error_email').style.color ="red";
+            document.getElementById('error_email').style.display = 'block';
             flag = false
         }
         else {
-            document.getElementById('error_email').style.display = "none"
+            document.getElementById('error_email').style.display = "none";
         }
         if(!regExPhoneNum.test(phoneNum)){
             document.getElementById('error_phonenumber').innerText = 'Please enter valid phone number'
             document.getElementById('error_phonenumber').style.color ='red'
-            document.getElementById('error_phonenumber').style.display = 'block'
+            document.getElementById('error_phonenumber').style.display = 'block';
             flag = false
         }
         else {
-            document.getElementById('error_phonenumber').style.display = "none"
+            document.getElementById('error_phonenumber').style.display = "none";
         }
         if(phoneNum.length > 11 || phoneNum.length < 10){
             document.getElementById('error_phonenumber').innerText='Phone number must be at least 10 and maximum 11 number';
-            document.getElementById('error_phonenumber').style.color='red'
-            document.getElementById('error_phonenumber').style.display = 'block'
+            document.getElementById('error_phonenumber').style.color='red';
+            document.getElementById('error_phonenumber').style.display = 'block';
             flag = false
         }
         else{
-            document.getElementById('error_phonenumber').style.display = "none"
+            document.getElementById('error_phonenumber').style.display = "none";
         }
 
-
-
+        
         if(passWord.length < 8){
             document.getElementById('error_password').innerText =' Password must be at least 8 character';
             document.getElementById('error_password').style.color = 'red';
-            flag =false;
+            flag = false;
         }
         else{
             document.getElementById('error_password').style.display = "none";
@@ -393,22 +394,53 @@ if(!empty($_SESSION['userName'])){
         if($result->num_rows > 0)
         {
             while($row = $result->fetch_array()) {
-                echo 'if(' . "'". $row['userName'] . "'"." == userName){";
+                echo 'if(' . "'". $row['taikhoankh'] . "'"." == userName){";
                 echo "document.getElementById('error_username').innerText= 'Username exist. Try another username!!!';";
                 echo 'document.getElementById("error_username").style.display = "block";';
 
                 echo 'document.getElementById("error_username").style.color = "red";';
                 echo 'flag = false;';
-                echo '}';
+                echo '} ';
             }
         }
         ?>
-
+        console.log(flag)
         var city = document.getElementById("city").value;
         var district = document.getElementById("district").value;
         var ward = document.getElementById("ward").value;
-        var street = document.getElementById("street").value;
-        return flag
+        var street = document.getElementById("address").value;
+
+        if(city == -1){
+            document.getElementById('errorCity').innerText ='Select a city';
+            document.getElementById('errorCity').style.color = 'red';
+            flag = false;
+        }
+        else{
+            document.getElementById('errorCity').style.display = "none";
+        }
+
+        if(ward == -1){
+            document.getElementById('errorWard').innerText ='Select a ward';
+            document.getElementById('errorWard').style.color = 'red';
+            flag = false;
+        }
+        else{
+            document.getElementById('errorWard').style.display = "none";
+        }
+
+        if(district == -1){
+            document.getElementById('errorDistrict').innerText ='Select a ward';
+            document.getElementById('errorDistrict').style.color = 'red';
+            flag = false;
+        }
+        else{
+            document.getElementById('errorDistrict').style.display = "none";
+        }
+
+        
+        return flag;
+       
+        
     }
     
     
