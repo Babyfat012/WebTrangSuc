@@ -56,16 +56,19 @@ if(isset($_GET['temptk']) && !empty($_GET['temptk'])) {
                     <label for="ward">WARD</label>
                     <select class="form-control form-control-lg" id="ward" name="ward">
                         <option value="-1">Select ward</option>
-                        <option value="1" <?php isCheckWard("1",$ward);?> >1</option>
-                        <option value="2" <?php isCheckWard("2",$ward);?>>2</option>
-                        <option value="3" <?php isCheckWard("3",$ward);?>>3</option>
-                        <option value="4" <?php isCheckWard("4",$ward);?>>4</option>
-                        <option value="5" <?php isCheckWard("5",$ward);?>>5</option>
-                        <option value="6" <?php isCheckWard("6",$ward);?>>6</option>
-                        <option value="7" <?php isCheckWard("7",$ward);?>>7</option>
-                        <option value="8" <?php isCheckWard("8",$ward);?>>8</option>
-                        <option value="9" <?php isCheckWard("9",$ward);?>>9</option>
-                        <option value="9" <?php isCheckWard("10",$ward);?>>10</option>
+                        <option value="Ward 1" <?php isCheckWard("Ward 1",$ward);?> >Ward 1</option>
+                        <option value="Ward 2" <?php isCheckWard("Ward 2",$ward);?>>Ward 2</option>
+                        <option value="Ward 3" <?php isCheckWard("Ward 3",$ward);?>>Ward 3</option>
+                        <option value="Ward 4" <?php isCheckWard("Ward 4",$ward);?>>Ward 4</option>
+                        <option value="Ward 5" <?php isCheckWard("Ward 5",$ward);?>>Ward 5</option>
+                        <option value="Ward 6" <?php isCheckWard("Ward 6",$ward);?>>Ward 6</option>
+                        <option value="Ward 7" <?php isCheckWard("Ward 7",$ward);?>>Ward 7</option>
+                        <option value="Ward 8" <?php isCheckWard("Ward 8",$ward);?>>Ward 8</option>
+                        <option value="Ward 9" <?php isCheckWard("Ward 9",$ward);?>>Ward 9</option>
+                        <option value="Ward 10" <?php isCheckWard("Ward 10",$ward);?>>Ward 10</option>
+                        <option value="Ward 11" <?php isCheckWard("Ward 11",$ward);?>>Ward 11</option>
+                        <option value="Ward 12" <?php isCheckWard("Ward 12",$ward);?>>Ward 12</option>
+
 
                     </select>
                 </div>
@@ -84,11 +87,18 @@ if(isset($_GET['temptk']) && !empty($_GET['temptk'])) {
                     <label for="district">DISTRICT</label>
                     <select class="form-control form-control-lg" id="district" name="district">
                         <option value="-1">Select district</option>
-                        <option value="Binh Tan" <?php isCheckDistrict("Binh Tan",$district);?>>Binh Tan</option>
-                        <option value="6" <?php isCheckDistrict("6",$district);?>>6</option>
-                        <option value="12" <?php isCheckDistrict("12",$district);?>>12</option>
-                        <option value="Nha Be" <?php isCheckDistrict("Nha Be",$district);?>>Nha Be</option>
-                        <option value="Tan Binh" <?php isCheckDistrict("Tan Binh",$district);?>>Tan Binh</option>
+                        <option value="District 1" <?php isCheckDistrict("District 1",$district);?>>District 1</option>
+                        <option value="District 2" <?php isCheckDistrict("District 2",$district);?>>District 2</option>
+                        <option value="District 3" <?php isCheckDistrict("District 3",$district);?>>District 3</option>
+                        <option value="District 4" <?php isCheckDistrict("District 4",$district);?>>District 4</option>
+                        <option value="District 5" <?php isCheckDistrict("District 5",$district);?>>District 5</option>
+                        <option value="District 6" <?php isCheckDistrict("District 6",$district);?>>District 6</option>
+                        <option value="District 7" <?php isCheckDistrict("District 7",$district);?>>District 7</option>
+                        <option value="District 8" <?php isCheckDistrict("District 8",$district);?>>District 8</option>
+                        <option value="District 9" <?php isCheckDistrict("District 9",$district);?>>District 9</option>
+                        <option value="District 10" <?php isCheckDistrict("District 10",$district);?>>District 10</option>
+                        <option value="District 11" <?php isCheckDistrict("District 11",$district);?>>District 11</option>
+                        <option value="District 12" <?php isCheckDistrict("District 12",$district);?>>District 12</option>
                     </select>
                 </div>
 
@@ -109,9 +119,8 @@ if(isset($_GET['temptk']) && !empty($_GET['temptk'])) {
                         <option value="-1">Select city</option>
                         <option value="Ho Chi Minh" <?php isCheckCity("Ho Chi Minh",$city);?>>Ho Chi Minh</option>
                         <option value="Ha Noi" <?php isCheckCity("Ha Noi",$city);?>>Ha Noi</option>
-                        <option value="Vung Tau" <?php isCheckCity("Vung Tau",$city);?>>Vung Tau</option>
-                        <option value="Da Lat" <?php isCheckCity("Da Lat",$city);?>>Da Lat</option>
-                        <option value="Nha Trang" <?php isCheckCity("Nha Trang",$city);?>>Nha Trang</option>
+                        <option value="Hai Phong" <?php isCheckCity("Hai Phong",$city);?>>Hai Phong</option>
+                        <option value="Da Nang" <?php isCheckCity("Da Nang",$city);?>>Da Nang</option>
                     </select>
                 </div>
 

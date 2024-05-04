@@ -5,7 +5,6 @@ require 'lib/lib.php';
 if(!isLogin()){
     header('Location: login-register.php');
 }
-var_dump($_SESSION['userName']);
 
 if(isset($_POST['apply'])){
     if(isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['email']) && isset($_POST['city']) && isset($_POST['district']) && isset($_POST['ward']) &&  isset($_POST['street']) )
@@ -56,7 +55,7 @@ if(isset($_POST['change']))
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
 
-    <title>Dashboard :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
+    <title>Jewelry Store HPV</title>
 
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
@@ -173,14 +172,14 @@ if(isset($_POST['change']))
                                                         echo '<thead>';
                                                         echo '<tr>';
                                                         echo '<th>'.$row['idhoadon'].'</th>';
-                                                        echo '<th>'.$row['ngaymua'].'</th>';
+                                                        echo '<th>'.date("d-m-Y", strtotime($row['ngaymua'])).'</th>';
                                                         switch($row['trangthai'])
                                                         {
-                                                            case 0: echo '<th>Confirmed</th>';
+                                                            case 0: echo '<th style="color: blue">Confirmed</th>';
                                                             break;
-                                                            case 1: echo '<th>Completed</th>';
+                                                            case 1: echo '<th style="color: green">Completed</th>';
                                                             break;
-                                                            case -1: echo '<th>Canceled</th>';
+                                                            case -1: echo '<th style="color: red">Canceled</th>';
                                                         }
                                                         
                                                         echo '<th>$'.number_format($row['tongtien'],2,".",",") .'</th>';
@@ -192,7 +191,6 @@ if(isset($_POST['change']))
                                                         echo '</tr>';
                                                         echo '</thead>';
                                                         $sql1 = "SELECT CT.idsanpham, CT.dongia, .CT.soluong, SP.hinhanh, SP.tensp, SP.maloaisp FROM chitiethoadon CT, sanpham SP WHERE idhoadon ='". "$row[idhoadon]' AND CT.idsanpham = SP.idsanpham";
-                                                        echo $sql1;
                                                         $result1 = executeQuery($sql1);
                                                         if($result1->num_rows > 0){
                                                             while($row1 = $result1->fetch_array()){

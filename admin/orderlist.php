@@ -107,7 +107,7 @@
                                                             echo '<thead>';
                                                             echo '<tr>';
                                                             echo '<th>'.$row['idhoadon'].'</th>';
-                                                            echo '<th>'.$row['ngaymua'].'</th>';
+                                                            echo '<th>'.date("d-m-Y", strtotime($row['ngaymua'])).'</th>';
                                                             switch($row['trangthai'])
                                                             {
                                                                 case 0: echo '<th style="color:blue">Confirmed</th>';

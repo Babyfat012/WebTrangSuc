@@ -3,12 +3,12 @@ require 'lib/DataProvider.php';
     session_start();
 if(isset($_POST['register-submit'])) {
     echo $_POST['city'];
-    if (!empty($_POST['userName']) && !empty($_POST['fullName']) && !empty($_POST['eMail']) && !empty($_POST['phoneNumber']) && !empty($_POST['passWord']) && !empty($_POST['houseNumbering']) &&!empty($_POST['city'])&&!empty($_POST['district'])&&!empty($_POST['ward']) ) {
+    if (!empty($_POST['userName']) && !empty($_POST['fullName']) && !empty($_POST['eMail']) && !empty($_POST['phoneNumber']) && !empty($_POST['passWord']) && !empty($_POST['address']) &&!empty($_POST['city'])&&!empty($_POST['district'])&&!empty($_POST['ward']) ) {
         $userName = trim($_POST['userName']);
         $fullName = trim($_POST['fullName']);
         $eMail = trim($_POST['eMail']);
         $phoneNumber = trim($_POST['phoneNumber']);
-        $houseNumbering = trim($_POST['houseNumbering']);
+        $houseNumbering = trim($_POST['address']);
         $city = $_POST['city'];
         $district = $_POST['district'];
         $ward = $_POST['ward'];
@@ -73,7 +73,7 @@ if(isset($_SESSION['userName'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
 
-    <title>Member Area :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
+    <title>Jewelry Store HPV</title>
 
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
@@ -153,18 +153,6 @@ if(isset($_SESSION['userName'])){
                                     </div>
                                     <div class="single-input-item">
                                         <input id="login-password" type="password" name ="passWord"placeholder="Enter your Password" required />
-                                    </div>
-                                    <div class="single-input-item">
-                                        <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
-                                            <div class="remember-meta">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                                    <label class="custom-control-label" for="rememberMe">Remember
-                                                        Me</label>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="forget-pwd">Forget Password?</a>
-                                        </div>
                                     </div>
 
                                     <div class="single-input-item">
@@ -322,6 +310,7 @@ if(isset($_SESSION['userName'])){
    
 <script>
     function checkForm(){
+
         var userName = document.getElementById('userName').value;
         var fullName = document.getElementById('fullName').value;
         var eMail = document.getElementById('eMail').value;
@@ -340,6 +329,7 @@ if(isset($_SESSION['userName'])){
         }else
             document.getElementById('error_username').style.display = "none";
 
+        console.log(flag);
 
         if(fullName.length < 5){
             document.getElementById('error_fullname').innerText= 'Full Name must be at least 5 characters';
@@ -350,6 +340,10 @@ if(isset($_SESSION['userName'])){
         else {
             document.getElementById('error_fullname').style.display = "none";
         }
+
+        console.log(flag);
+
+
         if(!regExEmail.test(eMail)){
             document.getElementById('error_email').innerText = 'Please enter valid email';
             document.getElementById('error_email').style.color ="red";
@@ -359,6 +353,10 @@ if(isset($_SESSION['userName'])){
         else {
             document.getElementById('error_email').style.display = "none";
         }
+
+        console.log(flag);
+
+
         if(!regExPhoneNum.test(phoneNum)){
             document.getElementById('error_phonenumber').innerText = 'Please enter valid phone number'
             document.getElementById('error_phonenumber').style.color ='red'
@@ -368,6 +366,10 @@ if(isset($_SESSION['userName'])){
         else {
             document.getElementById('error_phonenumber').style.display = "none";
         }
+
+        console.log(flag);
+
+
         if(phoneNum.length > 11 || phoneNum.length < 10){
             document.getElementById('error_phonenumber').innerText='Phone number must be at least 10 and maximum 11 number';
             document.getElementById('error_phonenumber').style.color='red';
@@ -378,7 +380,9 @@ if(isset($_SESSION['userName'])){
             document.getElementById('error_phonenumber').style.display = "none";
         }
 
-        
+        console.log(flag);
+
+
         if(passWord.length < 8){
             document.getElementById('error_password').innerText =' Password must be at least 8 character';
             document.getElementById('error_password').style.color = 'red';
@@ -387,8 +391,11 @@ if(isset($_SESSION['userName'])){
         else{
             document.getElementById('error_password').style.display = "none";
         }
-        
-        <?php
+
+        console.log(flag);
+
+
+    <?php
         $checkSql = "select * from `khachhang`";
         $result = executeQuery($checkSql);
         if($result->num_rows > 0)
@@ -419,6 +426,9 @@ if(isset($_SESSION['userName'])){
             document.getElementById('errorCity').style.display = "none";
         }
 
+        console.log(flag);
+
+
         if(ward == -1){
             document.getElementById('errorWard').innerText ='Select a ward';
             document.getElementById('errorWard').style.color = 'red';
@@ -427,6 +437,9 @@ if(isset($_SESSION['userName'])){
         else{
             document.getElementById('errorWard').style.display = "none";
         }
+
+        console.log(flag);
+
 
         if(district == -1){
             document.getElementById('errorDistrict').innerText ='Select a ward';
@@ -437,7 +450,10 @@ if(isset($_SESSION['userName'])){
             document.getElementById('errorDistrict').style.display = "none";
         }
 
-        
+        console.log(flag);
+
+
+
         return flag;
        
         

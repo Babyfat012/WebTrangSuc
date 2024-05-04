@@ -55,8 +55,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo me-5" href="quantri.php"><img src="images/logo.svg" class="me-2" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="quantri.php"><img src="images/logo-mini.svg" alt="logo"/></a>
+            <a class="" href="quantri.php"><img src="assets/img/logo-black.png" class="me-2" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="quantri.php"><img src="assets/img/logo-black.png" alt="logo"/></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -77,8 +77,8 @@
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                        <img src="images/faces/face28.jpg" alt="profile"/>
-                        <span>Hello, <?php if(isset($_SESSION['taikhoan'])) {echo $_SESSION['taikhoan'];} ?></span>
+                            <i class="ti-user"></i>
+                            <span>Hello, <?php if(isset($_SESSION['taikhoan'])) {echo $_SESSION['taikhoan'];} ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                         <a class="dropdown-item" href="quantri.php?page_layout=danhsachadmin">

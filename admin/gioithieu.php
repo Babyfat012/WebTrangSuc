@@ -15,8 +15,13 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title text-md-center text-xl-left">ORDERS</p>
-                            <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-                                <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">34040</h3>
+                            <div  class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                                <?php
+                                    $sql = " SELECT COUNT(idhoadon) AS 'orders' FROM hoadon";
+                                    $result = executeQuery($sql);
+                                    $row = $result->fetch_array();
+                                ?>
+                                <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0"> <?php echo $row['orders']; ?> </> </h3>
                                 <i class="ti-shopping-cart-full icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
                             </div>
                         </div>
@@ -26,8 +31,13 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title text-md-center text-xl-left">CUSTOMERS</p>
+                            <?php
+                            $sql = "SELECT COUNT(taikhoankh) AS 'customers' FROM khachhang";
+                            $result = executeQuery($sql);
+                            $row = $result->fetch_array();
+                            ?>
                             <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-                                <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">47033</h3>
+                                <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0"><?php echo $row['customers']; ?></h3>
                                 <i class="ti-user icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
                             </div>
                         </div>
@@ -37,8 +47,13 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title text-md-center text-xl-left">PRODUCTS</p>
+                            <?php
+                            $sql = " SELECT COUNT(idsanpham) AS 'products' FROM sanpham";
+                            $result = executeQuery($sql);
+                            $row = $result->fetch_array();
+                            ?>
                             <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-                                <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">40016</h3>
+                                <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0"><?php echo $row['products']; ?></h3>
                                 <i class="ti-package icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
                             </div>
                         </div>
@@ -48,8 +63,13 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title text-md-center text-xl-left">MANAGERS</p>
+                            <?php
+                            $sql = " SELECT COUNT(taikhoan) AS 'managers' FROM manager";
+                            $result = executeQuery($sql);
+                            $row = $result->fetch_array();
+                            ?>
                             <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-                                <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">61344</h3>
+                                <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0"><?php echo $row['managers']; ?></h3>
                                 <i class="ti-settings icon-md text-muted mb-0 mb-md-3 mb-xl-0"></i>
                             </div>
                         </div>

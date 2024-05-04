@@ -33,10 +33,8 @@ if(isset($_GET['edit_id']))
             <form class="forms-sample" action="updateproduct.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <img id="displayImg" src="<?php echo($folder . $image); ?>">
-                    <label for="pic">File upload</label>
                     <input type="file" accept=".jpg, .png, .gif, .jpeg" name="pic" class="" id="pic" onchange="ImagesFileAsURL()">
                 </div>
-                <?php echo($folder . $image) ?>
                 <div class="form-group">
                     <input type="hidden" name="id" value="<?php echo($id); ?>">
                 </div>

@@ -68,6 +68,7 @@ if(isset($_POST['view']))
                         <h4 style="font-family: 'Droid Serif'">Receiver: <?php echo $bill['hoten']; ?></h4>
                         <h4 style="font-family: 'Droid Serif'">Phone: <?php echo $bill['sodienthoai']; ?></h4>
                         <h4 style="font-family: 'Droid Serif'">Address: <?php echo $bill['sonha'] .", ".$bill['tenphuong'] .", ".$bill['tenquan'] .", ".$bill['tentp']; ?> </h4>
+                        <h4 style="font-family: 'Droid Serif'">Date: <?php echo date("d-m-Y", strtotime($bill['ngaymua'])); ?></h4>
                         <?php
                             switch ($bill['trangthai']){
                                 case -1:

@@ -24,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
 
-    <title>Cart :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
+    <title>Jewelry Store HPV</title>
 
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
@@ -166,7 +166,7 @@
                 <?php
                     if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
                         echo ' <div class="cart-calculator-wrapper">
-                    <h3>Cart Totals: $'.number_format($row['dongia'],2,".",",").'</h3>
+                    <h3>Cart Totals: $'.number_format($total,2,".",",").'</h3>
                     <a href="checkout.php" class="btn-add-to-cart">Proceed To Checkout</a>
                 </div>';
                     }

@@ -60,16 +60,18 @@ if(isset($_POST['submit']))
                     <label for="ward">WARD</label>
                     <select class="form-control form-control-lg" id="ward" name="ward">
                         <option value="-1">Select ward</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="9">10</option>
+                        <option value="Ward 1" >Ward 1</option>
+                        <option value="Ward 2" >Ward 2</option>
+                        <option value="Ward 3" >Ward 3</option>
+                        <option value="Ward 4" >Ward 4</option>
+                        <option value="Ward 5" >Ward 5</option>
+                        <option value="Ward 6" >Ward 6</option>
+                        <option value="Ward 7" >Ward 7</option>
+                        <option value="Ward 8" >Ward 8</option>
+                        <option value="Ward 9" >Ward 9</option>
+                        <option value="Ward 10" >Ward 10</option>
+                        <option value="Ward 11" >Ward 11</option>
+                        <option value="Ward 12" >Ward 12</option>
 
                     </select>
                 </div>
@@ -78,11 +80,18 @@ if(isset($_POST['submit']))
                     <label for="district">DISTRICT</label>
                     <select class="form-control form-control-lg" id="district" name="district">
                         <option value="-1">Select district</option>
-                        <option value="Binh Tan">Binh Tan</option>
-                        <option value="6">6</option>
-                        <option value="12">12</option>
-                        <option value="Nha Be">Nha Be</option>
-                        <option value="Tan Binh">Tan Binh</option>
+                        <option value="District 1" >District 1</option>
+                        <option value="District 2" >District 2</option>
+                        <option value="District 3" >District 3</option>
+                        <option value="District 4" >District 4</option>
+                        <option value="District 5" >District 5</option>
+                        <option value="District 6" >District 6</option>
+                        <option value="District 7" >District 7</option>
+                        <option value="District 8" >District 8</option>
+                        <option value="District 9" >District 9</option>
+                        <option value="District 10" >District 10</option>
+                        <option value="District 11" >District 11</option>
+                        <option value="District 12" >District 12</option>
                     </select>
                 </div>
 
@@ -92,9 +101,8 @@ if(isset($_POST['submit']))
                         <option value="-1">Select city</option>
                         <option value="Ho Chi Minh">Ho Chi Minh</option>
                         <option value="Ha Noi">Ha Noi</option>
-                        <option value="Vung Tau">Vung Tau</option>
-                        <option value="Da Lat">Da Lat</option>
-                        <option value="Nha Trang">Nha Trang</option>
+                        <option value="Hai Phong">Hai Phong</option>
+                        <option value="Da Nang">Da Nang</option>
                     </select>
                 </div>
 

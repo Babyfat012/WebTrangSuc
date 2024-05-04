@@ -23,7 +23,7 @@ if(isset($_POST['view']))
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
 
-    <title>Cart :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
+    <title>Jewelry Store HPV</title>
 
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
@@ -68,7 +68,7 @@ if(isset($_POST['view']))
                     <h1>Shopping Cart</h1>
                     <ul class="breadcrumb">
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="my-account.php?url=ord">My account</a></li>
+                        <li><a href="my-account.php?url=order">My account</a></li>
                         <li><a href="detailBill.php" class="active">Bill</a></li>
                     </ul>
                 </div>
@@ -101,6 +101,8 @@ if(isset($_POST['view']))
                         <h4 style="font-family: 'Droid Serif'">Receiver: <?php echo $bill['hoten']; ?></h4>
                         <h4 style="font-family: 'Droid Serif'">Phone: <?php echo $bill['sodienthoai']; ?></h4>
                         <h4 style="font-family: 'Droid Serif'">Address: <?php echo $bill['sonha'] .", ".$bill['tenphuong'] .", ".$bill['tenquan'] .", ".$bill['tentp']; ?> </h4>
+                        <h4 style="font-family: 'Droid Serif'">Date: <?php echo date("d-m-Y", strtotime($bill['ngaymua'])); ?></h4>
+
                         <?php
                             switch ($bill['trangthai']){
                                 case -1:

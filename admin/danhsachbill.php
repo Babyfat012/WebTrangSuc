@@ -140,7 +140,6 @@
             $sql .= " WHERE " . $where;
         }
     }
-    echo $sql;
     $result = executeQuery($sql);
     //partial
 
@@ -195,7 +194,7 @@ echo'</tr>';
             echo'<td>' . $row['tenphuong'] . '</td>';
             echo'<td>' . $row['tenquan'] . '</td>';
             echo'<td>' . $row['tentp'] . '</td>';
-            echo'<td>' . $row['ngaymua'] . '</td>';
+            echo'<td>' . date("d-m-Y", strtotime($row['ngaymua']))  . '</td>';
 
             switch ($row['trangthai'])
             {

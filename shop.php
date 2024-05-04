@@ -13,10 +13,7 @@
         $quantity = $_POST['quantity'];
         addToCart($id, $quantity);
     }
-   var_dump($_SESSION['cart']);
-    
-    
-    
+
     $rowsPerPage = 6;
     $pageNum = 1;
     $self ="shop.php";
@@ -139,8 +136,7 @@
         
         
     }
-    echo $self;
-    
+
     
 
 
@@ -154,7 +150,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
 
-    <title>Shop :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
+    <title>Jewelry Store HPV</title>
     
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>

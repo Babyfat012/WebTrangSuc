@@ -4,8 +4,8 @@
     
     if(isset($_REQUEST['id'])) {
         $id = $_REQUEST['id'];
-        $sql = "SELECT * FROM sanpham where idsanpham LIKE '$id'";
-        $result = ExecuteQuery($sql);
+        $sql = "SELECT * FROM sanpham where idsanpham = '$id'";
+        $result = executeQuery($sql);
         if ($result->num_rows > 0) {
             $row = $result->fetch_array();
             $name = $row['tensp'];
@@ -30,10 +30,7 @@
         header('location: single-product.php?id='.$id);
        
     }
-    if(isset($_SESSION['cart'])){
-        var_dump($_SESSION['cart']);
-        echo count($_SESSION['cart']);
-    }
+
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +43,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="meta description">
 
-    <title>Single Product :: DNX - Jewelry Store e-Commerce Bootstrap 4 Template</title>
+    <title>Jewelry Store HPV</title>
 
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"/>
@@ -141,7 +138,7 @@
                         <!-- Product Details Start -->
                         <div class="col-lg-7 mt-5 mt-lg-0">
                             <div class="product-details">
-                                <h2><?php echo $row['tensp']?></a></h2>
+                                <h2><?php echo $name ?></a></h2>
                                 <span class="price">$<?php echo number_format($price,2,".",",")  ?></span>
                                 <div class="product-info-stock-sku">
                                     <span class="product-sku-status"><strong>Gender:</strong> <?php  switch ($gender)
@@ -164,7 +161,7 @@
                                     <span class="product-sku-status"><strong>Size:</strong> <?php echo $size ?> </span>
                                 </div>
                                 <div class="product-info-stock-sku">
-                                    <span class="product-sku-status"><strong>Available:</strong> <?php echo $row['soluong'] ?> </span>
+                                    <span class="product-sku-status"><strong>Available:</strong> <?php echo $quantity ?> </span>
                                 </div>
 
                               
@@ -177,7 +174,7 @@
                                             if($quantity > 0)
                                             {
                                                 echo ' <div class="quantity-field">';
-                                                echo '<label for="qty">Qty</label>';
+                                                echo '<label for="qty">Quantity</label>';
                                                 echo '<input type="number" name="quantity" id="qty" min="1" max="'.$quantity.'" value="1"/>';
                                                 echo '<button type="submit" name="addToCart" value="addCart" style="border:1px solid #c5c5c5;" class="btn btn-add-to-cart">Add to Cart</button>';
                                                 echo '</div>';
