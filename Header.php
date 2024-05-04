@@ -5,7 +5,7 @@
         <div class="row">
             <!-- Logo Area Start -->
             <div class="col-2 col-lg-1 col-xl-2 m-auto">
-                <a href="index.html" class="logo-area">
+                <a href="index.php" class="logo-area">
                     <img src="assets/img/logo.png" alt="Logo" class="img-fluid"/>
                 </a>
             </div>
@@ -23,7 +23,7 @@
                             <li class="dropdown-show"><a href="shop.php?type[]=BRL">Bracelets</a></li>
                             <li class="dropdown-show"><a href="shop.php?type[]=RG">Rings</a></li>
                             
-                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="contact.php">Contact Us</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -87,7 +87,7 @@
                         </li>
                         <?php
                         if(isset($_SESSION['userName'])){?>
-                            <li class="settings"><a href="" onclick="onClickUserIcon()"><i class="fa fa-user"> <?php echo $_SESSION['userName']?></i></a>
+                            <li style="margin-left:30px; " class="settings"><a href="my-account.php?url=info"><i class="fa fa-user"> <?php echo $_SESSION['userName']?></i></a>
                         <div class="site-settings d-block d-sm-flex">
                             <dl class="my-account">
                                 <dt>My Account</dt>
@@ -124,3 +124,17 @@
         </div>
     </div>
 </header>
+
+<div class="body-popup-modal-area">
+    <span class="modal-close"><img src="assets/img/cancel.png" alt="Close" class="img-fluid"/></span>
+    <div class="modal-container d-flex">
+        <div class="search-box-area">
+            <div class="search-box-form">
+                <form action="shop.php" method="get">
+                    <input type="search" name="key" placeholder="type keyword and hit enter"/>
+                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

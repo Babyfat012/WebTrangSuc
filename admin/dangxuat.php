@@ -2,7 +2,7 @@
     session_start();
     if(isset($_SESSION['taikhoan']))
     {
-        session_destroy();
+        unset($_SESSION['taikhoan']);
         header('location: index.php');
     }
     else
