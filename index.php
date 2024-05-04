@@ -231,7 +231,7 @@
 
                         <div class="tab-pane fade" id="new-products" role="tabpanel" aria-labelledby="new-products-tab">
                             <div class="products-wrapper">
-                                <div class="products-carousel owl-carousel">
+                                <div class="products-carousel owl-carousel">h
                                     <!-- Single Product Item -->
                                     <?php
                                         $sql = "SELECT * FROM sanpham WHERE maloaisp like '%BRL%'";
@@ -345,7 +345,7 @@
                                                      class="img-fluid"/></a>
 
                                     <figcaption class="category-name">
-                                        <a href="#">Jewellery</a>
+                                        <a href="shop.php">Jewellery</a>
                                     </figcaption>
                                 </figure>
                             </div>
@@ -354,11 +354,11 @@
                         <div class="col-sm-6">
                             <div class="single-cat-item">
                                 <figure class="category-thumb">
-                                    <a href="#"><img src="assets/img/LoaiSP/Ring.png" alt="Men Category"
+                                    <a href="Ring.php"><img src="assets/img/LoaiSP/Ring.png" alt="Men Category"
                                                      class="img-fluid"  "/></a>
 
                                     <figcaption class="category-name">
-                                        <a href="#">Rings</a>
+                                        <a href="Ring.php">Rings</a>
                                     </figcaption>
                                 </figure>
                             </div>
@@ -367,11 +367,11 @@
                         <div class="col-sm-6">
                             <div class="single-cat-item">
                                 <figure class="category-thumb">
-                                    <a href="#"><img src="assets/img/LoaiSP/Necklace.jpeg" alt="Men Category"
+                                    <a href="Necklace.php"><img src="assets/img/LoaiSP/Necklace.jpeg" alt="Men Category"
                                                      class="img-fluid"/></a>
 
                                     <figcaption class="category-name">
-                                        <a href="#">Necklaces</a>
+                                        <a href="Necklace.php">Necklaces</a>
                                     </figcaption>
                                 </figure>
                             </div>
@@ -380,11 +380,11 @@
                         <div class="col-sm-6">
                             <div class="single-cat-item">
                                 <figure class="category-thumb">
-                                    <a href="#"><img src="assets/img/LoaiSP/Bracelet.jpeg" alt="Men Category"
+                                    <a href="Bracelet.php"><img src="assets/img/LoaiSP/Bracelet.jpeg" alt="Men Category"
                                                      class="img-fluid"/></a>
 
                                     <figcaption class="category-name">
-                                        <a href="#">Bracelet</a>
+                                        <a href="Bracelet.php">Bracelet</a>
                                     </figcaption>
                                 </figure>
                             </div>
@@ -402,8 +402,6 @@
                             <div class="single-cat-item">
                                 <figure class="category-thumb">
                                     <img src="assets/img/men-cat.jpg" alt="Men Category" class="img-fluid"/>
-
-                                   
                                 </figure>
                             </div>
                         </div>
@@ -476,90 +474,7 @@
 <!--== Testimonial Area End ==-->
 
 <!--== Blog Area Start ==-->
-<section id="blog-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <!-- Section Title Start -->
-                <div class="section-title">
-                    <h2>From Our Blog</h2>
-                    <p>Share your latest posts or best articles will post here.</p>
-                </div>
-                <!-- Section Title End -->
-            </div>
-        </div>
 
-        <div class="blog-content-wrap" id="blog">
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <!-- Single Blog Item Start -->
-                    <div class="single-blog-wrap">
-                        <figure class="blog-thumb">
-                            <a href="#blog"><img src="assets/img/blog-thumb.jpg" alt="blog"
-                                                            class="img-fluid"/></a>
-                            <figcaption class="blog-icon">
-                                <a href="#blog"><i class="fa fa-file-image-o"></i></a>
-                            </figcaption>
-                        </figure>
-
-                        <div class="blog-details">
-                            <h3><a href="#blog">Le Ngoc Hiep</a></h3>
-                            <span class="post-date">20/June/2018</span>
-                            <p>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit
-                                litterarum.</p>
-                            <a href="#blog" class="btn-long-arrow">Read More</a>
-                        </div>
-                    </div>
-                    <!-- Single Blog Item End -->
-                </div>
-
-                <div class="col-lg-6 col-md-6">
-                    <!-- Single Blog Item Start -->
-                    <div class="single-blog-wrap">
-                        <figure class="blog-thumb">
-                            <a href="#blog"><img src="assets/img/blog-thumb-2.jpg" alt="blog"
-                                                            class="img-fluid"/></a>
-                            <figcaption class="blog-icon">
-                                <a href="#"><i class="fa fa-file-image-o"></i></a>
-                            </figcaption>
-                        </figure>
-
-                        <div class="blog-details">
-                            <h3><a href="#blog">Nguyen Phuong Vinh</a></h3>
-                            <span class="post-date">20/June/2018</span>
-                            <p>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit
-                                litterarum.</p>
-                            <a href="#blog" class="btn-long-arrow">Read More</a>
-                        </div>
-                    </div>
-                    <!-- Single Blog Item End -->
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <!-- Single Blog Item Start -->
-                    <div class="single-blog-wrap">
-                        <figure class="blog-thumb">
-                            <a href="#blog"><img src="assets/img/blog-thumb-3.jpg" alt="blog"
-                                                            class="img-fluid"/></a>
-                            <figcaption class="blog-icon">
-                                <a href="#blog"><i class="fa fa-file-image-o"></i></a>
-                            </figcaption>
-                        </figure>
-
-                        <div class="blog-details">
-                            <h3><a href="#blog">Trinh Long Phat</a></h3>
-                            <span class="post-date">20/June/2018</span>
-                            <p>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit
-                                litterarum.</p>
-                            <a href="#blog" class="btn-long-arrow">Read More</a>
-                        </div>
-                    </div>
-                    <!-- Single Blog Item End -->
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <!--== Blog Area End ==-->
 
 

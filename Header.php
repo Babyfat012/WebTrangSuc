@@ -17,13 +17,11 @@
                     <nav id="mainmenu">
                         <ul>
                             <li class=""><a href="index.php">Home</a></li>
-                            <li class="dropdown-show"><a href="shop.php">Jewerlry</a></li>
+                            <li ><a href="shop.php">Jewerlry</a></li>
                             
-                            <li class="dropdown-show"><a href="shop.php?type[]=NKL">Necklaces</a></li>
-                            <li class="dropdown-show"><a href="shop.php?type[]=BRL">Bracelets</a></li>
-                            <li class="dropdown-show"><a href="shop.php?type[]=RG">Rings</a></li>
-                            
-                            <li><a href="contact.php">Contact Us</a></li>
+                            <li ><a href="shop.php?type[]=NKL">Necklaces</a></li>
+                            <li ><a href="shop.php?type[]=BRL">Bracelets</a></li>
+                            <li><a href="shop.php?type[]=RG">Rings</a></li>
                         </ul>
                     </nav>
                 </div>

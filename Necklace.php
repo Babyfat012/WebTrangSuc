@@ -7,6 +7,7 @@
         }
     }
     
+    
     if(isset($_POST['addToCart']))
     {
         $id = $_POST['id'];
@@ -19,20 +20,21 @@
     
     $rowsPerPage = 6;
     $pageNum = 1;
-    $self ="shop.php";
-    $root = "shop.php";
+    $self ="Necklace.php";
+    $root = "Necklace.php";
+    $where = "(maloaisp = 'NKL')";
+    
     if(isset($_GET["page"])){
         $pageNum = $_GET["page"];
     }
     $offset = ($pageNum - 1) * $rowsPerPage;
 
-    $where = '';
     if(isset($_GET['key']))
     {
         $key = $_GET['key'];
-        if($where == ''){
-            $where = " (tensp LIKE '%" . $key . "%')" ;
-            $self = "shop.php?key=$key";
+        if($where == "(maloaisp = 'NKL')"){
+            $where .= " AND (tensp LIKE '%" . $key . "%')" ;
+            $self = "Necklace.php?key=$key";
             
         }
         else{
@@ -44,37 +46,12 @@
    
     
     
-    if(isset($_GET['type']))
-    {
-        $type = $_GET['type'];
-        if($where != ""){
-            $where .= " AND (";
-            $self .= "&";
-        }
-        else{
-            $where .= " (";
-            $self .= "?";
-        }
-        
-        for($i = 0; $i < sizeof($type); $i++){
-            if($i == sizeof($type)-1)
-            {
-                $where .= "maloaisp LIKE '" . $type[$i] . "')";
-                $self .= "type[]=$type[$i]";
-            }
-            else{
-                $where .= "maloaisp LIKE '" . $type[$i] . "' OR ";
-                $self .= "type[]=$type[$i]&";
-                
-            }
-        }
-    }
    
     
     if(isset($_GET['Gender']))
     {
         $gender = $_GET['Gender'];
-        if($where != ""){
+        if($where != "(maloaisp = 'NKL')"){
             $where .= " AND (";
             $self .= "&";
         }
@@ -113,7 +90,7 @@
         
         
         if($min != null || $max != null) {
-            if ($where != ""){
+            if ($where != "(maloaisp = 'NKL')"){
                 $where .= " AND (";
                 $self .= "&";
             }
@@ -139,7 +116,9 @@
         
         
     }
+    
     echo $self;
+    echo $where;
     
     
 
@@ -200,7 +179,7 @@
         <div class="modal-container d-flex">
             <div class="search-box-area">
                 <div class="search-box-form">
-                    <form action="shop.php" method="get">
+                    <form action="Necklace.php" method="get">
                         <?php
                             if(isset($_GET['type']))
                             {
@@ -262,7 +241,7 @@
                             <div class="sidebar-body">
                                 <div class="shopping-option">
                                     <h3>Shopping Options</h3>
-                                    <form action="shop.php" method="get">
+                                    <form action="Necklace.php" method="get">
                                         <?php
                                             if(isset($_GET['key']))
                                             {
@@ -284,37 +263,7 @@
                                         </div>
                                         
                                         
-                                        <div class="shopping-option-item">
-                                            <h4>Jewelry</h4>
-
-                                            <ul class="sidebar-list">
-                                                
-                                                <?php
-                                                    $sql = "SELECT * FROM loaisanpham";
-                                                    
-                                                    $result = ExecuteQuery($sql);
-                                                    if ($result->num_rows > 0) {
-                                                        while ($row = $result->fetch_array()) {
-                                                            
-                                                            if(isset($_GET['type'])){
-                                                                if(in_array($row['malsp'],$type))
-                                                                {
-                                                                    $str = '<li><input type="checkbox" checked value="' . $row['malsp'] . '"name="' . 'type[]' . '">';
-                                                                }else
-                                                                    $str = '<li><input type="checkbox" value="' . $row['malsp'] . '"name="' . 'type[]' . '">';
-                                                            }else
-                                                                $str = '<li><input type="checkbox" value="' . $row['malsp'] . '"name="' . 'type[]' . '">';
-                                                            
-                                                            
-                                                            $str = $str . '<label class="form-check-label" for="' . $row['tenloaisp'] . '" style="font-family:' . "'Droid Serif'" . '; font-style: italic; color: #202020; font-size: 1.4rem">' . $row['tenloaisp'] . '</label></li>';
-                                                            echo $str;
-                                                        }
-                                                    }
-                                                ?>
-
-                                            </ul>
-                                        </div>
-
+                                        
                                        
                                         
 
@@ -414,8 +363,7 @@
                                 <div class="row">
                                     <?php
                                         $sql = "SELECT * FROM sanpham WHERE (soluong > 0)";
-                                        if($where != '')
-                                            $sql .= " AND" . $where;
+                                        $sql .= " AND" . $where;
                                         $sql .= " LIMIT $offset, $rowsPerPage";
                                         $result = ExecuteQuery($sql);
                                         if($result->num_rows > 0){
@@ -467,7 +415,6 @@
                                 <ul class="pagination">
                                     <?php
                                         $sql = "SELECT COUNT(*) AS numrows FROM sanpham";
-                                        if($where!='')
                                             $sql .= " WHERE " . $where . " AND (soluong > 0)";
                                         $result = ExecuteQuery($sql);
                                         $row = $result->fetch_array();
@@ -475,14 +422,14 @@
                                         $numrows = $row['numrows'];
                                         if($numrows > 0){
                                             $maxPage = ceil($numrows / $rowsPerPage);
-                                            if($self != "shop.php"){
+                                            if($self != "Necklace.php"){
                                                 $self .= "&";
                                             }
                                             else
                                                 $self .= '?';
                                             $nav = '';
                                           
-                                            if($self != "shop.php"){
+                                            if($self != "Necklace.php"){
                                                 $self .= "&";
                                             }
                                             else
