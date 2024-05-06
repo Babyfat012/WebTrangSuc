@@ -221,7 +221,7 @@ if(isset($_POST['change']))
                                                                 echo '<hr>';
                                                                 echo '<p style="text-align: left; font-weight: 700">Type:'.$type.'</p>
                                                         <p style="text-align: left; font-weight: 700">Price:$'.number_format($row1['dongia'],2,".",".") .'</p>
-                                                        <p style="text-align: left; font-weight: 700">Quantity: '.$row1['soluong'][0].'</p>';
+                                                        <p style="text-align: left; font-weight: 700">Quantity: '.$row1['soluong'].'</p>';
                                                                 echo '</td>';
                                                                 echo '</tr>';
                                                             }

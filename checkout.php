@@ -314,7 +314,7 @@
                                         echo '<td><a href="single-product.php?id='.$row['idsanpham'].'">'.$row['tensp'].' <strong> × '.$_SESSION['cart'][$i][1].'</strong></a></td>';
                                         echo '<td>$'.number_format($row['dongia'],2,".",",") .'</td>';
                                         echo '</tr>';
-                                        $total += $row['dongia'];
+                                        $total += $row['dongia']*$_SESSION['cart'][$i][1];
                                     }
                                     echo '<input type="hidden" name="total" value="'.$total.'">';
                                 ?>

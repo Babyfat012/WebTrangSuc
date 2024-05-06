@@ -92,7 +92,7 @@
                                                     $sql = "SELECT * FROM hoadon WHERE taikhoankh = '".$user."'";
                                                     $result = executeQuery($sql);
                                                     if($result->num_rows > 0){
-                                                        while($row = $result->fetch_assoc()){
+                                                        while($row = $result->fetch_array()){
                                                             echo '<table class="table table-bordered">';
                                                             echo ' <thead class="thead-light">';
                                                             echo '<tr>';
@@ -122,6 +122,7 @@
                                                             echo'<input type="hidden" name="id" value="'. $row['idhoadon'] . '">';
                                                             echo'<input type="hidden" name="user" value="'. $row['taikhoankh'] . '">';
                                                             echo '<th><button type="submit" name="view" value="view" class="btn-add-to-cart">View</button></th>';
+                                                            echo'</form>';
                                                             echo '</tr>';
                                                             echo '</thead>';
                                                             $sql1 = "SELECT CT.idsanpham, CT.dongia, .CT.soluong, SP.hinhanh, SP.tensp, SP.maloaisp FROM chitiethoadon CT, sanpham SP WHERE idhoadon ='". "$row[idhoadon]' AND CT.idsanpham = SP.idsanpham";
