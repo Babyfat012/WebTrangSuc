@@ -70,12 +70,7 @@
                     $where .= "ngaymua BETWEEN '' AND '$to' ";
                 }
                 $where .= " )";
-
-
-
             }
-
-
         }
     }
 
@@ -117,7 +112,7 @@
                             <?php if(isset($_GET['from'])) {echo '<input style="width: 150px; height: 40px" id="from" name="from" type="date" value= "' .$_GET['from'] . '">';} else{echo '<input style="width: 150px; height: 40px" id="from" name="from" type="date">';}?>
                         </td>
                         <td>
-                            <label for="from">To: </label>
+                            <label for="to">To: </label>
                             <?php if(isset($_GET['from'])) {echo '<input style="width: 150px; height: 40px" id="to" name="to" type="date" value= "' .$_GET['to'] . '">';} else{echo '<input style="width: 150px; height: 40px" id="to" name="to" type="date">';}?>
                         </td>
                     </tr>

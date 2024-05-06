@@ -1,14 +1,91 @@
 <?php
     echo'<div class="main-panel">';
     echo'<div class="content-wrapper">';
+    echo'<h4>REPORTS</h4>';
     echo'<div class="row">';
-    echo'<h4>REPORT</h4>';
+
+    $where = '';
+    if(isset($_GET['from']) || isset($_GET['to']))
+    {
+        if(isset($_GET['from']))
+        {
+            $from = $_GET['from'];
+        }
+        else
+        {
+            $from = null;
+        }
+        if(isset($_GET['to']))
+        {
+            $to = $_GET['to'];
+        }
+        else
+        {
+            $to = null;
+        }
+
+        if($from != null || $to != null)
+        {
+            if($where != '')
+            {
+                $where .= " AND (";
+            }
+            else
+            {
+                $where .= " (";
+            }
+            if($from != null && $to != null)
+            {
+                $where .= " ngaymua BETWEEN '$from' AND '$to'";
+            }
+            else if($from != null)
+            {
+                $where .= " ngaymua BETWEEN '$from' AND CURRENT_DATE() ";
+            }
+            else if($to != null)
+            {
+                $where .= "ngaymua BETWEEN '' AND '$to' ";
+            }
+            $where .= " )";
+        }
+}
+
+    ?>
+
+    <form method="get" action="quantri.php">
+        <input type="hidden" name="page_layout" value="thongke">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <td><button type="submit" name="reportBtn" value="reportBtn" class="btn btn-success">Reports</button></td>
+                                    <td>
+                                        <label for="from">From: </label>
+                                        <?php if(isset($_GET['from'])) {echo '<input style="width: 150px; height: 40px" id="from" name="from" type="date" value= "' .$_GET['from'] . '">';} else{echo '<input style="width: 150px; height: 40px" id="from" name="from" type="date">';}?>
+                                    </td>
+                                    <td>
+                                        <label for="to">To: </label>
+                                        <?php if(isset($_GET['from'])) {echo '<input style="width: 150px; height: 40px" id="to" name="to" type="date" value= "' .$_GET['to'] . '">';} else{echo '<input style="width: 150px; height: 40px" id="to" name="to" type="date">';}?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+<?php
     echo'<div class="col-md-12 grid-margin stretch-card">';
     echo'<div class="card">';
     echo'<div class="card-body">';
     echo'<div class="table-responsive">';
     echo'<table class="table table-hover">';
-
     echo'<thead>';
     echo'<tr>';
     echo'<th>VIEW</th>';
@@ -26,7 +103,25 @@
     echo'</thead>';
     echo'<tbody>';
 
-    $sql = "SELECT COUNT(idhoadon) as 'tongsobill', taikhoankh, SUM(tongtien) as tongtien FROM hoadon WHERE trangthai = 1 GROUP BY taikhoankh  ORDER BY tongtien DESC";
+    if(isset($_GET['reportBtn']))
+    {
+        if($where == '')
+        {
+            $sql = "SELECT COUNT(idhoadon) as 'tongsobill', taikhoankh, SUM(tongtien) as tongtien FROM hoadon WHERE trangthai = 1 GROUP BY taikhoankh  ORDER BY tongtien DESC";
+            echo $sql;
+        }
+        else
+        {
+            $sql = "SELECT COUNT(idhoadon) as 'tongsobill', taikhoankh, SUM(tongtien) as tongtien FROM hoadon WHERE trangthai = 1 AND ". $where ." GROUP BY taikhoankh  ORDER BY tongtien DESC";
+            echo $sql;
+        }
+    }
+    else
+    {
+        $sql = "SELECT COUNT(idhoadon) as 'tongsobill', taikhoankh, SUM(tongtien) as tongtien FROM hoadon WHERE trangthai = 1 GROUP BY taikhoankh  ORDER BY tongtien DESC";
+        echo $sql;
+
+    }
     $result = executeQuery($sql);
     if($result->num_rows > 0)
     {
