@@ -309,6 +309,44 @@ if(isset($_SESSION['userName'])){
 
    
 <script>
+    
+    
+    <?php
+    if(isset($_GET['url'])) {
+    switch($_GET['url']) {
+    case 'signin':
+    {
+    ?>
+    document.getElementById("register-tab").classList.remove("active")
+    document.getElementById("register").classList.remove("show")
+    document.getElementById("register").classList.remove("active")
+    document.getElementById("login").classList.add("show")
+    document.getElementById("login").classList.add("active")
+    document.getElementById("login-tab").classList.add("active")
+
+
+    <?php
+    break;
+    }
+    case 'signup':
+    {
+    ?>
+    document.getElementById("register-tab").classList.add("active")
+
+    document.getElementById("register").classList.add("show")
+    document.getElementById("register").classList.add("active")
+    document.getElementById("login").classList.remove("show")
+    document.getElementById("login").classList.remove("active")
+    document.getElementById("login-tab").classList.remove("active")
+
+    <?php
+    break;
+    }
+    
+    }
+    }
+    ?>
+    
     function checkForm(){
 
         var userName = document.getElementById('userName').value;

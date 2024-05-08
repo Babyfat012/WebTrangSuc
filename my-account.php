@@ -150,16 +150,17 @@ if(isset($_POST['change']))
                                 <div class="tab-pane fade" id="orders" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Orders</h3>
-
                                         <div class="myaccount-table table-responsive text-center">
+                                            
+                                            
+                                            
                                             <?php
-                                                
-                                                $sql = "SELECT * FROM hoadon WHERE taikhoankh = '".$_SESSION['userName']."'";
+                                                $sql = "SELECT * FROM hoadon WHERE taikhoankh = '".$_SESSION['userName']."' ORDER BY ngaymua DESC";
                                                 $result = executeQuery($sql);
                                                 if($result->num_rows > 0){
-                                                    while($row = $result->fetch_assoc()){
-                                                        echo '<table class="table table-bordered">';
-                                                        echo ' <thead class="thead-light">';
+                                                    while($row = $result->fetch_array()){
+                                                        echo '<table  class="table table-bordered">';
+                                                        echo '<thead class="thead-light">';
                                                         echo '<tr>';
                                                         echo '<th>Order</th>
                                                               <th>Date</th>
@@ -183,7 +184,7 @@ if(isset($_POST['change']))
                                                         }
                                                         
                                                         echo '<th>$'.number_format($row['tongtien'],2,".",",") .'</th>';
-                                                        echo '<form action="detailBill.php" method="post"> >';
+                                                        echo '<form action="detailBill.php" method="post">';
                                                         echo '<input type="hidden" name="id" value="'.$row['idhoadon'].'">';
                                                         echo '<input type="hidden" name="user" value="'.$row['taikhoankh'] .'">';
                                                         echo '<th><button name="view" value="view" type="submit" class="btn-add-to-cart">View</button></th>';
@@ -228,27 +229,13 @@ if(isset($_POST['change']))
                                                         }
                                                         echo '</tbody>';
                                                         echo '</table>';
-                                                        
-                                                       
-                                                        
                                                     }
                                                 }
                                             ?>
-                                            
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Single Tab Content End -->
-
-                                <!-- Single Tab Content Start -->
-                               
-                                <!-- Single Tab Content End -->
-
-                                <!-- Single Tab Content Start -->
-                               
-                                <!-- Single Tab Content End -->
-
-                                <!-- Single Tab Content Start -->
+                                
                                 <div class="tab-pane fade" id="address" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Change password</h3>

@@ -69,7 +69,7 @@
                 $total = $_POST['total'];
                 $paymentmethod = $_POST['paymentmethod'];
                 $sql1 = "INSERT INTO `hoadon`(idhoadon, taikhoankh, hoten, sodienthoai, sonha, tentp, tenquan, tenphuong, ngaymua, phuongthucthanhtoan, trangthai, tongtien)".
-                    " VALUES('$ID', "."'".$_SESSION['userName']."'".",'$fullname','$phone', '$address', '$city', '$district', '$ward', CURRENT_DATE(), $paymentmethod, 1, $total)";
+                    " VALUES('$ID', "."'".$_SESSION['userName']."'".",'$fullname','$phone', '$address', '$city', '$district', '$ward', CURRENT_DATE(), $paymentmethod, 0, $total)";
                 echo $sql1;
                 
                 executeQuery($sql1);
@@ -90,7 +90,7 @@
             executeQuery($sql);
         }
         array_splice($_SESSION['cart'], 0, count($_SESSION['cart']));
-        header('Location:index.php');
+        header('Location:my-account.php?url=order');
     }
     
 

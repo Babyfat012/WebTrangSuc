@@ -33,18 +33,18 @@
                     echo'<td><label class="badge badge-outline-danger">Locked</label></td>';
                     break;
                 case 1:
-                    echo'<td><label class="badge badge-outline-primary">Active</label></td>';
+                    echo'<td><label class="badge badge-outline-success">Active</label></td>';
                     break;
             }
             echo'<td>';
             if($row['trangthaitk'] == 1)
             {
-                echo"<form action='lockAdmin.php' method='post' onsubmit='return DelLock(\"" . $row['hoten'] . "\")'  >";
+                echo"<form action='lockAdmin.php' method='post' onsubmit='return DelLock(\"" . $row['taikhoan'] . "\")'  >";
                 echo '<button type="submit" class="btn btn-link" name=""><i class="ti-lock"></i></button>';
             }
             else
             {
-                echo"<form action='lockAdmin.php' method='post' onsubmit='return DelActive(\"" . $row['hoten'] . "\")'  >";
+                echo"<form action='lockAdmin.php' method='post' onsubmit='return DelActive(\"" . $row['taikhoan'] . "\")'  >";
                 echo '<button type="submit" class="btn btn-link" name=""><i class="ti-unlock"></i></button>';
             }
             echo'<input type="hidden" name="lockAdmin" value="'. $row['taikhoan'] .'">';
@@ -64,10 +64,10 @@
 <script>
     function DelLock(name)
     {
-        return confirm("Are you sure to lock admin: " + name + " ?");
+        return confirm("Are you sure to lock admin account: " + name + " ?");
     }
     function DelActive(name)
     {
-        return confirm("Are you sure to active admin: " + name + " ?");
+        return confirm("Are you sure to active admin account: " + name + " ?");
     }
 </script>

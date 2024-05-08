@@ -50,7 +50,7 @@ if($result->num_rows > 0)
                 echo'<td><label class="badge badge-outline-danger">Locked</label></td>';
                 break;
             case 1:
-                echo'<td><label class="badge badge-outline-primary">Active</label></td>';
+                echo'<td><label class="badge badge-outline-success">Active</label></td>';
                 break;
         }
         echo'<td>';
@@ -63,12 +63,12 @@ if($result->num_rows > 0)
         echo'<td>';
         if($row['trangthaitk'] == 1)
         {
-            echo "<form method='get' action='lockUser.php' onsubmit='return DelLock(\"" . $row['hoten'] . "\")'>";
+            echo "<form method='get' action='lockUser.php' onsubmit='return DelLock(\"" . $row['taikhoankh'] . "\")'>";
             echo '<button type="submit" class="btn btn-link" name="lockUser"><i class="ti-lock"></i></button>';
         }
         else
         {
-            echo "<form method='get' action='lockUser.php' onsubmit='return DelUnlock(\"" . $row['hoten'] . "\")'>";
+            echo "<form method='get' action='lockUser.php' onsubmit='return DelUnlock(\"" . $row['taikhoankh'] . "\")'>";
             echo '<button type="submit" class="btn btn-link" name="unlockUser"><i class="ti-unlock"></i></button>';
         }
         echo "<input type='hidden' name='temptk' value='" . $row['taikhoankh'] . "'>";
@@ -83,10 +83,10 @@ if($result->num_rows > 0)
 <script>
     function DelLock(name)
     {
-        return confirm("Are you sure to lock user: " + name + " ?");
+        return confirm("Are you sure to lock account: " + name + " ?");
     }
     function DelUnlock(name)
     {
-        return confirm("Are you sure to unlock user: " + name + " ?");
+        return confirm("Are you sure to unlock account: " + name + " ?");
     }
 </script>

@@ -135,6 +135,7 @@
             $sql .= " WHERE " . $where;
         }
     }
+    $sql .= " ORDER BY ngaymua DESC";
     $result = executeQuery($sql);
     //partial
 
@@ -151,17 +152,17 @@
     echo'<tr>';
     echo'<th>VIEW DETAILS</th>';
     echo'<th>BILL ID</th>';
-    echo'<th>BILL ACCOUNT</th>';
+    echo'<th>ACCOUNT</th>';
 //    echo'<th>PHONE</th>';
 //    echo'<th>EMAIL</th>';
-    echo'<th>HOME NUMBER</th>';
+    echo'<th>ADDRESS</th>';
     echo'<th>WARD</th>';
     echo'<th>DISTRICT</th>';
     echo'<th>CITY</th>';
     echo'<th>BUY DATE</th>';
     echo'<th>BILL STATUS</th>';
     echo'<th>PAYMENT METHOD</th>';
-    echo'<th>PRICE</th>';
+    echo'<th>TOTAL</th>';
     echo'<th>CHANGE STATUS</th>';
 
 echo'</tr>';

@@ -17,21 +17,25 @@
         $sql = "SELECT * FROM sanpham WHERE idsanpham = '$id' ";
         $result = executeQuery($sql);
         $row = $result->fetch_array();
-        $sql = "UPDATE sanpham SET soluong =". ($row['soluong']-$quantity) ." WHERE idsanpham = '$id' ";
-        executeQuery($sql);
-        $flag = true;
-        $product = [$id,$quantity];
-        for($i = 0; $i < count($_SESSION['cart']); $i++){
-            if($_SESSION['cart'][$i][0] == $product[0]){
-               $flag = false;
-               break;
+        if($row['soluong'] > 0)
+        {
+            $sql = "UPDATE sanpham SET soluong =". ($row['soluong']-$quantity) ." WHERE idsanpham = '$id' ";
+            executeQuery($sql);
+            $flag = true;
+            $product = [$id,$quantity];
+            for($i = 0; $i < count($_SESSION['cart']); $i++){
+                if($_SESSION['cart'][$i][0] == $product[0]){
+                    $flag = false;
+                    break;
+                }
             }
+            if($flag){
+                $_SESSION['cart'][] = $product;
+            }
+            else
+                $_SESSION['cart'][$i][1] += $quantity;
         }
-        if($flag){
-            $_SESSION['cart'][] = $product;
-        }
-        else
-            $_SESSION['cart'][$i][1] += $quantity;
+       
     }
     
     function isLogin(){

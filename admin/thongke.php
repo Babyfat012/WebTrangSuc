@@ -108,18 +108,15 @@
         if($where == '')
         {
             $sql = "SELECT COUNT(idhoadon) as 'tongsobill', taikhoankh, SUM(tongtien) as tongtien FROM hoadon WHERE trangthai = 1 GROUP BY taikhoankh  ORDER BY tongtien DESC";
-            echo $sql;
         }
         else
         {
             $sql = "SELECT COUNT(idhoadon) as 'tongsobill', taikhoankh, SUM(tongtien) as tongtien FROM hoadon WHERE trangthai = 1 AND ". $where ." GROUP BY taikhoankh  ORDER BY tongtien DESC";
-            echo $sql;
         }
     }
     else
     {
         $sql = "SELECT COUNT(idhoadon) as 'tongsobill', taikhoankh, SUM(tongtien) as tongtien FROM hoadon WHERE trangthai = 1 GROUP BY taikhoankh  ORDER BY tongtien DESC";
-        echo $sql;
 
     }
     $result = executeQuery($sql);

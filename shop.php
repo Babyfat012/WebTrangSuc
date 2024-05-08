@@ -465,6 +465,8 @@
                                         $sql = "SELECT COUNT(*) AS numrows FROM sanpham";
                                         if($where!='')
                                             $sql .= " WHERE " . $where . " AND (soluong > 0)";
+                                        else
+                                            $sql .= " WHERE soluong > 0";
                                         $result = ExecuteQuery($sql);
                                         $row = $result->fetch_array();
                                         

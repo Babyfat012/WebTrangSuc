@@ -85,11 +85,9 @@
                                     <div class="tab-pane fade show active" id="orders" role="tabpanel">
                                         <div class="myaccount-content">
                                             <h3>Orders</h3>
-                                            
                                             <div class="myaccount-table table-responsive text-center">
                                                 <?php
-                                                    
-                                                    $sql = "SELECT * FROM hoadon WHERE taikhoankh = '".$user."'";
+                                                    $sql = "SELECT * FROM hoadon WHERE taikhoankh = '".$user."' ORDER BY ngaymua DESC";
                                                     $result = executeQuery($sql);
                                                     if($result->num_rows > 0){
                                                         while($row = $result->fetch_array()){

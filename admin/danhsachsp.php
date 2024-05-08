@@ -71,7 +71,7 @@
             echo '<td>' . $row['mausac'] . '</td>';
             echo '<td>' . $row['kichthuoc'] . '</td>';
             echo '<td>' . $row['soluong'] . '</td>';
-            echo '<td>' . $row['dongia'] . '</td>';
+            echo '<td>$' .number_format($row['dongia'],2,".",",") . '</td>';
             switch($row['gioitinh'])
             {
                 case 'F':
