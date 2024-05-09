@@ -150,8 +150,8 @@
 
     echo'<thead>';
     echo'<tr>';
-    echo'<th>VIEW DETAILS</th>';
-    echo'<th>BILL ID</th>';
+    echo'<th>VIEW</th>';
+    echo'<th>ID</th>';
     echo'<th>ACCOUNT</th>';
 //    echo'<th>PHONE</th>';
 //    echo'<th>EMAIL</th>';
@@ -159,9 +159,9 @@
     echo'<th>WARD</th>';
     echo'<th>DISTRICT</th>';
     echo'<th>CITY</th>';
-    echo'<th>BUY DATE</th>';
-    echo'<th>BILL STATUS</th>';
-    echo'<th>PAYMENT METHOD</th>';
+    echo'<th>DATE</th>';
+    echo'<th>STATUS</th>';
+    echo'<th>PAYMENT</th>';
     echo'<th>TOTAL</th>';
     echo'<th>CHANGE STATUS</th>';
 

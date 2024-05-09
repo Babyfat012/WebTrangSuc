@@ -12,13 +12,13 @@
     $result = executeQuery($sql);
 
     // Hien thi ket qua
-    echo'<div class="col-lg-12 grid-margin stretch-card">';
+    echo'<div class="col-lg-12 grid-margin stretch-card"">';
         echo'<div class="card">';
             echo'<div class="card-body">';
                 echo'<h4 class="card-title">Product Management</h4>';
                 echo'<a href="quantri.php?page_layout=addProduct"><button type="button" class="btn btn-primary btn-lg">Add Product</button></a>';
                     echo'<div class="table-responsive pt-3">';
-                        echo'<table class="table table-bordered">';
+                        echo'<table class="table table-bordered" >';
                             echo'<thead>';
                                     echo'<tr>';
 
@@ -33,7 +33,6 @@
                                     echo'<th>PRICE</th>';
                                     echo'<th>GENDER</th>';
                                     echo'<th>TYPE</th>';
-                                    echo'<th>DESCRIPTION</th>';
 
                                     echo'</tr>';
     if($result->num_rows > 0) {
@@ -98,7 +97,6 @@
                     break;
 
             }
-            echo '<td>' . $row['mota'] . '</td>';
 
             echo '</tr>';
         }

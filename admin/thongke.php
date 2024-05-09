@@ -97,7 +97,7 @@
     echo'<th>DISTRICT</th>';
     echo'<th>CITY</th>';
     echo'<th>TOTAL</th>';
-    echo'<th>NUMBER OF BILLS</th>';
+    echo'<th>ORDER AMOUNT</th>';
 
     echo'</tr>';
     echo'</thead>';

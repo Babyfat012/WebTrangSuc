@@ -38,6 +38,10 @@
                         }
                 }
 
+            }else{
+                echo '<script>';
+                echo 'alert("Wrong username or password.");';
+                echo '</script>';
             }
         }
     }
