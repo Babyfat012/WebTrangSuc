@@ -32,7 +32,7 @@ if(isset($_GET['edit_id']))
             <h4 class="card-title">EDIT PRODUCT</h4>
             <form class="forms-sample" action="updateproduct.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <img id="displayImg" src="<?php echo($folder . $image); ?>">
+                    <img id="displayImg" width="250px" src="<?php echo($folder . $image); ?>">
                     <input type="file" accept=".jpg, .png, .gif, .jpeg" name="pic" class="" id="pic" onchange="ImagesFileAsURL()">
                 </div>
                 <div class="form-group">

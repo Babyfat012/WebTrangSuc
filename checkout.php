@@ -90,6 +90,7 @@
             executeQuery($sql);
         }
         array_splice($_SESSION['cart'], 0, count($_SESSION['cart']));
+        echo "<script type='text/javascript'>alert('Your order has been placed successfully');</script>";
         header('Location:my-account.php?url=order');
     }
     

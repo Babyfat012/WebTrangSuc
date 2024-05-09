@@ -17,7 +17,6 @@ if(isset($_POST['apply'])){
         $ward = $_POST['ward'];
         $street = $_POST['street'];
         $sql = "UPDATE khachhang SET hoten = '$name', sodienthoai = '$phone', email = '$email', sonha = '$street', tenquan = '$district', tenphuong = '$ward', tentp = '$city' WHERE taikhoankh = '".$_SESSION['userName']."'";
-        echo $sql;
         executeQuery($sql);
         
     }
